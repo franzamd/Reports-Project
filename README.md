@@ -31,4 +31,4 @@ App Web [Franz Medrano](https://google.com)
 
 ### License
 
-This is project is licensed under the MIT License.
+This is project is licensed under the ISC License.
