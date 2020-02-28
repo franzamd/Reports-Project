@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -23,6 +24,9 @@ app.use(express.json());
 
 // Enable CORS
 app.use(cors());
+
+// Set static folder
+app.use(express.static(path.join(__dirname, "client/build")));
 
 // Routes
 app.use("/api/chauffeurs", chauffeurs);
