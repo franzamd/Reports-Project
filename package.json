@@ -1,0 +1,31 @@
+{
+  "name": "panel-reports",
+  "version": "1.0.0",
+  "description": "Panel Admin for reports global for YPFB",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [
+    "Reports"
+  ],
+  "author": "Franz Medrano",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "concurrently": "^5.1.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.0",
+    "mongoose": "^5.9.1",
+    "uninstall": "0.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

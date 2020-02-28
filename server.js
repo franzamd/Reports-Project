@@ -1,0 +1,41 @@
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const connectDB = require("./config/db");
+const errorHandler = require("./middleware/error");
+require("colors");
+
+// Load env variables global
+dotenv.config({ path: "./config/config.env" });
+
+// Connect DB
+connectDB();
+
+const app = express();
+
+// Routes files
+const chauffeurs = require("./routes/chauffeurs.js");
+const vehicles = require("./routes/vehicles.js");
+const business = require("./routes/business.js");
+
+// Body Parser
+app.use(express.json());
+
+// Enable CORS
+app.use(cors());
+
+// Routes
+app.use("/api/chauffeurs", chauffeurs);
+app.use("/api/vehicles", vehicles);
+app.use("/api/business", business);
+
+// Handle errors
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(
+    `Server runing in ${process.env.NODE_ENV} mode port ${PORT}`.yellow.bold
+  );
+});
