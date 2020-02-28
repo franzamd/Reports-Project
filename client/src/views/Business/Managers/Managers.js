@@ -68,36 +68,34 @@ const Managers = props => {
   };
 
   const handleSearchText = e => {
-    if (managers.length > 0) {
-      const value =
-        e.target.value.length > 0 && typeof e.target.value === "string"
-          ? e.target.value.toLowerCase()
-          : e.target.value.length > 0 && typeof e.target.value === "number"
-          ? e.target.value
-          : "";
+    const value =
+      e.target.value.length > 0 && typeof e.target.value === "string"
+        ? e.target.value.toLowerCase()
+        : e.target.value.length > 0 && typeof e.target.value === "number"
+        ? e.target.value
+        : "";
 
-      let filtered;
+    let filtered;
 
-      if (currentItem.name === "name") {
-        filtered = businessSelected.data.managers.filter(item => {
-          return item.name.toLowerCase().includes(value);
-        });
-      }
-
-      if (currentItem.name === "lastname") {
-        filtered = businessSelected.data.managers.filter(item => {
-          return item.lastname.toLowerCase().includes(value);
-        });
-      }
-
-      if (currentItem.name === "ci") {
-        filtered = businessSelected.data.managers.filter(item => {
-          return item.ci.includes(value);
-        });
-      }
-
-      setManagers(filtered);
+    if (currentItem.name === "name") {
+      filtered = businessSelected.data.managers.filter(item => {
+        return item.name.toLowerCase().includes(value);
+      });
     }
+
+    if (currentItem.name === "lastname") {
+      filtered = businessSelected.data.managers.filter(item => {
+        return item.lastname.toLowerCase().includes(value);
+      });
+    }
+
+    if (currentItem.name === "ci") {
+      filtered = businessSelected.data.managers.filter(item => {
+        return item.ci.includes(value);
+      });
+    }
+
+    setManagers(filtered);
   };
 
   const onRefreshItems = () => {

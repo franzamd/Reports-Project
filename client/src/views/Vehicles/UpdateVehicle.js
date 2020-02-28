@@ -123,7 +123,11 @@ const UpdateVehicle = props => {
                 >
                   <ConfirmButton onClick={onSubmit} loading={loading} />
                   <Button
-                    onClick={() => props.history.goBack()}
+                    onClick={() =>
+                      props.history.push({
+                        pathname: "/vehicles"
+                      })
+                    }
                     size="sm"
                     className="m-1"
                   >
@@ -207,7 +211,7 @@ const UpdateVehicle = props => {
                 </Col>
               </Row>
               <Row>
-                <Col lg="6">
+                <Col lg="12">
                   <DateFieldGroup
                     label="Fecha de Registro"
                     name="date"

@@ -70,7 +70,7 @@ const BusinessState = props => {
       );
 
       dispatch({
-        type: GET_BUSINESS_ID,
+        type: GET_BUSINESS,
         payload: res.data
       });
     } catch (error) {

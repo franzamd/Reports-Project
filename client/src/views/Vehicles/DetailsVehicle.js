@@ -33,8 +33,8 @@ const DetailsVehicle = props => {
   return (
     <Container>
       <Card>
-        <Row>
-          <Col lg={4} xs className="m-2">
+        <Row className="d-flex justify-content-center">
+          <Col lg={4} className="align-self-center">
             <CardImg
               src={img1}
               className="rounded mx-auto d-block"
@@ -66,7 +66,7 @@ const DetailsVehicle = props => {
                 <p className="d-inline">{brand}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3">Volumen:</label>
+                <label className="mr-3">Volumen (Carga Total):</label>
                 <p className="d-inline">{volume}</p>
               </div>
               <div className="d-flex col">
@@ -87,7 +87,15 @@ const DetailsVehicle = props => {
                 </p>
               </div>
               <div className="d-flex justify-content-center my-2">
-                <Button onClick={() => props.history.goBack()}>Atras</Button>
+                <Button
+                  onClick={() =>
+                    props.history.push({
+                      pathname: "/vehicles"
+                    })
+                  }
+                >
+                  Atras
+                </Button>
               </div>
             </CardBody>
           </Col>

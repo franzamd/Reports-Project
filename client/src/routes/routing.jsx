@@ -24,14 +24,15 @@ import UpdateBusiness from "../views/Business/UpdateBusiness";
 import Managers from "../views/Business/Managers/Managers";
 import CreateManager from "../views/Business/Managers/CreateManager";
 import UpdateManager from "../views/Business/Managers/UpdateManager";
+import Roadmaps from "../views/Roadmaps/Roadmaps";
 
 var ThemeRoutes = [
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "mdi mdi-gauge",
-    component: Starter
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   icon: "mdi mdi-gauge",
+  //   component: Starter
+  // },
   // Chauffeurs
   {
     path: "/chauffeurs",
@@ -122,67 +123,59 @@ var ThemeRoutes = [
   },
   // Roadmap
   {
-    path: "/chauffeurs",
+    path: "/roadmaps",
     name: "Hojas de Rutas",
     icon: "mdi mdi-map",
-    component: Chauffeurs
+    component: Roadmaps
   },
-
-  // // Managers
   // {
-  //   path: "/chauffeurs",
-  //   name: "Encargados",
-  //   icon: "mdi mdi-voice",
-  //   component: Chauffeurs
+  //   path: "/alert",
+  //   name: "Alerts",
+  //   icon: "mdi mdi-comment-processing-outline",
+  //   component: Alerts
   // },
-  {
-    path: "/alert",
-    name: "Alerts",
-    icon: "mdi mdi-comment-processing-outline",
-    component: Alerts
-  },
-  {
-    path: "/badge",
-    name: "Badges",
-    icon: "mdi mdi-arrange-send-backward",
-    component: Badges
-  },
-  {
-    path: "/button",
-    name: "Buttons",
-    icon: "mdi mdi-toggle-switch",
-    component: Buttons
-  },
-  {
-    path: "/card",
-    name: "Cards",
-    icon: "mdi mdi-credit-card-multiple",
-    component: Cards
-  },
-  {
-    path: "/grid",
-    name: "Grid",
-    icon: "mdi mdi-apps",
-    component: LayoutComponent
-  },
-  {
-    path: "/pagination",
-    name: "Pagination",
-    icon: "mdi mdi-priority-high",
-    component: PaginationComponent
-  },
-  {
-    path: "/popover",
-    name: "Popover",
-    icon: "mdi mdi-pencil-circle",
-    component: PopoverComponent
-  },
-  {
-    path: "/ui-components/tooltip",
-    name: "Toltips",
-    icon: "mdi mdi-image-filter-vintage",
-    component: TooltipComponent
-  },
-  { path: "/", pathTo: "/dashboard", name: "Dashboard", redirect: true }
+  // {
+  //   path: "/badge",
+  //   name: "Badges",
+  //   icon: "mdi mdi-arrange-send-backward",
+  //   component: Badges
+  // },
+  // {
+  //   path: "/button",
+  //   name: "Buttons",
+  //   icon: "mdi mdi-toggle-switch",
+  //   component: Buttons
+  // },
+  // {
+  //   path: "/card",
+  //   name: "Cards",
+  //   icon: "mdi mdi-credit-card-multiple",
+  //   component: Cards
+  // },
+  // {
+  //   path: "/grid",
+  //   name: "Grid",
+  //   icon: "mdi mdi-apps",
+  //   component: LayoutComponent
+  // },
+  // {
+  //   path: "/pagination",
+  //   name: "Pagination",
+  //   icon: "mdi mdi-priority-high",
+  //   component: PaginationComponent
+  // },
+  // {
+  //   path: "/popover",
+  //   name: "Popover",
+  //   icon: "mdi mdi-pencil-circle",
+  //   component: PopoverComponent
+  // },
+  // {
+  //   path: "/ui-components/tooltip",
+  //   name: "Toltips",
+  //   icon: "mdi mdi-image-filter-vintage",
+  //   component: TooltipComponent
+  // },
+  { path: "/", pathTo: "/chauffeurs", name: "Choferes", redirect: true }
 ];
 export default ThemeRoutes;

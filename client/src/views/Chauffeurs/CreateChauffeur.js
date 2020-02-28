@@ -90,7 +90,11 @@ const CreateChauffeur = props => {
                 >
                   <ConfirmButton onClick={onSubmit} loading={loading} />
                   <Button
-                    onClick={() => props.history.goBack()}
+                    onClick={e =>
+                      props.history.push({
+                        pathname: "/chauffeurs"
+                      })
+                    }
                     size="sm"
                     className="m-1"
                   >

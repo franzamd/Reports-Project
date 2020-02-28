@@ -27,7 +27,7 @@ const UpdateBusiness = props => {
 
   const [business, setBusiness] = useState({
     name: "",
-    descrption: '',
+    descrption: "",
     state: "",
     createdAt: ""
   });
@@ -104,7 +104,11 @@ const UpdateBusiness = props => {
                 >
                   <ConfirmButton onClick={onSubmit} loading={loading} />
                   <Button
-                    onClick={() => props.history.goBack()}
+                    onClick={() =>
+                      props.history.push({
+                        pathname: "/business"
+                      })
+                    }
                     size="sm"
                     className="m-1"
                   >
@@ -141,10 +145,10 @@ const UpdateBusiness = props => {
                     options={optionsState}
                     value={business.state}
                   />
-                </Col>       
+                </Col>
               </Row>
               <Row>
-              <Col lg="6">
+                <Col lg="6">
                   <InputGroup
                     label="Dirección *"
                     placeholder="Ej. Av. Las Americas Nº1214"

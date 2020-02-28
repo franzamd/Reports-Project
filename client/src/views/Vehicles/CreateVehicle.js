@@ -84,7 +84,11 @@ const CreateVehicle = props => {
                 >
                   <ConfirmButton onClick={onSubmit} loading={loading} />
                   <Button
-                    onClick={() => props.history.goBack()}
+                    onClick={() =>
+                      props.history.push({
+                        pathname: "/vehicles"
+                      })
+                    }
                     size="sm"
                     className="m-1"
                   >
@@ -149,7 +153,7 @@ const CreateVehicle = props => {
               <Row>
                 <Col lg="12">
                   <InputGroup
-                    label="Volumen *"
+                    label="Volumen (Carga Total) *"
                     placeholder="Ej. 20000"
                     name="volume"
                     value={vehicle.volume}

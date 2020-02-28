@@ -21,7 +21,7 @@ const CreateBusiness = props => {
 
   const [business, setBusiness] = useState({
     name: "",
-    address: "",
+    address: ""
   });
 
   const handleInput = e => {
@@ -36,14 +36,14 @@ const CreateBusiness = props => {
 
     const formData = {
       name: business.name,
-      descrption: business.descrption,
+      address: business.address
     };
 
     await createBusiness(formData, props.history);
   };
 
   const errorName = error && error.name ? error.name : null;
-  const errorDescription = error && error.descrption ? error.descrption : null;
+  const errorAddress = error && error.address ? error.address : null;
   const errorGlobal = typeof error === "string" ? error : null;
 
   return (
@@ -62,7 +62,11 @@ const CreateBusiness = props => {
                 >
                   <ConfirmButton onClick={onSubmit} loading={loading} />
                   <Button
-                    onClick={() => props.history.goBack()}
+                    onClick={() =>
+                      props.history.push({
+                        pathname: "/business"
+                      })
+                    }
                     size="sm"
                     className="m-1"
                   >
@@ -95,9 +99,9 @@ const CreateBusiness = props => {
                   <InputGroup
                     label="Dirección *"
                     placeholder="Ej. Av. Las Americas Nº1214"
-                    name="description"
-                    value={business.descrption}
-                    error={errorDescription}
+                    name="address"
+                    value={business.address}
+                    error={errorAddress}
                     onChange={handleInput}
                   />
                 </Col>

@@ -61,8 +61,6 @@ const UpdateManager = props => {
       state: manager.state
     };
 
-    console.log(_id, managerSelected._id);
-
     await updateManager(_id, managerSelected._id, formData, props.history);
   };
 
