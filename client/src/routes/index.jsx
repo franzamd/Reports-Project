@@ -1,7 +1,9 @@
-import Fulllayout from '../layouts/fulllayout.jsx';
+import Fulllayout from "../layouts/fulllayout.jsx";
+import AuthLayout from "../layouts/layoutAuth";
 
 var indexRoutes = [
-    { path: '/', name: 'Starter', component: Fulllayout }
+  { path: "/auth", name: "Auth", component: AuthLayout },
+  { path: "/", name: "Starter", component: Fulllayout }
 ];
 
 export default indexRoutes;

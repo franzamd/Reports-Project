@@ -15,6 +15,7 @@ connectDB();
 const app = express();
 
 // Routes files
+const auth = require("./routes/auth.js");
 const chauffeurs = require("./routes/chauffeurs.js");
 const vehicles = require("./routes/vehicles.js");
 const business = require("./routes/business.js");
@@ -29,6 +30,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "client/build")));
 
 // Routes
+app.use("/api/auth", auth);
 app.use("/api/chauffeurs", chauffeurs);
 app.use("/api/vehicles", vehicles);
 app.use("/api/business", business);

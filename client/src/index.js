@@ -7,27 +7,33 @@ import { HashRouter } from "react-router-dom";
 import "./assets/scss/style.css";
 
 // Data
+import AuthState from "./context/auth/AuthState";
 import ChauffeurState from "./context/chauffeur/ChauffeurState";
 import VehicleState from "./context/vehicle/VehicleState";
 import BusinessState from "./context/business/BusinessState";
 
 const App = () => {
   return (
-
     <BusinessState>
-    <VehicleState>
-      <ChauffeurState>
-        <HashRouter>
-          <Switch>
-            {indexRoutes.map((prop, key) => {
-              return (
-                <Route path={prop.path} key={key} component={prop.component} />
-              );
-            })}
-          </Switch>
-        </HashRouter>
-      </ChauffeurState>
-    </VehicleState>
+      <VehicleState>
+        <ChauffeurState>
+          <AuthState>
+            <HashRouter>
+              <Switch>
+                {indexRoutes.map((prop, key) => {
+                  return (
+                    <Route
+                      path={prop.path}
+                      key={key}
+                      component={prop.component}
+                    />
+                  );
+                })}
+              </Switch>
+            </HashRouter>
+          </AuthState>
+        </ChauffeurState>
+      </VehicleState>
     </BusinessState>
   );
 };
