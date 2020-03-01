@@ -51,7 +51,8 @@ function Register(props) {
     const formData = {
       username: user.username,
       email: user.email,
-      password: user.password
+      password: user.password,
+      password2: user.password2
     };
 
     register(formData);
