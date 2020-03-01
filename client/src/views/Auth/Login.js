@@ -9,11 +9,13 @@ import { Button, FormGroup, Col, Form } from "reactstrap";
 import AuthContext from "../../context/auth/authContext";
 
 function Login(props) {
-  window.scrollTo(0, 0);
-
   const authContext = useContext(AuthContext);
 
   const { error, isAuthenticated, clearErrors, login } = authContext;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -66,7 +68,7 @@ function Login(props) {
         </div>
       </div>
       <div className="main">
-        <Col md={6} sm={12} className="m-3">
+        <Col md={6} sm={12} className="my-2">
           <div className="login-form">
             <Form onSubmit={onSubmit}>
               <FormGroup>
@@ -96,7 +98,7 @@ function Login(props) {
                   <small className="text-danger">{error}</small>
                 </div>
               )}
-              <div className="my-3 d-flex justify-content-around">
+              <div className="my-4 d-flex justify-content-around">
                 <Button type="submit" color="primary">
                   Login
                 </Button>
@@ -108,6 +110,7 @@ function Login(props) {
                 </Link>
               </div>
             </Form>
+            <br></br>
           </div>
         </Col>
       </div>

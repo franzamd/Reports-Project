@@ -11,11 +11,14 @@ class AdminLayout extends React.Component {
   /*--------------------------------------------------------------------------------*/
   constructor(props) {
     super(props);
+
     this.updateDimensions = this.updateDimensions.bind(this);
     this.state = {
       isOpen: false,
       width: window.innerWidth
     };
+
+    console.log(window.innerWidth);
 
     this.props.history.listen((location, action) => {
       if (
@@ -75,8 +78,17 @@ class AdminLayout extends React.Component {
         data-header-position="fixed"
         data-boxed-layout="full"
       >
+        {/*--------------------------------------------------------------------------------*/}
+        {/* Header                                                                         */}
+        {/*--------------------------------------------------------------------------------*/}
         <Header data={this.state} />
+        {/*--------------------------------------------------------------------------------*/}
+        {/* Sidebar                                                                        */}
+        {/*--------------------------------------------------------------------------------*/}
         <Sidebar data={this.state} {...this.props} routes={ThemeRoutes} />
+        {/*--------------------------------------------------------------------------------*/}
+        {/* Page Main-Content                                                              */}
+        {/*--------------------------------------------------------------------------------*/}
         <div className="page-wrapper d-block">
           <div className="page-content container-fluid">
             <Switch>
@@ -88,7 +100,6 @@ class AdminLayout extends React.Component {
                 } else {
                   return (
                     <Route
-                      exact
                       path={prop.path}
                       component={prop.component}
                       key={key}

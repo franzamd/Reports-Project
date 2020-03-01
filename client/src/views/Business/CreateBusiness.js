@@ -21,7 +21,9 @@ const CreateBusiness = props => {
 
   const [business, setBusiness] = useState({
     name: "",
-    address: ""
+    address: "",
+    phone: "",
+    description: ""
   });
 
   const handleInput = e => {
@@ -36,7 +38,9 @@ const CreateBusiness = props => {
 
     const formData = {
       name: business.name,
-      address: business.address
+      address: business.address,
+      phone: business.phone,
+      description: business.description
     };
 
     await createBusiness(formData, props.history);
@@ -44,6 +48,9 @@ const CreateBusiness = props => {
 
   const errorName = error && error.name ? error.name : null;
   const errorAddress = error && error.address ? error.address : null;
+  const errorPhone = error && error.phone ? error.phone : null;
+  const errorDescription =
+    error && error.description ? error.description : null;
   const errorGlobal = typeof error === "string" ? error : null;
 
   return (
@@ -106,6 +113,34 @@ const CreateBusiness = props => {
                   />
                 </Col>
               </Row>
+              <Row>
+                <Col lg="12">
+                  <InputGroup
+                    label="Teléfono o Celular *"
+                    placeholder="Ej. +59172415325"
+                    name="phone"
+                    value={business.phone}
+                    error={errorPhone}
+                    onChange={handleInput}
+                  />
+                </Col>
+              </Row>
+              <hr className="my-4" />
+              <h6 className="heading-small text-muted mb-4">
+                Información Adicional
+              </h6>
+              <div className="pl-lg-4">
+                <InputGroup
+                  label="Descripción"
+                  placeholder="Algún comentario ..."
+                  name="description"
+                  rows="4"
+                  type="textarea"
+                  value={business.description}
+                  error={errorDescription}
+                  onChange={handleInput}
+                />
+              </div>
             </CardBody>
           </Form>
         </Card>

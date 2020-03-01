@@ -1,18 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import indexRoutes from "./routes/index.jsx";
-import { Route, Switch } from "react-router-dom";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./assets/scss/style.css";
-
-import LandingPage from "./views/starter/LandingPage";
 
 // Data
 import AuthState from "./context/auth/AuthState";
 import ChauffeurState from "./context/chauffeur/ChauffeurState";
 import VehicleState from "./context/vehicle/VehicleState";
 import BusinessState from "./context/business/BusinessState";
+import AdminLayout from "./layouts/AdminLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import PrivateRoute from "./layouts/PrivateRoute";
 
 const App = () => {
   return (
@@ -20,24 +19,15 @@ const App = () => {
       <VehicleState>
         <ChauffeurState>
           <AuthState>
-            <HashRouter>
+            <BrowserRouter>
               <Switch>
                 <Route
-                  path="/"
-                  exact
-                  render={props => <LandingPage {...props} />}
+                  path="/auth"
+                  render={props => <AuthLayout {...props} />}
                 />
-                {indexRoutes.map((prop, key) => {
-                  return (
-                    <Route
-                      path={prop.path}
-                      key={key}
-                      component={prop.component}
-                    />
-                  );
-                })}
+                <PrivateRoute path="/" component={AdminLayout} />
               </Switch>
-            </HashRouter>
+            </BrowserRouter>
           </AuthState>
         </ChauffeurState>
       </VehicleState>

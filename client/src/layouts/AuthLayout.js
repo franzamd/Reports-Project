@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import ThemeRoutes from "../routes/Routing";
+import ThemeRoutes from "../routes/authRouting";
 
-const LayoutAuth = props => {
+const AuthLayout = () => {
   return (
     <React.Fragment>
       <Switch>
@@ -21,4 +21,4 @@ const LayoutAuth = props => {
   );
 };
 
-export default LayoutAuth;
+export default AuthLayout;

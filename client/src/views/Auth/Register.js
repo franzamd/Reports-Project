@@ -16,6 +16,10 @@ function Register(props) {
   const { error, isAuthenticated, clearErrors, register } = authContext;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (isAuthenticated) {
       props.history.push("/");
       clearInputs();
@@ -73,7 +77,7 @@ function Register(props) {
         </div>
       </div>
       <div className="main">
-        <Col md={6} sm={12} className="m-3">
+        <Col md={6} sm={12} className="my-2">
           <div className="login-form">
             <Form onSubmit={onSubmit}>
               <FormGroup>
@@ -149,6 +153,7 @@ function Register(props) {
                 </Link>
               </div>
             </Form>
+            <br></br>
           </div>
         </Col>
       </div>

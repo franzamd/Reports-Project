@@ -1,49 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  Collapse,
+  Nav,
+  NavItem
+} from "reactstrap";
 import { Link } from "react-router-dom";
+
+// Files required
 import "./creative.css";
 
 const LadingPage = () => {
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
+
   return (
     <div>
       {/* <!-- Navigation --> */}
-      <nav
-        className="navbar navbar-expand-lg navbar-light fixed-top py-3"
-        id="mainNav"
-      >
-        <div className="container">
-          <a className="navbar-brand js-scroll-trigger" href="#page-top">
-            Reportes YPFB
-          </a>
-          <button
-            className="navbar-toggler navbar-toggler-right"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarResponsive">
-            <ul className="navbar-nav ml-auto my-2 my-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link js-scroll-trigger" to="/auth/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link js-scroll-trigger"
-                  to="/auth/register"
-                >
-                  Registro
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <Navbar color="light" light>
+        <NavbarBrand href="/" className="mr-auto">
+          Reportes YPFB
+        </NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+        <Collapse isOpen={!collapsed} navbar>
+          <Nav navbar>
+            <NavItem>
+              <Link className="nav-link js-scroll-trigger" to="/auth/login">
+                Login
+              </Link>
+            </NavItem>
+            <NavItem>
+              <Link className="nav-link js-scroll-trigger" to="/auth/register">
+                Registro
+              </Link>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
 
       {/* <!-- Masthead --> */}
       <header className="masthead">

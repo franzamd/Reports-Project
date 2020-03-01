@@ -53,11 +53,22 @@ const BusinessSchema = new moongose.Schema({
       }
     }
   ],
+  phone: {
+    type: String,
+    trim: true,
+    required: [true, "Teléfono es requerido"],
+    maxlength: [25, "El teléfono no debe superar más de 25 caracteres"]
+  },
   address: {
     type: String,
     trim: true,
     required: [true, "Dirección es requerido"],
     maxlength: [80, "Dirección no debe superar mas de 80 carácteres"]
+  },
+  description: {
+    type: String,
+    trim: true,
+    maxlength: [250, "Descripción no debe ser mayor a 250 caracteres"]
   },
   state: {
     type: Boolean,
