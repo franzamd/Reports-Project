@@ -136,7 +136,7 @@ const UpdateChauffeur = props => {
                   <Button
                     onClick={() =>
                       props.history.push({
-                        pathname: "/chauffeurs"
+                        pathname: "/admin/chauffeurs"
                       })
                     }
                     size="sm"

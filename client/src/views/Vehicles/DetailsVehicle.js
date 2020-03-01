@@ -90,7 +90,7 @@ const DetailsVehicle = props => {
                 <Button
                   onClick={() =>
                     props.history.push({
-                      pathname: "/vehicles"
+                      pathname: "/admin/vehicles"
                     })
                   }
                 >

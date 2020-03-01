@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 require("colors");
@@ -19,6 +20,9 @@ const auth = require("./routes/auth.js");
 const chauffeurs = require("./routes/chauffeurs.js");
 const vehicles = require("./routes/vehicles.js");
 const business = require("./routes/business.js");
+
+// Cookie Parser
+app.use(cookieParser());
 
 // Body Parser
 app.use(express.json());

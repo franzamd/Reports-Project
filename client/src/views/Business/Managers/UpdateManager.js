@@ -66,7 +66,7 @@ const UpdateManager = props => {
 
   const onBack = () => {
     props.history.push({
-      pathname: "/business/managers",
+      pathname: "/admin/business/managers",
       state: { _id }
     });
   };

@@ -106,7 +106,7 @@ const UpdateBusiness = props => {
                   <Button
                     onClick={() =>
                       props.history.push({
-                        pathname: "/business"
+                        pathname: "/admin/business"
                       })
                     }
                     size="sm"

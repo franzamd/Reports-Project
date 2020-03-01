@@ -6,6 +6,8 @@ import { HashRouter } from "react-router-dom";
 
 import "./assets/scss/style.css";
 
+import LandingPage from "./views/starter/LandingPage";
+
 // Data
 import AuthState from "./context/auth/AuthState";
 import ChauffeurState from "./context/chauffeur/ChauffeurState";
@@ -20,6 +22,11 @@ const App = () => {
           <AuthState>
             <HashRouter>
               <Switch>
+                <Route
+                  path="/"
+                  exact
+                  render={props => <LandingPage {...props} />}
+                />
                 {indexRoutes.map((prop, key) => {
                   return (
                     <Route

@@ -1,14 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import "./styles.css";
+
 // reactstrap components
 import { Button, FormGroup, Col, Form } from "reactstrap";
-
-import "./styles.css";
 
 import AuthContext from "../../context/auth/authContext";
 
 function Register(props) {
+  window.scrollTo(0, 0);
+
   const authContext = useContext(AuthContext);
 
   const { error, isAuthenticated, clearErrors, register } = authContext;
@@ -85,6 +87,11 @@ function Register(props) {
                   onChange={handleInput}
                 />
               </FormGroup>
+              {error && error.username && (
+                <div className="text-muted font-italic">
+                  <small className="text-danger">{error.username}</small>
+                </div>
+              )}
               <FormGroup>
                 <label>Email</label>
                 <input
@@ -96,6 +103,11 @@ function Register(props) {
                   onChange={handleInput}
                 />
               </FormGroup>
+              {error && error.email && (
+                <div className="text-muted font-italic">
+                  <small className="text-danger">{error.email}</small>
+                </div>
+              )}
               <FormGroup>
                 <label>Password</label>
                 <input
@@ -107,6 +119,11 @@ function Register(props) {
                   onChange={handleInput}
                 />
               </FormGroup>
+              {error && error.password && (
+                <div className="text-muted font-italic">
+                  <small className="text-danger">{error.password}</small>
+                </div>
+              )}
               <FormGroup>
                 <label>Repetir Contraseña</label>
                 <input
@@ -118,7 +135,12 @@ function Register(props) {
                   onChange={handleInput}
                 />
               </FormGroup>
-              <div className="d-flex justify-content-around">
+              {error && typeof error === "string" && (
+                <div className="text-muted font-italic text-center">
+                  <small className="text-danger">Error: {error}</small>
+                </div>
+              )}
+              <div className="my-4 d-flex justify-content-around">
                 <Button type="submit" color="primary">
                   Registrarse
                 </Button>

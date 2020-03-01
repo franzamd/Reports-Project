@@ -1,14 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import "./styles.css";
+
 // reactstrap components
 import { Button, FormGroup, Col, Form } from "reactstrap";
-
-import "./styles.css";
 
 import AuthContext from "../../context/auth/authContext";
 
 function Login(props) {
+  window.scrollTo(0, 0);
+
   const authContext = useContext(AuthContext);
 
   const { error, isAuthenticated, clearErrors, login } = authContext;
@@ -16,6 +18,7 @@ function Login(props) {
   useEffect(() => {
     if (isAuthenticated) {
       props.history.push("/");
+
       clearInputs();
     }
   }, [error, isAuthenticated]);
@@ -55,7 +58,7 @@ function Login(props) {
       <div className="sidenav">
         <div className="login-main-text">
           <h2>
-            Aplicación de Cargas de Transporte
+            Aplicación Reportes YPFB
             <br />
           </h2>
           <br />
@@ -88,7 +91,12 @@ function Login(props) {
                   onChange={handleInput}
                 />
               </FormGroup>
-              <div className="d-flex justify-content-around">
+              {error && (
+                <div className="text-muted font-italic">
+                  <small className="text-danger">{error}</small>
+                </div>
+              )}
+              <div className="my-3 d-flex justify-content-around">
                 <Button type="submit" color="primary">
                   Login
                 </Button>

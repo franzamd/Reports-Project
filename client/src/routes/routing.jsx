@@ -1,14 +1,3 @@
-import Starter from "../views/starter/starter.jsx";
-// ui components
-import Alerts from "../views/ui-components/alert.jsx";
-import Badges from "../views/ui-components/badge.jsx";
-import Buttons from "../views/ui-components/button.jsx";
-import Cards from "../views/ui-components/cards.jsx";
-import LayoutComponent from "../views/ui-components/layout.jsx";
-import PaginationComponent from "../views/ui-components/pagination.jsx";
-import PopoverComponent from "../views/ui-components/popover.jsx";
-import TooltipComponent from "../views/ui-components/tooltip.jsx";
-
 // Core Components
 import Chauffeurs from "../views/Chauffeurs/Chauffeurs";
 import CreateChauffeur from "../views/Chauffeurs/CreateChauffeur";
@@ -27,155 +16,106 @@ import UpdateManager from "../views/Business/Managers/UpdateManager";
 import Roadmaps from "../views/Roadmaps/Roadmaps";
 
 var ThemeRoutes = [
-  // {
-  //   path: "/dashboard",
-  //   name: "Dashboard",
-  //   icon: "mdi mdi-gauge",
-  //   component: Starter
-  // },
-  // Chauffeurs
   {
-    path: "/chauffeurs",
+    path: "/admin/chauffeurs",
     name: "Choferes",
     icon: "mdi mdi-face",
     component: Chauffeurs
   },
   {
-    path: "/chauffeurs/create",
+    path: "/admin/chauffeurs/create",
     name: "Crear Chofer",
     component: CreateChauffeur,
     hidden: true
   },
   {
-    path: "/chauffeurs/update",
+    path: "/admin/chauffeurs/update",
     name: "Actualizar Chofer",
     component: UpdateChauffeur,
     hidden: true
   },
   {
-    path: "/chauffeurs/details",
+    path: "/admin/chauffeurs/details",
     name: "Detalles Chofer",
     component: DetailsChauffeur,
     hidden: true
   },
   // Vehicles
   {
-    path: "/vehicles",
+    path: "/admin/vehicles",
     name: "Vehiculos",
     icon: "mdi mdi-truck-delivery",
     component: Vehicles
   },
   {
-    path: "/vehicles/create",
+    path: "/admin/vehicles/create",
     name: "Crear Vehiculo",
     component: CreateVehicle,
     hidden: true
   },
   {
-    path: "/vehicles/update",
+    path: "/admin/vehicles/update",
     name: "Actualizar Vehiculo",
     component: UpdateVehicle,
     hidden: true
   },
   {
-    path: "/vehicles/details",
+    path: "/admin/vehicles/details",
     name: "Detalles Vehiculo",
     component: DetailsVehicle,
     hidden: true
   },
   // Business
   {
-    path: "/business",
+    path: "/admin/business",
     name: "Empresas",
     component: Business,
     icon: "mdi mdi-home"
   },
   {
-    path: "/business/create",
+    path: "/admin/business/create",
     name: "Crear Empresa",
     component: CreateBusiness,
     hidden: true
   },
   {
-    path: "/business/update",
+    path: "/admin/business/update",
     name: "Actualizar Empresa",
     component: UpdateBusiness,
     hidden: true
   },
   // Managers
   {
-    path: "/business/managers",
+    path: "/admin/business/managers",
     name: "Encargados",
     component: Managers,
     hidden: true
   },
   {
-    path: "/business/managers/create",
+    path: "/admin/business/managers/create",
     name: "Crear Encargados",
     component: CreateManager,
     hidden: true
   },
   {
-    path: "/business/managers/update",
+    path: "/admin/business/managers/update",
     name: "Actualizar Encargados",
     component: UpdateManager,
     hidden: true
   },
   // Roadmap
   {
-    path: "/roadmaps",
+    path: "/admin/roadmaps",
     name: "Hojas de Rutas",
     icon: "mdi mdi-map",
     component: Roadmaps
   },
-  // {
-  //   path: "/alert",
-  //   name: "Alerts",
-  //   icon: "mdi mdi-comment-processing-outline",
-  //   component: Alerts
-  // },
-  // {
-  //   path: "/badge",
-  //   name: "Badges",
-  //   icon: "mdi mdi-arrange-send-backward",
-  //   component: Badges
-  // },
-  // {
-  //   path: "/button",
-  //   name: "Buttons",
-  //   icon: "mdi mdi-toggle-switch",
-  //   component: Buttons
-  // },
-  // {
-  //   path: "/card",
-  //   name: "Cards",
-  //   icon: "mdi mdi-credit-card-multiple",
-  //   component: Cards
-  // },
-  // {
-  //   path: "/grid",
-  //   name: "Grid",
-  //   icon: "mdi mdi-apps",
-  //   component: LayoutComponent
-  // },
-  // {
-  //   path: "/pagination",
-  //   name: "Pagination",
-  //   icon: "mdi mdi-priority-high",
-  //   component: PaginationComponent
-  // },
-  // {
-  //   path: "/popover",
-  //   name: "Popover",
-  //   icon: "mdi mdi-pencil-circle",
-  //   component: PopoverComponent
-  // },
-  // {
-  //   path: "/ui-components/tooltip",
-  //   name: "Toltips",
-  //   icon: "mdi mdi-image-filter-vintage",
-  //   component: TooltipComponent
-  // },
-  { path: "/", pathTo: "/chauffeurs", name: "Choferes", redirect: true }
+  {
+    path: "/admin",
+    pathTo: "/admin/chauffeurs",
+    name: "Choferes",
+    redirect: true
+  }
 ];
+
 export default ThemeRoutes;

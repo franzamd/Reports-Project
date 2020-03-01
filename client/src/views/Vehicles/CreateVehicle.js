@@ -86,7 +86,7 @@ const CreateVehicle = props => {
                   <Button
                     onClick={() =>
                       props.history.push({
-                        pathname: "/vehicles"
+                        pathname: "/admin/vehicles"
                       })
                     }
                     size="sm"

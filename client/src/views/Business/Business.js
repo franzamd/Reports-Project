@@ -66,7 +66,7 @@ const Business = props => {
   };
 
   const addItem = () => {
-    props.history.push("/business/create");
+    props.history.push("/admin/business/create");
   };
 
   // Pagination
@@ -165,7 +165,7 @@ const Business = props => {
                               <Link
                                 className="dropdown-item"
                                 to={{
-                                  pathname: "/business/managers",
+                                  pathname: "/admin/business/managers",
                                   state: { _id: item._id }
                                 }}
                               >
@@ -174,7 +174,7 @@ const Business = props => {
                               <Link
                                 className="dropdown-item"
                                 to={{
-                                  pathname: "/business/update",
+                                  pathname: "/admin/business/update",
                                   state: { _id: item._id }
                                 }}
                               >

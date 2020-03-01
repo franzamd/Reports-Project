@@ -66,7 +66,7 @@ const Vehicles = props => {
   };
 
   const addItem = () => {
-    props.history.push("/vehicles/create");
+    props.history.push("/admin/vehicles/create");
   };
 
   // Pagination
@@ -159,7 +159,7 @@ const Vehicles = props => {
                           )}
                         </td>
                         <td className="text-center">
-                        {moment(vehicle.createdAt).format('L')}
+                          {moment(vehicle.createdAt).format("L")}
                         </td>
                         <td className="text-center">
                           <UncontrolledDropdown>
@@ -176,7 +176,7 @@ const Vehicles = props => {
                               <Link
                                 className="dropdown-item"
                                 to={{
-                                  pathname: "/vehicles/details",
+                                  pathname: "/admin/vehicles/details",
                                   state: { vehicle }
                                 }}
                               >
@@ -185,7 +185,7 @@ const Vehicles = props => {
                               <Link
                                 className="dropdown-item"
                                 to={{
-                                  pathname: "/vehicles/update",
+                                  pathname: "/admin/vehicles/update",
                                   state: { _id: vehicle._id }
                                 }}
                               >

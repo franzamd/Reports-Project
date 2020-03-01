@@ -117,7 +117,7 @@ const BusinessState = props => {
       await axios.post(`/api/business/${id}/managers`, formData, config);
 
       history.push({
-        pathname: "/business/managers",
+        pathname: "/admin/business/managers",
         state: { _id: id }
       });
     } catch (error) {
@@ -168,7 +168,7 @@ const BusinessState = props => {
       );
 
       history.push({
-        pathname: "/business/managers",
+        pathname: "/admin/business/managers",
         state: { _id: id }
       });
     } catch (error) {

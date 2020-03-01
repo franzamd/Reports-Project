@@ -133,7 +133,7 @@ const Managers = props => {
             onCaptureItem={onCaptureItem}
             handleSearchText={handleSearchText}
             // Add Item
-            link="/business/managers/create"
+            link="/admin/business/managers/create"
             // id
             state={businessSelected.data ? businessSelected.data._id : null}
           >
@@ -222,7 +222,7 @@ const Managers = props => {
                               <Link
                                 className="dropdown-item"
                                 to={{
-                                  pathname: "/business/managers/update",
+                                  pathname: "/admin/business/managers/update",
                                   state: {
                                     _id: businessSelected.data
                                       ? businessSelected.data._id

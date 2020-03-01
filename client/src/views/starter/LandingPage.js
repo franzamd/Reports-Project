@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./creative.css";
 
 const LadingPage = () => {
@@ -27,14 +28,17 @@ const LadingPage = () => {
           <div className="collapse navbar-collapse" id="navbarResponsive">
             <ul className="navbar-nav ml-auto my-2 my-lg-0">
               <li className="nav-item">
-                <a className="nav-link js-scroll-trigger" href="#about">
+                <Link className="nav-link js-scroll-trigger" to="/auth/login">
                   Login
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link js-scroll-trigger" href="#services">
+                <Link
+                  className="nav-link js-scroll-trigger"
+                  to="/auth/register"
+                >
                   Registro
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -56,12 +60,12 @@ const LadingPage = () => {
                 Bienvenidos al aplicacion de gestión y control de carburantes y
                 carga nacional e internacional. Reportes YPFB
               </p>
-              <a
+              <Link
+                to="/auth/login"
                 className="btn btn-primary btn-xl js-scroll-trigger"
-                href="#about"
               >
                 Acceder a la Aplicación
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -80,12 +84,12 @@ const LadingPage = () => {
                 muy poco tiempo! Eliga una categoria de nuestros reportes
                 personalizados y fáciles de usar! ¡Sin ataduras!
               </p>
-              <a
+              <Link
+                to="/auth/login"
                 className="btn btn-light btn-xl js-scroll-trigger"
-                href="#services"
               >
                 Acceder a la Aplicación
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -139,6 +143,15 @@ const LadingPage = () => {
           </div>
         </div>
       </section>
+
+      {/* <!-- Footer --> */}
+      <footer className="bg-light py-5">
+        <div className="container">
+          <div className="small text-center text-muted">
+            Copyright &copy; 2020 - Reportes YPFB
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
