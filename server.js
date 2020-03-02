@@ -34,6 +34,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "client/build")));
 
 // Routes
+// app.use("/", home);
 app.use("/api/auth", auth);
 app.use("/api/chauffeurs", chauffeurs);
 app.use("/api/vehicles", vehicles);
@@ -41,6 +42,11 @@ app.use("/api/business", business);
 
 // Handle errors
 app.use(errorHandler);
+
+// Protect routes if 404 response
+app.get("*", function(req, res) {
+  res.redirect("/");
+});
 
 const PORT = process.env.PORT || 5000;
 

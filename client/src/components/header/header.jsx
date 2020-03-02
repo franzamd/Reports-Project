@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   Nav,
   Navbar,
@@ -25,8 +25,6 @@ import logolighttext from "../../assets/images/logo-light-text.png";
 const Header = () => {
   const authContext = useContext(AuthContext);
   const { user } = authContext;
-
-  const [isOpen] = useState(false);
 
   const showMobilemenu = () => {
     document.getElementById("main-wrapper").classList.toggle("show-sidebar");
@@ -57,6 +55,28 @@ const Header = () => {
               <img src={logolighttext} className="light-logo" alt="homepage" />
             </span>
           </NavbarBrand>
+
+          {window.innerWidth < 768 && (
+            <Nav className="ml-auto float-right" navbar>
+              <div className="d-flex align-items-center">{username}</div>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret className="pro-pic">
+                  <img
+                    src={profilephoto}
+                    alt="user"
+                    className="rounded-circle"
+                    width="31"
+                  />
+                </DropdownToggle>
+                <DropdownMenu right className="user-dd">
+                  <DropdownItem href="/" onClick={logout} className="mt-2">
+                    <i className="fa fa-power-off mr-1 ml-1" /> Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          )}
+
           {/*--------------------------------------------------------------------------------*/}
           {/* Mobile View Toggler  [visible only after 768px screen]                         */}
           {/*--------------------------------------------------------------------------------*/}
@@ -66,7 +86,7 @@ const Header = () => {
         </div>
         <Collapse
           className="navbarbg"
-          isOpen={isOpen}
+          isOpen={false}
           navbar
           data-navbarbg="skin6"
         >

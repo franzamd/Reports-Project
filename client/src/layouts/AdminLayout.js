@@ -18,11 +18,11 @@ class AdminLayout extends React.Component {
       width: window.innerWidth
     };
 
-    console.log(window.innerWidth);
-
     this.props.history.listen((location, action) => {
       if (
         window.innerWidth < 1170 &&
+        document &&
+        document.getElementById("main-wrapper") &&
         document
           .getElementById("main-wrapper")
           .className.indexOf("show-sidebar") !== -1
