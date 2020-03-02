@@ -18,9 +18,11 @@ class AdminLayout extends React.Component {
       width: window.innerWidth
     };
 
+    console.log(window.innerWidth);
+
     this.props.history.listen((location, action) => {
       if (
-        window.innerWidth < 767 &&
+        window.innerWidth < 1170 &&
         document
           .getElementById("main-wrapper")
           .className.indexOf("show-sidebar") !== -1
@@ -41,10 +43,8 @@ class AdminLayout extends React.Component {
     // Updated for Mobile View
     let element = document.getElementById("main-wrapper");
 
-    if (window.innerWidth < 1170) {
-      element.setAttribute("data-sidebartype", "mini-sidebar");
-      element.classList.add("mini-sidebar");
-    }
+    element.setAttribute("data-sidebartype", "mini-sidebar");
+    element.classList.add("mini-sidebar");
   }
   /*--------------------------------------------------------------------------------*/
   /*Function that handles sidebar, changes when resizing App                        */
