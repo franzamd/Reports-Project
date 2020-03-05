@@ -69,7 +69,7 @@ const Chauffeurs = props => {
     getChauffeurs();
   };
 
-  const addItem = () => {
+  const addItem = e => {
     props.history.push("/admin/chauffeurs/create");
   };
 

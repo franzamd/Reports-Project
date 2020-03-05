@@ -23,6 +23,7 @@ const PrivateRoute = ({ component: Component, ...rest }, props) => {
 
   return (
     <React.Fragment>
+      {/* Landing Page */}
       {!isAuthenticated && !loading && (
         <React.Fragment>
           {/* Load first Landing Page */}
