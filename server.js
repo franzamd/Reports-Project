@@ -20,6 +20,7 @@ const auth = require("./routes/auth.js");
 const chauffeurs = require("./routes/chauffeurs.js");
 const vehicles = require("./routes/vehicles.js");
 const business = require("./routes/business.js");
+const roadmaps = require("./routes/roadmaps.js");
 
 // Cookie Parser
 app.use(cookieParser());
@@ -38,14 +39,15 @@ app.use("/api/auth", auth);
 app.use("/api/chauffeurs", chauffeurs);
 app.use("/api/vehicles", vehicles);
 app.use("/api/business", business);
+app.use("/api/roadmaps", roadmaps);
 
 // Handle errors
 app.use(errorHandler);
 
-// // Protect routes if 404 response
-// app.get("*", function(req, res) {
-//   res.redirect("/");
-// });
+// Protect routes if 404 response via server port
+app.get("*", function(req, res) {
+  res.redirect("/");
+});
 
 const PORT = process.env.PORT || 5000;
 

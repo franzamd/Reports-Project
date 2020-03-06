@@ -119,6 +119,9 @@ const Business = props => {
                       Nombres
                     </th>
                     <th scope="col" className="text-center">
+                      NIT
+                    </th>
+                    <th scope="col" className="text-center">
                       Estado
                     </th>
                     <th scope="col" className="text-center">
@@ -134,6 +137,7 @@ const Business = props => {
                     return (
                       <tr key={item._id}>
                         <td className="text-center">{item.name}</td>
+                        <td className="text-center">{item.nit}</td>
                         <td className="text-center">
                           {item.state ? (
                             <Badge color="success" className="badge-dot">

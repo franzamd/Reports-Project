@@ -27,6 +27,7 @@ const UpdateBusiness = props => {
 
   const [business, setBusiness] = useState({
     name: "",
+    nit: "",
     address: "",
     phone: "",
     description: "",
@@ -46,6 +47,7 @@ const UpdateBusiness = props => {
     ) {
       setBusiness({
         name: businessContext.businessSelected.data.name,
+        nit: businessContext.businessSelected.data.nit,
         address: businessContext.businessSelected.data.address,
         phone: businessContext.businessSelected.data.phone,
         description: businessContext.businessSelected.data.description,
@@ -74,6 +76,7 @@ const UpdateBusiness = props => {
 
     const formData = {
       name: business.name,
+      nit: business.nit,
       address: business.address,
       phone: business.phone,
       description: business.description,
@@ -84,6 +87,7 @@ const UpdateBusiness = props => {
   };
 
   const errorName = error && error.name ? error.name : null;
+  const errorNIT = error && error.nit ? error.nit : null;
   const errorPhone = error && error.phone ? error.phone : null;
   const errorDescription =
     error && error.description ? error.description : null;
@@ -147,6 +151,18 @@ const UpdateBusiness = props => {
                   />
                 </Col>
                 <Col lg="6">
+                  <InputGroup
+                    label="NIT *"
+                    placeholder="Ej. 301004158172"
+                    name="nit"
+                    value={business.nit}
+                    error={errorNIT}
+                    onChange={handleInput}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col lg="6">
                   <SelectListGroup
                     label="Estado"
                     name="state"
@@ -155,8 +171,6 @@ const UpdateBusiness = props => {
                     value={business.state}
                   />
                 </Col>
-              </Row>
-              <Row>
                 <Col lg="6">
                   <InputGroup
                     label="Dirección *"
@@ -167,6 +181,8 @@ const UpdateBusiness = props => {
                     onChange={handleInput}
                   />
                 </Col>
+              </Row>
+              <Row>
                 <Col lg="6">
                   <DateFieldGroup
                     label="Fecha de Registro"
@@ -174,9 +190,7 @@ const UpdateBusiness = props => {
                     value={business.createdAt}
                   />
                 </Col>
-              </Row>
-              <Row>
-                <Col lg="12">
+                <Col lg="6">
                   <InputGroup
                     label="Teléfono o Celular *"
                     placeholder="Ej. +59172415325"

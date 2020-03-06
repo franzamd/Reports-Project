@@ -14,6 +14,8 @@ import Managers from "../views/Business/Managers/Managers";
 import CreateManager from "../views/Business/Managers/CreateManager";
 import UpdateManager from "../views/Business/Managers/UpdateManager";
 import Roadmaps from "../views/Roadmaps/Roadmaps";
+import CreateRoadmap from "../views/Roadmaps/CreateRoadmap";
+import UpdateRoadmap from "../views/Roadmaps/UpdateRoadmap";
 
 var ThemeRoutes = [
   {
@@ -109,6 +111,18 @@ var ThemeRoutes = [
     name: "Hojas de Rutas",
     icon: "mdi mdi-map",
     component: Roadmaps
+  },
+  {
+    path: "/admin/roadmaps/create",
+    name: "Crear Hoja de Rutas",
+    component: CreateRoadmap,
+    hidden: true
+  },
+  {
+    path: "/admin/roadmaps/update",
+    name: "Actualizar Hoja de Rutas",
+    component: UpdateRoadmap,
+    hidden: true
   },
   {
     path: "/admin",

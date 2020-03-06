@@ -1,0 +1,728 @@
+import React, { useState, useContext, useEffect } from "react";
+import { Col, Card, CardHeader, CardBody, Row, Button, Form } from "reactstrap";
+
+import InputGroup from "../../components/common/InputGroup";
+import ConfirmButton from "../../components/common/ConfirmButton";
+import SelectListGroup from "../../components/common/SelectListGroup";
+
+import BusinessContext from "../../context/business/businessContext";
+import ChauffeurContext from "../../context/chauffeur/chauffeurContext";
+import VehicleContext from "../../context/vehicle/vehicleContext";
+import RoadmapContext from "../../context/roadmap/roadmapContext";
+
+const CreateRoadmap = props => {
+  const roadmapContext = useContext(RoadmapContext);
+  const businessContext = useContext(BusinessContext);
+  const vehicleContext = useContext(VehicleContext);
+  const chauffeurContext = useContext(ChauffeurContext);
+
+  const { error, loading, createRoadmap, resetRoadmaps } = roadmapContext;
+  const { getBusinessByState, resetBusiness } = businessContext;
+  const { getVehiclesByState, resetVehicles } = vehicleContext;
+  const { getChauffeursByState, resetChauffeurs } = chauffeurContext;
+
+  const [roadmap, setRoadmap] = useState({
+    products: [
+      {
+        substance: "",
+        types: {
+          primary: "",
+          product: "",
+          percentage: ""
+        },
+        amount: "",
+        unit: "",
+        container: {
+          type: "",
+          amount: ""
+        },
+        name: ""
+      }
+    ],
+    chauffeur: "",
+    vehicle: "",
+    business: "",
+    manager: "",
+    authorization: "",
+    finish: "",
+    begin: "",
+    validity: "",
+    itinerary: {
+      destination: {
+        municipality: "",
+        province: "",
+        departament: "",
+        address: ""
+      },
+      origin: {
+        municipality: "",
+        province: "",
+        departament: "",
+        address: ""
+      }
+    },
+    tramit: "",
+    city: ""
+  });
+
+  const [dataManagers, setDataManagers] = useState([]);
+
+  useEffect(() => {
+    getBusinessByState(true);
+    getVehiclesByState(true);
+    getChauffeursByState(true);
+  }, []);
+
+  useEffect(() => {
+    if (roadmap.business) {
+      getManagersArray(roadmap.business);
+    }
+  }, [roadmap.business]);
+
+  useEffect(
+    () => () => {
+      resetBusiness();
+      resetChauffeurs();
+      resetVehicles();
+      resetRoadmaps()
+    },
+    []
+  );
+
+  const getManagersArray = businessId => {
+    const object = business.find(business => business._id === businessId);
+
+    const data = [];
+
+    if (object && object.managers.length > 0) {
+      object.managers.map(manager => {
+        if (manager.state) {
+          return data.push({
+            _id: manager._id,
+            label: `C.I.: ${manager.ci} - ${manager.name} ${manager.lastname} - ${manager.role}`,
+            value: manager._id
+          });
+        } else return null;
+      });
+    }
+
+    data.unshift({
+      _id: "1",
+      label: "* Seleccione una opción",
+      value: 0
+    });
+
+    setDataManagers(data);
+  };
+
+  const handleInput = e => {
+    setRoadmap({
+      ...roadmap,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const addProduct = () => {
+    setRoadmap({
+      ...roadmap,
+      products: [
+        ...roadmap.products,
+        {
+          substance: "",
+          types: {
+            primary: "",
+            product: "",
+            percentage: ""
+          },
+          amount: "",
+          unit: "",
+          container: {
+            type: "",
+            amount: ""
+          },
+          name: ""
+        }
+      ]
+    });
+  };
+
+  const removeProduct = index => {
+    setRoadmap({
+      ...roadmap,
+      products: roadmap.products.filter((p, i) => i !== index)
+    });
+  };
+
+  const handleInputProducts = (e, index) => {
+    setRoadmap({
+      ...roadmap,
+      products: roadmap.products.map((product, i) => {
+        if (index !== i) return product;
+        return { ...product, [e.target.name]: e.target.value };
+      })
+    });
+  };
+
+  const handleInputProductPath = (e, index, path) => {
+    setRoadmap({
+      ...roadmap,
+      products: roadmap.products.map((product, i) => {
+        if (index !== i) return product;
+        return {
+          ...product,
+          [path]: { ...product[path], [e.target.name]: e.target.value }
+        };
+      })
+    });
+  };
+
+  const handleInputItinerary = (e, path, path2) => {
+    setRoadmap({
+      ...roadmap,
+      [path]: {
+        ...roadmap.itinerary,
+        [path2]: {
+          ...roadmap.itinerary[path2],
+          [e.target.name]: e.target.value
+        }
+      }
+    });
+  };
+
+  const onSubmit = async e => {
+    e.preventDefault();
+
+    const formData = {
+      products: roadmap.products,
+      chauffeur: roadmap.chauffeur ? roadmap.chauffeur : null,
+      vehicle: roadmap.vehicle ? roadmap.vehicle : null,
+      business: roadmap.business ? roadmap.business : null,
+      manager: roadmap.manager ? roadmap.manager : null,
+      authorization: roadmap.authorization,
+      finish: roadmap.finish,
+      begin: roadmap.begin,
+      validity: roadmap.validity,
+      itinerary: {
+        destination: {
+          municipality: roadmap.itinerary.destination.municipality,
+          province: roadmap.itinerary.destination.province,
+          departament: roadmap.itinerary.destination.departament,
+          address: roadmap.itinerary.destination.address
+        },
+        origin: {
+          municipality: roadmap.itinerary.destination.municipality,
+          province: roadmap.itinerary.destination.province,
+          departament: roadmap.itinerary.destination.departament,
+          address: roadmap.itinerary.destination.address
+        }
+      },
+      tramit: roadmap.tramit,
+      city: roadmap.city
+    };
+
+    await createRoadmap(formData, props.history);
+  };
+
+  // Data
+  const business =
+    businessContext.business && businessContext.business.data
+      ? businessContext.business.data
+      : [];
+
+  const vehicles =
+    vehicleContext.vehicles && vehicleContext.vehicles.data
+      ? vehicleContext.vehicles.data
+      : [];
+
+  const chauffeurs =
+    chauffeurContext.chauffeurs && chauffeurContext.chauffeurs.data
+      ? chauffeurContext.chauffeurs.data
+      : [];
+
+  const errorChauffeur = error && error.chauffeur ? error.chauffeur : null;
+  const errorVehicle = error && error.vehicle ? error.vehicle : null;
+  const errorBusiness = error && error.business ? error.business : null;
+  const errorManager = error && error.manager ? error.manager : null;
+  const errorAutorization =
+    error && error.authorization ? error.authorization : null;
+  const errorFinish = error && error.finish ? error.finish : null;
+  const errorBegin = error && error.begin ? error.begin : null;
+  const errorValidty = error && error.validity ? error.validity : null;
+  const errorTramit = error && error.tramit ? error.tramit : null;
+  const errorCity = error && error.city ? error.city : null;
+  const errorGlobal = typeof error === "string" ? error : null;
+
+  let errorItineraryDestinationMunicipality;
+  let errorItineraryDestinationDepartament;
+  let errorItineraryDestinationProvince;
+  let errorItineraryDestinationAddress;
+  let errorItineraryOriginMunicipality;
+  let errorItineraryOriginDepartament;
+  let errorItineraryOriginProvince;
+  let errorItineraryOriginAddress
+
+  // Options Select
+  const optionsCity = [
+    { _id: "1", label: "* Seleccione una opción", value: 0 },
+    { _id: "2", label: "Tarija", value: "Tarija" },
+    { _id: "3", label: "Santa Cruz", value: "Santa Cruz" },
+    { _id: "4", label: "La Paz", value: "La Paz" },
+    { _id: "5", label: "Cochabamba", value: "Cochabamba" },
+    { _id: "6", label: "Oruro", value: "Oruro" },
+    { _id: "7", label: "Potosi", value: "Potosi" },
+    { _id: "8", label: "Chuquisaca", value: "Chuquisaca" },
+    { _id: "9", label: "Beni", value: "Beni" },
+    { _id: "10", label: "Pando", value: "Pando" }
+  ];
+
+  const optionsBusiness = business.map(item => {
+    return {
+      _id: item._id,
+      label: `NIT: ${item.nit} - ${item.name}`,
+      value: item._id
+    };
+  });
+
+  optionsBusiness.unshift({
+    _id: "1",
+    label: "* Seleccione una opción",
+    value: 0
+  });
+
+  const optionsVehicles = vehicles.map(item => {
+    return {
+      _id: item._id,
+      label: `Placa: ${item.number} - ${item.brand} - ${item.color}`,
+      value: item._id
+    };
+  });
+
+  optionsVehicles.unshift({
+    _id: "1",
+    label: "* Seleccione una opción",
+    value: 0
+  });
+
+  const optionsChauffeurs = chauffeurs.map(item => {
+    return {
+      _id: item._id,
+      label: `C.I.: ${item.ci} - ${item.name} ${item.lastname}`,
+      value: item._id
+    };
+  });
+
+  optionsChauffeurs.unshift({
+    _id: "1",
+    label: "* Seleccione una opción",
+    value: 0
+  });
+
+  if (error && typeof error === "object") {
+    const {
+      "itinerary.destination.municipality": errorDestinationMunicipality,
+      "itinerary.destination.departament": errorDestinationDepartament,
+      "itinerary.destination.province": errorDestinationProvince,
+      "itinerary.destination.address": errorDestinationAddress,
+      "itinerary.origin.municipality": errorOriginMunicipality,
+      "itinerary.origin.departament": errorOriginDepartament,
+      "itinerary.origin.province": errorOriginProvince,
+      "itinerary.origin.address": errorOriginAddress,
+    } = error
+
+    errorItineraryDestinationMunicipality = errorDestinationMunicipality
+    errorItineraryDestinationDepartament = errorDestinationDepartament
+    errorItineraryDestinationProvince = errorDestinationProvince
+    errorItineraryDestinationAddress = errorDestinationAddress
+    errorItineraryOriginMunicipality = errorOriginMunicipality
+    errorItineraryOriginDepartament = errorOriginDepartament
+    errorItineraryOriginProvince = errorOriginProvince
+    errorItineraryOriginAddress = errorOriginAddress
+  }
+
+  return (
+    <Col>
+      <Card>
+        <Form onSubmit={onSubmit}>
+          <CardHeader className="bg-white border-0">
+            <Row>
+              <Col>
+                <h3 className="mb-0">Crear Nueva Hoja de Ruta</h3>
+              </Col>
+              <Col
+                className="d-flex justify-content-end flex-wrap align-items-baseline"
+                xs="4"
+              >
+                <ConfirmButton onClick={onSubmit} loading={loading} />
+                <Button
+                  onClick={() =>
+                    props.history.push({
+                      pathname: "/admin/roadmaps"
+                    })
+                  }
+                  size="sm"
+                  className="m-1"
+                >
+                  Cancelar
+                </Button>
+              </Col>
+            </Row>
+          </CardHeader>
+          <CardBody>
+            <div className="mb-3 font-italic">
+              <small>Los campos con * son obligatorios</small>
+            </div>
+            {errorGlobal && (
+              <div className="text-danger text-center mb-3 font-italic">
+                <small>{errorGlobal}</small>
+              </div>
+            )}
+            <Row>
+              <Col lg="6">
+                <InputGroup
+                  label="Nº de tramite *"
+                  placeholder="Ej. HOJ-001231"
+                  name="tramit"
+                  value={roadmap.tramit}
+                  error={errorTramit}
+                  onChange={handleInput}
+                />
+              </Col>
+              <Col lg="6">
+                <SelectListGroup
+                  label="Ciudad de emision *"
+                  name="city"
+                  onChange={handleInput}
+                  error={errorCity}
+                  options={optionsCity}
+                  value={roadmap.city}
+                />
+              </Col>
+            </Row>
+            <hr className="my-4" />
+            <h6 className="heading-small text-muted mb-4">
+              Información Empresa
+            </h6>
+            <Row>
+              <Col lg="12">
+                <SelectListGroup
+                  label="Empresa"
+                  name="business"
+                  onChange={handleInput}
+                  error={errorBusiness}
+                  options={optionsBusiness}
+                  value={roadmap.business}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="12">
+                <SelectListGroup
+                  disabled={dataManagers.length === 0}
+                  label="Encargado"
+                  name="manager"
+                  onChange={handleInput}
+                  error={errorManager}
+                  options={dataManagers}
+                  value={roadmap.manager}
+                />
+              </Col>
+            </Row>
+            <hr className="my-4" />
+            <h6 className="heading-small text-muted mb-4">
+              Información Chofer
+            </h6>
+            <Row>
+              <Col lg="12">
+                <SelectListGroup
+                  label="Chofer"
+                  name="chauffeur"
+                  onChange={handleInput}
+                  error={errorChauffeur}
+                  options={optionsChauffeurs}
+                  value={roadmap.chauffeur}
+                />
+              </Col>
+            </Row>
+            <hr className="my-4" />
+            <h6 className="heading-small text-muted mb-4">
+              Información Vehiculo
+            </h6>
+            <Row>
+              <Col lg="12">
+                <SelectListGroup
+                  label="Vehiculo"
+                  name="vehicle"
+                  onChange={handleInput}
+                  error={errorVehicle}
+                  options={optionsVehicles}
+                  value={roadmap.vehicle}
+                />
+              </Col>
+            </Row>
+            <hr className="my-4" />
+            <h6 className="heading-small text-muted mb-4">
+              Información Productos
+            </h6>
+            {roadmap.products.map((product, i) => {
+              return (
+                <div key={i}>
+                  <Row>
+                    <Col>
+                      <InputGroup
+                        label="Sunstancia"
+                        placeholder="Ej. Gasolina"
+                        name="substance"
+                        value={product.substance}
+                        onChange={e => handleInputProducts(e, i)}
+                      />
+                    </Col>
+                    <Col lg={1} md={1} xs={1}>
+                      <InputGroup
+                        label="Primaria"
+                        placeholder="Ej. N"
+                        name="primary"
+                        value={product.types.primary}
+                        onChange={e => handleInputProductPath(e, i, "types")}
+                      />
+                    </Col>
+                    <Col>
+                      <InputGroup
+                        label="P. terminado"
+                        placeholder="Ej. S"
+                        name="product"
+                        value={product.types.product}
+                        onChange={e => handleInputProductPath(e, i, "types")}
+                      />
+                    </Col>
+                    <Col lg={1} md={1} xs={1}>
+                      <InputGroup
+                        label="%"
+                        placeholder="Ej. 50,00"
+                        name="percentage"
+                        value={product.types.percentage}
+                        onChange={e => handleInputProductPath(e, i, "types")}
+                      />
+                    </Col>
+                    <Col>
+                      <InputGroup
+                        label="Cantidad"
+                        placeholder="Ej. 2200000"
+                        name="amount"
+                        value={product.amount}
+                        onChange={e => handleInputProducts(e, i)}
+                      />
+                    </Col>
+                    <Col>
+                      <InputGroup
+                        label="Unidad  Kg/Lt."
+                        placeholder="Ej. lit"
+                        name="unit"
+                        value={product.unit}
+                        onChange={e => handleInputProducts(e, i)}
+                      />
+                    </Col>
+                    <Col>
+                      <InputGroup
+                        label="Tipo"
+                        placeholder="Ej. Acto Camion"
+                        name="type"
+                        value={product.container.type}
+                        onChange={e =>
+                          handleInputProductPath(e, i, "container")
+                        }
+                      />
+                    </Col>
+                    <Col lg={1} md={1} xs={1}>
+                      <InputGroup
+                        label="Cantidad"
+                        placeholder="Ej. 1"
+                        name="amount"
+                        value={product.container.amount}
+                        onChange={e =>
+                          handleInputProductPath(e, i, "container")
+                        }
+                      />
+                    </Col>
+                    <Col>
+                      <InputGroup
+                        label="Nombre"
+                        placeholder="Ej. Condensado"
+                        name="name"
+                        value={product.name}
+                        onChange={e => handleInputProducts(e, i)}
+                      />
+                    </Col>
+                    <button
+                      type="button"
+                      onClick={() => removeProduct(i)}
+                      className="my-2 mr-3 btn btn-danger"
+                    >
+                      -
+                    </button>
+                  </Row>
+                </div>
+              );
+            })}
+            <Row>
+              <Col lg="12" className="d-flex justify-content-center my-3">
+                <button
+                  type="button"
+                  onClick={addProduct}
+                  className="btn btn-success"
+                >
+                  Añadir Producto
+                </button>
+              </Col>
+            </Row>
+            <hr className="my-4" />
+            <h6 className="heading-small text-muted mb-4">
+              Información Itinerario
+            </h6>
+            <Row>
+              <Col lg="6">
+                <InputGroup
+                  label="Lugar de despacho (Origen) *"
+                  placeholder="Ej. Bermejo (B. Petrolero)"
+                  name="address"
+                  value={roadmap.itinerary.origin.address}
+                  error={errorItineraryOriginAddress}
+                  onChange={e => handleInputItinerary(e, "itinerary", "origin")}
+                />
+              </Col>
+              <Col lg="6">
+                <InputGroup
+                  label="Departamento *"
+                  placeholder="Ej. Tarija"
+                  name="departament"
+                  value={roadmap.itinerary.origin.departament}
+                  error={errorItineraryOriginDepartament}
+                  onChange={e => handleInputItinerary(e, "itinerary", "origin")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="6">
+                <InputGroup
+                  label="Provincia *"
+                  placeholder="Ej. Cercado"
+                  name="province"
+                  value={roadmap.itinerary.origin.province}
+                  error={errorItineraryOriginProvince}
+                  onChange={e => handleInputItinerary(e, "itinerary", "origin")}
+                />
+              </Col>
+              <Col lg="6">
+                <InputGroup
+                  label="Municipio *"
+                  placeholder="Ej. Tarija"
+                  name="municipality"
+                  value={roadmap.itinerary.origin.municipality}
+                  error={errorItineraryOriginMunicipality}
+                  onChange={e => handleInputItinerary(e, "itinerary", "origin")}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="6">
+                <InputGroup
+                  label="Lugar de despacho (Destino) *"
+                  placeholder="Ej. Tiguipa"
+                  name="address"
+                  value={roadmap.itinerary.destination.address}
+                  error={errorItineraryDestinationAddress}
+                  onChange={e =>
+                    handleInputItinerary(e, "itinerary", "destination")
+                  }
+                />
+              </Col>
+              <Col lg="6">
+                <InputGroup
+                  label="Departamento *"
+                  placeholder="Ej. Tarija"
+                  name="departament"
+                  value={roadmap.itinerary.destination.departament}
+                  error={errorItineraryDestinationDepartament}
+                  onChange={e =>
+                    handleInputItinerary(e, "itinerary", "destination")
+                  }
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="6">
+                <InputGroup
+                  label="Provincia *"
+                  placeholder="Ej. Cercado"
+                  name="province"
+                  value={roadmap.itinerary.destination.province}
+                  error={errorItineraryDestinationProvince}
+                  onChange={e =>
+                    handleInputItinerary(e, "itinerary", "destination")
+                  }
+                />
+              </Col>
+              <Col lg="6">
+                <InputGroup
+                  label="Municipio *"
+                  placeholder="Ej. Tarija"
+                  name="municipality"
+                  value={roadmap.itinerary.destination.municipality}
+                  error={errorItineraryDestinationMunicipality}
+                  onChange={e =>
+                    handleInputItinerary(e, "itinerary", "destination")
+                  }
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="6">
+                <InputGroup
+                  label="Plazo validez de la Hoja de Ruta *"
+                  placeholder="Ej. 3"
+                  name="validity"
+                  value={roadmap.validity}
+                  error={errorValidty}
+                  onChange={handleInput}
+                />
+              </Col>
+              <Col lg="6">
+                <InputGroup
+                  label="Autorización para la compra local *"
+                  placeholder="Ej. Cambio"
+                  name="authorization"
+                  value={roadmap.authorization}
+                  error={errorAutorization}
+                  onChange={handleInput}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="6">
+                <InputGroup
+                  label="Desde el dia *"
+                  name="begin"
+                  type="date"
+                  value={roadmap.begin}
+                  error={errorBegin}
+                  onChange={handleInput}
+                />
+              </Col>
+              <Col lg="6">
+                <InputGroup
+                  label="Hasta el dia *"
+                  name="finish"
+                  type="date"
+                  value={roadmap.finish}
+                  error={errorFinish}
+                  onChange={handleInput}
+                />
+              </Col>
+            </Row>
+          </CardBody>
+        </Form>
+      </Card>
+    </Col>
+  );
+};
+
+export default CreateRoadmap;

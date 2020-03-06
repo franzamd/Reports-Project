@@ -53,6 +53,7 @@ InputGroup.defaultProps = {
   value: "",
   disabled: false,
   rows: 0,
+  placeholder: "",
   onChange: e => e.preventDefault()
 };
 

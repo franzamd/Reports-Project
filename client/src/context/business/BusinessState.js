@@ -41,6 +41,25 @@ const BusinessState = props => {
     }
   };
 
+  // Get business by state
+  const getBusinessByState = async state => {
+    try {
+      setLoading();
+
+      const res = await axios.get(`/api/business?[state]=${state}`);
+
+      dispatch({
+        type: GET_BUSINESS,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        BUSINESS_ERROR,
+        payload: error.response.data.error
+      });
+    }
+  };
+
   // Get business by id
   const getBusinessById = async id => {
     try {
@@ -201,6 +220,7 @@ const BusinessState = props => {
         loading: state.loading,
         error: state.error,
         getBusiness,
+        getBusinessByState,
         getBusinessById,
         createBusiness,
         updateBusiness,

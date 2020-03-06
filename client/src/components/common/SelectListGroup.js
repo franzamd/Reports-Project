@@ -51,8 +51,8 @@ SelectListGroup.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
-    PropTypes.array
-  ]).isRequired,
+    PropTypes.array,
+  ]),
   onChange: PropTypes.func.isRequired,
   error: PropTypes.string
 };
@@ -61,7 +61,7 @@ SelectListGroup.defaultProps = {
   options: [],
   disabled: false,
   multiple: false,
-  value: ""
+  value: ''
 };
 
 export default SelectListGroup;

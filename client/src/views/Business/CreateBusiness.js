@@ -21,6 +21,7 @@ const CreateBusiness = props => {
 
   const [business, setBusiness] = useState({
     name: "",
+    nit: "",
     address: "",
     phone: "",
     description: ""
@@ -38,6 +39,7 @@ const CreateBusiness = props => {
 
     const formData = {
       name: business.name,
+      nit: business.nit,
       address: business.address,
       phone: business.phone,
       description: business.description
@@ -47,6 +49,7 @@ const CreateBusiness = props => {
   };
 
   const errorName = error && error.name ? error.name : null;
+  const errorNIT = error && error.nit ? error.nit : null;
   const errorAddress = error && error.address ? error.address : null;
   const errorPhone = error && error.phone ? error.phone : null;
   const errorDescription =
@@ -104,6 +107,18 @@ const CreateBusiness = props => {
                 </Col>
                 <Col lg="6">
                   <InputGroup
+                    label="NIT *"
+                    placeholder="Ej. 301004158172"
+                    name="nit"
+                    value={business.nit}
+                    error={errorNIT}
+                    onChange={handleInput}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col lg="6">
+                  <InputGroup
                     label="Dirección *"
                     placeholder="Ej. Av. Las Americas Nº1214"
                     name="address"
@@ -112,9 +127,7 @@ const CreateBusiness = props => {
                     onChange={handleInput}
                   />
                 </Col>
-              </Row>
-              <Row>
-                <Col lg="12">
+                <Col lg="6">
                   <InputGroup
                     label="Teléfono o Celular *"
                     placeholder="Ej. +59172415325"

@@ -125,7 +125,7 @@ const Managers = props => {
             title="Administración de Encargados"
             description={`Listado actual de todas los encargados en ${
               businessSelected.data ? businessSelected.data.name : ""
-            } que se encuentran registrados en el sistema`}
+            } registrados`}
             currentItem={currentItem.value}
             dropdownOpen={dropdownOpen}
             onRefreshItems={onRefreshItems}

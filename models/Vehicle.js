@@ -1,6 +1,6 @@
-const moongose = require("mongoose");
+const mongoose = require("mongoose");
 
-const VehicleSchema = new moongose.Schema({
+const VehicleSchema = new mongoose.Schema({
   transport: {
     type: String,
     required: [true, "Medio de transporte es requerido"],
@@ -42,4 +42,4 @@ const VehicleSchema = new moongose.Schema({
   }
 });
 
-module.exports = moongose.model("Vehicle", VehicleSchema);
+module.exports = mongoose.model("Vehicle", VehicleSchema);

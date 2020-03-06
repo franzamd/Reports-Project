@@ -11,7 +11,7 @@ exports.getChauffeurs = asyncHandler(async (req, res, next) => {
 });
 
 // @desc Get chauffeur
-// @route GET /api/chauffeurs/id
+// @route GET /api/chauffeurs/:id
 // @access Public
 exports.getChauffeur = asyncHandler(async (req, res, next) => {
   const chauffeur = await Chauffeur.findById(req.params.id);
@@ -35,13 +35,17 @@ exports.getChauffeur = asyncHandler(async (req, res, next) => {
 // @route POST /api/chauffeurs
 // @access Public
 exports.createChauffeur = asyncHandler(async (req, res, next) => {
-  let chauffeur = await Chauffeur.findOne({ci: req.body.ci });
+  let chauffeur = await Chauffeur.findOne({ ci: req.body.ci });
 
-  if(chauffeur) {
-    return next(new ErrorResponse(`C.I. ${req.body.ci} ya se encuentra registrado en otro chofer`))
+  if (chauffeur) {
+    return next(
+      new ErrorResponse(
+        `C.I. ${req.body.ci} ya se encuentra registrado en otro chofer`
+      )
+    );
   }
- 
-   chauffeur = await Chauffeur.create(req.body);
+
+  chauffeur = await Chauffeur.create(req.body);
 
   res.status(201).json({
     success: true,

@@ -41,6 +41,25 @@ const VehicleState = props => {
     }
   };
 
+  // Get vehicles by state
+  const getVehiclesByState = async state => {
+    try {
+      setLoading();
+
+      const res = await axios.get(`/api/vehicles?[state]=${state}`);
+
+      dispatch({
+        type: GET_VEHICLES,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        VEHICLE_ERROR,
+        payload: error.response.data.error
+      });
+    }
+  };
+
   // Get vehicle
   const getVehicle = async id => {
     try {
@@ -147,6 +166,7 @@ const VehicleState = props => {
         loading: state.loading,
         error: state.error,
         getVehicles,
+        getVehiclesByState,
         getVehicle,
         createVehicle,
         updateVehicle,

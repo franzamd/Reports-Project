@@ -41,6 +41,25 @@ const ChauffeurState = props => {
     }
   };
 
+  // Get Chauffeurs by state
+  const getChauffeursByState = async state => {
+    try {
+      setLoading();
+
+      const res = await axios.get(`/api/chauffeurs?[state]=${state}`);
+
+      dispatch({
+        type: GET_CHAUFFEURS,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        CHAUFFEURS_ERROR,
+        payload: error.response.data.error
+      });
+    }
+  };
+
   // Get Chauffeur
   const getChauffeur = async id => {
     try {
@@ -147,6 +166,7 @@ const ChauffeurState = props => {
         loading: state.loading,
         error: state.error,
         getChauffeurs,
+        getChauffeursByState,
         getChauffeur,
         createChauffeur,
         updateChauffeur,

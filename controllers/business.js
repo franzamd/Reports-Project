@@ -11,7 +11,7 @@ exports.getBusiness = asyncHandler(async (req, res, next) => {
 });
 
 // @desc Get business
-// @route GET /api/business/id
+// @route GET /api/business/:id
 // @access Public
 exports.getBusinessById = asyncHandler(async (req, res, next) => {
   const business = await Business.findById(req.params.id);
@@ -161,9 +161,10 @@ exports.updateManager = asyncHandler(async (req, res, next) => {
       manager._id = manager._id;
       manager.name = req.body.name;
       manager.lastname = req.body.lastname;
-      (manager.ci = req.body.ci),
-        (manager.state = req.body.state),
-        (manager.createdAt = Date.now());
+      manager.ci = req.body.ci;
+      manager.role = req.body.role;
+      manager.state = req.body.state;
+      manager.createdAt = Date.now();
     }
   });
 

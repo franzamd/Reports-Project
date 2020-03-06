@@ -1,11 +1,17 @@
-const moongose = require("mongoose");
+const mongoose = require("mongoose");
 
-const BusinessSchema = new moongose.Schema({
+const BusinessSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
     required: [true, "Nombre  es requerido"],
     maxlength: [80, "Nombre no debe superar mas de 80 carácteres"]
+  },
+  nit: {
+    type: String,
+    trim: true,
+    required: [true, "NIT  es requerido"],
+    maxlength: [30, "NIT no debe superar mas de 30 carácteres"]
   },
   managers: [
     {
@@ -80,4 +86,4 @@ const BusinessSchema = new moongose.Schema({
   }
 });
 
-module.exports = moongose.model("Business", BusinessSchema);
+module.exports = mongoose.model("Business", BusinessSchema);

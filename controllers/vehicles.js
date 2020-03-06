@@ -11,7 +11,7 @@ exports.getVehicles = asyncHandler(async (req, res, next) => {
 });
 
 // @desc Get vehicle
-// @route GET /api/vehicles/id
+// @route GET /api/vehicles/:id
 // @access Public
 exports.getVehicle = asyncHandler(async (req, res, next) => {
   const vehicle = await Vehicle.findById(req.params.id);
@@ -35,13 +35,17 @@ exports.getVehicle = asyncHandler(async (req, res, next) => {
 // @route POST /api/vehicles
 // @access Public
 exports.createVehicle = asyncHandler(async (req, res, next) => {
-  let vehicle = await Vehicle.findOne({number: req.body.number });
+  let vehicle = await Vehicle.findOne({ number: req.body.number });
 
-  if(vehicle) {
-    return next(new ErrorResponse(`Nombre ${req.body.number} ya se encuentra registrado en otro vehiculo`))
+  if (vehicle) {
+    return next(
+      new ErrorResponse(
+        `Nombre ${req.body.number} ya se encuentra registrado en otro vehiculo`
+      )
+    );
   }
-  
-   vehicle = await Vehicle.create(req.body);
+
+  vehicle = await Vehicle.create(req.body);
 
   res.status(201).json({
     success: true,
