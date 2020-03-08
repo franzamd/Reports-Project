@@ -61,6 +61,7 @@ const CreateRoadmap = props => {
         address: ""
       }
     },
+    route: "",
     tramit: "",
     city: ""
   });
@@ -84,7 +85,7 @@ const CreateRoadmap = props => {
       resetBusiness();
       resetChauffeurs();
       resetVehicles();
-      resetRoadmaps()
+      resetRoadmaps();
     },
     []
   );
@@ -194,9 +195,14 @@ const CreateRoadmap = props => {
 
     const formData = {
       products: roadmap.products,
-      chauffeur: roadmap.chauffeur ? roadmap.chauffeur : null,
-      vehicle: roadmap.vehicle ? roadmap.vehicle : null,
-      business: roadmap.business ? roadmap.business : null,
+      chauffeur:
+        roadmap.chauffeur && roadmap.chauffeur !== "0"
+          ? roadmap.chauffeur
+          : null,
+      vehicle:
+        roadmap.vehicle && roadmap.vehicle !== "0" ? roadmap.vehicle : null,
+      business:
+        roadmap.business && roadmap.chauffeur !== "0" ? roadmap.business : null,
       manager: roadmap.manager ? roadmap.manager : null,
       authorization: roadmap.authorization,
       finish: roadmap.finish,
@@ -216,6 +222,7 @@ const CreateRoadmap = props => {
           address: roadmap.itinerary.destination.address
         }
       },
+      route: roadmap.route,
       tramit: roadmap.tramit,
       city: roadmap.city
     };
@@ -247,6 +254,7 @@ const CreateRoadmap = props => {
     error && error.authorization ? error.authorization : null;
   const errorFinish = error && error.finish ? error.finish : null;
   const errorBegin = error && error.begin ? error.begin : null;
+  const errorRoute = error && error.route ? error.route : null;
   const errorValidty = error && error.validity ? error.validity : null;
   const errorTramit = error && error.tramit ? error.tramit : null;
   const errorCity = error && error.city ? error.city : null;
@@ -259,7 +267,7 @@ const CreateRoadmap = props => {
   let errorItineraryOriginMunicipality;
   let errorItineraryOriginDepartament;
   let errorItineraryOriginProvince;
-  let errorItineraryOriginAddress
+  let errorItineraryOriginAddress;
 
   // Options Select
   const optionsCity = [
@@ -326,17 +334,17 @@ const CreateRoadmap = props => {
       "itinerary.origin.municipality": errorOriginMunicipality,
       "itinerary.origin.departament": errorOriginDepartament,
       "itinerary.origin.province": errorOriginProvince,
-      "itinerary.origin.address": errorOriginAddress,
-    } = error
+      "itinerary.origin.address": errorOriginAddress
+    } = error;
 
-    errorItineraryDestinationMunicipality = errorDestinationMunicipality
-    errorItineraryDestinationDepartament = errorDestinationDepartament
-    errorItineraryDestinationProvince = errorDestinationProvince
-    errorItineraryDestinationAddress = errorDestinationAddress
-    errorItineraryOriginMunicipality = errorOriginMunicipality
-    errorItineraryOriginDepartament = errorOriginDepartament
-    errorItineraryOriginProvince = errorOriginProvince
-    errorItineraryOriginAddress = errorOriginAddress
+    errorItineraryDestinationMunicipality = errorDestinationMunicipality;
+    errorItineraryDestinationDepartament = errorDestinationDepartament;
+    errorItineraryDestinationProvince = errorDestinationProvince;
+    errorItineraryDestinationAddress = errorDestinationAddress;
+    errorItineraryOriginMunicipality = errorOriginMunicipality;
+    errorItineraryOriginDepartament = errorOriginDepartament;
+    errorItineraryOriginProvince = errorOriginProvince;
+    errorItineraryOriginAddress = errorOriginAddress;
   }
 
   return (
@@ -405,7 +413,7 @@ const CreateRoadmap = props => {
             <Row>
               <Col lg="12">
                 <SelectListGroup
-                  label="Empresa"
+                  label="Empresa *"
                   name="business"
                   onChange={handleInput}
                   error={errorBusiness}
@@ -418,7 +426,7 @@ const CreateRoadmap = props => {
               <Col lg="12">
                 <SelectListGroup
                   disabled={dataManagers.length === 0}
-                  label="Encargado"
+                  label="Encargado de Empresa *"
                   name="manager"
                   onChange={handleInput}
                   error={errorManager}
@@ -469,6 +477,7 @@ const CreateRoadmap = props => {
                   <Row>
                     <Col>
                       <InputGroup
+                        isLabelSmall={true}
                         label="Sunstancia"
                         placeholder="Ej. Gasolina"
                         name="substance"
@@ -478,6 +487,7 @@ const CreateRoadmap = props => {
                     </Col>
                     <Col lg={1} md={1} xs={1}>
                       <InputGroup
+                        isLabelSmall={true}
                         label="Primaria"
                         placeholder="Ej. N"
                         name="primary"
@@ -487,6 +497,7 @@ const CreateRoadmap = props => {
                     </Col>
                     <Col>
                       <InputGroup
+                        isLabelSmall={true}
                         label="P. terminado"
                         placeholder="Ej. S"
                         name="product"
@@ -496,6 +507,7 @@ const CreateRoadmap = props => {
                     </Col>
                     <Col lg={1} md={1} xs={1}>
                       <InputGroup
+                        isLabelSmall={true}
                         label="%"
                         placeholder="Ej. 50,00"
                         name="percentage"
@@ -505,6 +517,7 @@ const CreateRoadmap = props => {
                     </Col>
                     <Col>
                       <InputGroup
+                        isLabelSmall={true}
                         label="Cantidad"
                         placeholder="Ej. 2200000"
                         name="amount"
@@ -514,6 +527,7 @@ const CreateRoadmap = props => {
                     </Col>
                     <Col>
                       <InputGroup
+                        isLabelSmall={true}
                         label="Unidad  Kg/Lt."
                         placeholder="Ej. lit"
                         name="unit"
@@ -523,6 +537,7 @@ const CreateRoadmap = props => {
                     </Col>
                     <Col>
                       <InputGroup
+                        isLabelSmall={true}
                         label="Tipo"
                         placeholder="Ej. Acto Camion"
                         name="type"
@@ -534,6 +549,7 @@ const CreateRoadmap = props => {
                     </Col>
                     <Col lg={1} md={1} xs={1}>
                       <InputGroup
+                        isLabelSmall={true}
                         label="Cantidad"
                         placeholder="Ej. 1"
                         name="amount"
@@ -545,6 +561,7 @@ const CreateRoadmap = props => {
                     </Col>
                     <Col>
                       <InputGroup
+                        isLabelSmall={true}
                         label="Nombre"
                         placeholder="Ej. Condensado"
                         name="name"
@@ -671,6 +688,18 @@ const CreateRoadmap = props => {
                   onChange={e =>
                     handleInputItinerary(e, "itinerary", "destination")
                   }
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg="12">
+                <InputGroup
+                  label="Ruta a seguir *"
+                  placeholder="Ej. BERMEJO-PADCAYA-TARIJA"
+                  name="route"
+                  value={roadmap.route}
+                  error={errorRoute}
+                  onChange={handleInput}
                 />
               </Col>
             </Row>

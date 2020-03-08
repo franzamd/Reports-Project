@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import {
-  Container,
+  Col,
   DropdownItem,
   Table,
   Card,
@@ -85,7 +85,7 @@ const Roadmaps = props => {
   };
 
   return (
-    <Container>
+    <Col>
       <div className="col">
         <Card className="shadow">
           <CardHeaderTable
@@ -123,8 +123,21 @@ const Roadmaps = props => {
                       Nº de tramite
                     </th>
                     <th scope="col" className="text-center">
-                      Ciudad
+                      Origen
                     </th>
+                    <th scope="col" className="text-center">
+                      Destino
+                    </th>
+                    <th scope="col" className="text-center">
+                      Chofer
+                    </th>
+                    <th scope="col" className="text-center">
+                      Vehiculo
+                    </th>
+                    <th scope="col" className="text-center">
+                      Empresa
+                    </th>
+
                     <th scope="col" className="text-center">
                       Estado
                     </th>
@@ -141,7 +154,15 @@ const Roadmaps = props => {
                     return (
                       <tr key={item._id}>
                         <td className="text-center">{item.tramit}</td>
-                        <td className="text-center">{item.city}</td>
+                        <td className="text-center">
+                          {item.itinerary.origin.address}
+                        </td>
+                        <td className="text-center">
+                          {item.itinerary.destination.address}
+                        </td>
+                        <td className="text-center">{`${item.chauffeur.name} ${item.chauffeur.lastname}`}</td>
+                        <td className="text-center">{item.vehicle.number}</td>
+                        <td className="text-center">{item.business.name}</td>
                         <td className="text-center">
                           {item.state ? (
                             <Badge color="success" className="badge-dot">
@@ -173,7 +194,7 @@ const Roadmaps = props => {
                               <Link
                                 className="dropdown-item"
                                 to={{
-                                  pathname: "/admin/roadmaps/managers",
+                                  pathname: "/admin/roadmaps/details",
                                   state: { _id: item._id }
                                 }}
                               >
@@ -210,7 +231,7 @@ const Roadmaps = props => {
           )}
         </Card>
       </div>
-    </Container>
+    </Col>
   );
 };
 

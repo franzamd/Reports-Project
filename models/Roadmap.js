@@ -30,29 +30,29 @@ const RoadmapSchema = new mongoose.Schema({
     {
       substance: {
         type: String,
-        trim: true,
+        trim: true
       },
       types: {
         primary: {
           type: String,
-          trim: true,
+          trim: true
         },
         product: {
           type: String,
-          trim: true,
+          trim: true
         },
         percentage: {
           type: String,
-          trim: true,
+          trim: true
         }
       },
       amount: {
         type: Number,
-        trim: true,
+        trim: true
       },
       unit: {
         type: String,
-        trim: true,
+        trim: true
       },
       container: {
         type: {
@@ -66,7 +66,7 @@ const RoadmapSchema = new mongoose.Schema({
       },
       name: {
         type: String,
-        trim: true,
+        trim: true
       }
     }
   ],
@@ -141,6 +141,15 @@ const RoadmapSchema = new mongoose.Schema({
         ]
       }
     }
+  },
+  route: {
+    type: String,
+    trim: true,
+    required: [true, "Ruta a seguir es requerido"],
+    maxlength: [
+      200,
+      "Ruta a seguir de destino no debe superar mas de 200 carácteres"
+    ]
   },
   validity: {
     type: Number,

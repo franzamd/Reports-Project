@@ -16,6 +16,7 @@ import UpdateManager from "../views/Business/Managers/UpdateManager";
 import Roadmaps from "../views/Roadmaps/Roadmaps";
 import CreateRoadmap from "../views/Roadmaps/CreateRoadmap";
 import UpdateRoadmap from "../views/Roadmaps/UpdateRoadmap";
+import DetailsRoadmap from "../views/Roadmaps/DetailsRoadmap";
 
 var ThemeRoutes = [
   {
@@ -124,6 +125,13 @@ var ThemeRoutes = [
     component: UpdateRoadmap,
     hidden: true
   },
+  {
+    path: "/admin/roadmaps/details",
+    name: "Detalles Hoja de Ruta",
+    component: DetailsRoadmap,
+    hidden: true
+  },
+  // Redirect
   {
     path: "/admin",
     pathTo: "/admin/chauffeurs",

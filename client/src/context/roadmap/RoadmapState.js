@@ -60,6 +60,25 @@ const RoadmapState = props => {
     }
   };
 
+  // Get roadmap data by populate
+  const getRoadmapByPopulate = async id => {
+    try {
+      setLoading();
+
+      const res = await axios.get(`/api/roadmaps/${id}/all`);
+
+      dispatch({
+        type: GET_ROADMAP,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        ROADMAP_ERROR,
+        payload: error.response.data.error
+      });
+    }
+  };
+
   // Fetch all roadmaps by query param regex
   const getRoadmapsByRegex = async (text, select) => {
     try {
@@ -148,6 +167,7 @@ const RoadmapState = props => {
         error: state.error,
         getRoadmaps,
         getRoadmap,
+        getRoadmapByPopulate,
         createRoadmap,
         updateRoadmap,
         resetRoadmaps,

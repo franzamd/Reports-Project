@@ -3,7 +3,15 @@ import PropTypes from "prop-types";
 import { SyncLoader } from "react-spinners";
 import { Button } from "reactstrap";
 
-const ConfirmButton = ({ onClick, loading, color, size, className, type }) => {
+const ConfirmButton = ({
+  onClick,
+  loading,
+  color,
+  size,
+  className,
+  type,
+  message
+}) => {
   return (
     <Button
       disabled={loading}
@@ -13,7 +21,13 @@ const ConfirmButton = ({ onClick, loading, color, size, className, type }) => {
       size={size}
       className={className}
     >
-      {loading ? <SyncLoader size={5} margin={2} color="white" /> : "Guardar"}
+      {loading ? (
+        <SyncLoader size={5} margin={2} color="white" />
+      ) : message ? (
+        message
+      ) : (
+        "Guardar"
+      )}
     </Button>
   );
 };

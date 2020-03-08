@@ -88,6 +88,7 @@ const DetailsVehicle = props => {
               </div>
               <div className="d-flex justify-content-center my-2">
                 <Button
+                  color="primary"
                   onClick={() =>
                     props.history.push({
                       pathname: "/admin/vehicles"

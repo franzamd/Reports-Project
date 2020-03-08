@@ -1,8 +1,10 @@
 import React from "react";
+import classnames from "classnames";
 import PropTypes from "prop-types";
 import { FormGroup, Input } from "reactstrap";
 
 const InputGroup = ({
+  isLabelSmall,
   label,
   disabled,
   placeholder,
@@ -15,7 +17,12 @@ const InputGroup = ({
 }) => {
   return (
     <FormGroup>
-      <label className="form-control-label" htmlFor="input-name">
+      <label
+        className={classnames("form-control-label", {
+          "col-form-label-sm": isLabelSmall
+        })}
+        htmlFor="input-name"
+      >
         {label}
       </label>
       <Input
