@@ -1,0 +1,62 @@
+{
+    "tramit": "HOJ-12345",
+    "city": "Tarija",
+    "createdAt": "14-03-2020",
+    "business": {
+        "name": "YPFB TRANSPORTE S.A. SUCRE",
+        "nit": "872631874"
+    },
+    "vehicle": {
+        "transport": "Transporte",
+        "number": "YHC-1232",
+        "brand": "Hino Motors",
+        "volume": "120000"
+    },
+        "manager": {
+        "name": "Jhon",
+        "lastname": "Doe",
+        "role": "Representante Legal",
+        "ci": "82731734"
+    },
+    "products": [
+        	{
+			"substance": "Gasolina",
+			"types": {
+				"primary": "N",
+				"product": "S",
+				"percentage": "50,00"
+			},
+			"amount": 2200000,
+			"unit": "lit",
+			"container": {
+				"type": "Acto Camion",
+				"amount": 1
+			},
+			"name": "Condensado (Plata de Gas Bermejo)"
+		}
+    ],
+    "chauffeur": {
+        "name": "Mark",
+        "lastname": "Jhonson",
+        "ci": "59182393",
+        "license": "928319402"
+    },
+        "itinerary": {
+            "origin": {
+                "municipality": "Yacuiba",
+                "province": "Yacuiba",
+                "departament": "Tarija",
+                "address": "Tiguipa (YPFB Transporte S.A.)"
+            },
+            "destination": {
+                "municipality": "Yacuiba",
+                "province": "Yacuiba",
+                "departament": "Tarija",
+                "address": "Tiguipa (YPFB Transporte S.A.)"
+            }
+        },
+    "validity": 3,
+    "finish": "2020-03-06T00:00:00.000Z",
+        "begin": "2020-03-04T00:00:00.000Z",
+    "authorization": "Cambio"
+}

@@ -1,9 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
+import jsreport from "jsreport-browser-client-dist";
+import "moment/locale/es";
+import moment from "moment";
 import { Col, Card, CardHeader, CardBody, Row, Button, Form } from "reactstrap";
 
 import InputGroup from "../../components/common/InputGroup";
 import ConfirmButton from "../../components/common/ConfirmButton";
 import SelectListGroup from "../../components/common/SelectListGroup";
+import ModalConfirmation from "../../components/common/ModalConfirmation";
 
 import BusinessContext from "../../context/business/businessContext";
 import ChauffeurContext from "../../context/chauffeur/chauffeurContext";
@@ -20,6 +24,8 @@ const CreateRoadmap = props => {
   const { getBusinessByState, resetBusiness } = businessContext;
   const { getVehiclesByState, resetVehicles } = vehicleContext;
   const { getChauffeursByState, resetChauffeurs } = chauffeurContext;
+
+  moment().locale("es");
 
   const [roadmap, setRoadmap] = useState({
     products: [
@@ -67,6 +73,7 @@ const CreateRoadmap = props => {
   });
 
   const [dataManagers, setDataManagers] = useState([]);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     getBusinessByState(true);
@@ -89,6 +96,10 @@ const CreateRoadmap = props => {
     },
     []
   );
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
 
   const getManagersArray = businessId => {
     const object = business.find(business => business._id === businessId);
@@ -190,9 +201,55 @@ const CreateRoadmap = props => {
     });
   };
 
-  const onSubmit = async e => {
-    e.preventDefault();
+  const getChauffeur = id => {
+    return chauffeurContext.chauffeurs.data.find(
+      chauffeur => chauffeur._id.toString() === id
+    );
+  };
 
+  const getVehicle = id => {
+    return vehicleContext.vehicles.data.find(
+      vehicle => vehicle._id.toString() === id
+    );
+  };
+
+  const getBusiness = id => {
+    return businessContext.business.data.find(
+      business => business._id.toString() === id
+    );
+  };
+
+  const getManager = (business, managerId) => {
+    return business.managers.find(
+      manager => manager._id.toString() === managerId
+    );
+  };
+
+  const printPDF = () => {
+    const formData = buildData();
+
+    formData.createdAt = moment(Date.now()).format("L");
+    formData.begin = moment(formData.begin).format("L");
+    formData.finish = moment(formData.finish).format("L");
+
+    formData.chauffeur = getChauffeur(formData.chauffeur);
+    formData.vehicle = getVehicle(formData.vehicle);
+    formData.business = getBusiness(formData.business);
+    formData.manager = getManager(formData.business, formData.manager);
+
+    jsreport.serverUrl = "http://localhost:5488";
+
+    let reportRequest = {
+      template: { shortid: "rkJTnK2ce" },
+      data: formData
+    };
+
+    jsreport.render(reportRequest);
+
+    return props.history.goBack();
+  };
+
+  const buildData = () => {
     const formData = {
       products: roadmap.products,
       chauffeur:
@@ -227,7 +284,19 @@ const CreateRoadmap = props => {
       city: roadmap.city
     };
 
-    await createRoadmap(formData, props.history);
+    return formData;
+  };
+
+  const onSubmit = async e => {
+    e.preventDefault();
+
+    const formData = buildData();
+
+    const res = await createRoadmap(formData);
+
+    if (res) {
+      toggleModal();
+    }
   };
 
   // Data
@@ -258,6 +327,8 @@ const CreateRoadmap = props => {
   const errorValidty = error && error.validity ? error.validity : null;
   const errorTramit = error && error.tramit ? error.tramit : null;
   const errorCity = error && error.city ? error.city : null;
+
+  const errorAmount = error && error.amount ? error.amount : null;
   const errorGlobal = typeof error === "string" ? error : null;
 
   let errorItineraryDestinationMunicipality;
@@ -286,7 +357,7 @@ const CreateRoadmap = props => {
   const optionsBusiness = business.map(item => {
     return {
       _id: item._id,
-      label: `NIT: ${item.nit} - ${item.name}`,
+      label: `REGISTRO: ${item.nit} - ${item.name}`,
       value: item._id
     };
   });
@@ -379,6 +450,11 @@ const CreateRoadmap = props => {
             <div className="mb-3 font-italic">
               <small>Los campos con * son obligatorios</small>
             </div>
+            {errorGlobal && (
+              <div className="text-danger text-center mb-3 font-italic">
+                <small>{errorGlobal}</small>
+              </div>
+            )}
             {errorGlobal && (
               <div className="text-danger text-center mb-3 font-italic">
                 <small>{errorGlobal}</small>
@@ -523,6 +599,7 @@ const CreateRoadmap = props => {
                         name="amount"
                         value={product.amount}
                         onChange={e => handleInputProducts(e, i)}
+                        error={errorAmount}
                       />
                     </Col>
                     <Col>
@@ -557,6 +634,7 @@ const CreateRoadmap = props => {
                         onChange={e =>
                           handleInputProductPath(e, i, "container")
                         }
+                        error={errorAmount}
                       />
                     </Col>
                     <Col>
@@ -750,6 +828,23 @@ const CreateRoadmap = props => {
           </CardBody>
         </Form>
       </Card>
+      <ModalConfirmation
+        title="Imprimir"
+        modal={modal}
+        toggle={toggleModal}
+        onConfirm={e => {
+          e.preventDefault();
+
+          printPDF();
+        }}
+        onClose={() => {
+          toggleModal();
+
+          props.history.goBack();
+        }}
+        description="Desea imprimir la hoja de ruta?"
+        className="bg-primary"
+      />
     </Col>
   );
 };

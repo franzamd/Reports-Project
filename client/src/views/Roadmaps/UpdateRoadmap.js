@@ -325,7 +325,7 @@ const UpdateRoadmap = props => {
   const optionsBusiness = business.map(item => {
     return {
       _id: item._id,
-      label: `NIT: ${item.nit} - ${item.name}`,
+      label: `REGISTRO: ${item.nit} - ${item.name}`,
       value: item._id
     };
   });

@@ -46,7 +46,7 @@ exports.getRoadmap = asyncHandler(async (req, res, next) => {
     },
     {
       path: "vehicle",
-      select: "number brand color volume",
+      select: "number brand color volume transport",
       model: Vehicle
     },
     {

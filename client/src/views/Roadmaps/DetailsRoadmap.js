@@ -149,6 +149,12 @@ const DetailsRoadmap = props => {
               <p className="d-inline">{roadmap.business.name}</p>
             </div>
             <div className="d-flex col">
+              <label className="mr-3 font-weight-bold">Registro:</label>
+              <p className="d-inline">{roadmap.business.nit}</p>
+            </div>
+          </Row>
+          <Row>
+            <div className="d-flex col">
               <label className="mr-3 font-weight-bold">Encargado:</label>
               <p className="d-inline">{getManagerData(roadmap.manager)}</p>
             </div>
@@ -168,6 +174,10 @@ const DetailsRoadmap = props => {
             </div>
           </Row>
           <Row>
+            <div className="d-flex col">
+              <label className="mr-3 font-weight-bold">Medio Transporte:</label>
+              <p className="d-inline">{roadmap.vehicle.transport}</p>
+            </div>
             <div className="d-flex col">
               <label className="mr-3 font-weight-bold">Color:</label>
               <p className="d-inline">{roadmap.vehicle.color}</p>

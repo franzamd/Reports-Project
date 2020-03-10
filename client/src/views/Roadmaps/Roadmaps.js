@@ -137,7 +137,6 @@ const Roadmaps = props => {
                     <th scope="col" className="text-center">
                       Empresa
                     </th>
-
                     <th scope="col" className="text-center">
                       Estado
                     </th>
