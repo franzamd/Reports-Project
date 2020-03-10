@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import jsreport from "jsreport-browser-client-dist";
 import { Col, Card, Button, CardBody, Row, CardHeader } from "reactstrap";
 import classnames from "classnames";
 import moment from "moment";
 import "moment/locale/es";
 
 import RoadmapContext from "../../context/roadmap/roadmapContext";
+
 import ConfirmButton from "../../components/common/ConfirmButton";
 
 import withParamsState from "../../HOC/withParamsState";
@@ -66,8 +68,12 @@ const DetailsRoadmap = props => {
   });
 
   useEffect(() => {
-    getRoadmap(_id);
+    getInitialFunctions();
   }, []);
+
+  const getInitialFunctions = async () => {
+    await getRoadmap(_id);
+  };
 
   useEffect(() => {
     if (!loading && roadmapContext.roadmap.data) {
@@ -82,8 +88,29 @@ const DetailsRoadmap = props => {
     []
   );
 
-  const onPrint = () => {
-    console.log("imprimir");
+  const getManager = (business, managerId) => {
+    return business.managers.find(
+      manager => manager._id.toString() === managerId
+    );
+  };
+
+  const printPDF = () => {
+    roadmap.createdAt = moment(Date.now()).format("L");
+    roadmap.begin = moment(roadmap.begin).format("L");
+    roadmap.finish = moment(roadmap.finish).format("L");
+
+    roadmap.manager = getManager(roadmap.business, roadmap.manager);
+
+    jsreport.serverUrl = "http://localhost:5488";
+
+    let reportRequest = {
+      template: { shortid: "rkJTnK2ce" },
+      data: roadmap
+    };
+
+    jsreport.render(reportRequest);
+
+    return props.history.goBack();
   };
 
   const getManagerData = id => {
@@ -110,7 +137,7 @@ const DetailsRoadmap = props => {
               xs="4"
             >
               <ConfirmButton
-                onClick={onPrint}
+                onClick={printPDF}
                 message="Imprimir"
                 loading={loading}
               />

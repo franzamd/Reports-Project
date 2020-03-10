@@ -4,7 +4,8 @@
   "description": "Panel Admin for reports global for YPFB",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production node server",
+    "start": "concurrently \"npm run start-server\" \"npm run reports\" ",
+    "start-server": "NODE_ENV=production node server",
     "server": "nodemon server",
     "client": "npm start --prefix client",
     "reports": "npm start --prefix jsreport",

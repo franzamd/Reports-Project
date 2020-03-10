@@ -123,7 +123,7 @@ const RoadmapState = props => {
   };
 
   // Update roadmap
-  const updateRoadmap = async (id, formData, history) => {
+  const updateRoadmap = async (id, formData) => {
     const config = {
       headers: {
         "Content-Type": "application/json"
@@ -135,7 +135,7 @@ const RoadmapState = props => {
 
       await axios.put(`/api/roadmaps/${id}`, formData, config);
 
-      history.goBack();
+      return true;
     } catch (error) {
       dispatch({
         type: ROADMAP_ERROR,

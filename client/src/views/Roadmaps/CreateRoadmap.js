@@ -842,7 +842,7 @@ const CreateRoadmap = props => {
 
           props.history.goBack();
         }}
-        description="Desea imprimir la hoja de ruta?"
+        description="Hoja de ruta creada exitosamente. Desea imprimirlo?"
         className="bg-primary"
       />
     </Col>

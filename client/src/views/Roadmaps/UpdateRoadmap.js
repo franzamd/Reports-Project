@@ -1,10 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
+import jsreport from "jsreport-browser-client-dist";
+import "moment/locale/es";
+import moment from "moment";
 import { Col, Card, CardHeader, CardBody, Row, Button, Form } from "reactstrap";
 
 import InputGroup from "../../components/common/InputGroup";
 import ConfirmButton from "../../components/common/ConfirmButton";
 import SelectListGroup from "../../components/common/SelectListGroup";
 import DateFieldGroup from "../../components/common/DateFieldGroup";
+import ModalConfirmation from "../../components/common/ModalConfirmation";
 
 import BusinessContext from "../../context/business/businessContext";
 import ChauffeurContext from "../../context/chauffeur/chauffeurContext";
@@ -12,6 +16,8 @@ import VehicleContext from "../../context/vehicle/vehicleContext";
 import RoadmapContext from "../../context/roadmap/roadmapContext";
 
 import withParamsState from "../../HOC/withParamsState";
+
+moment().locale("es");
 
 const UpdateRoadmap = props => {
   // Roadmap id
@@ -81,6 +87,7 @@ const UpdateRoadmap = props => {
   });
 
   const [dataManagers, setDataManagers] = useState([]);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     getInitialFunctions();
@@ -124,6 +131,10 @@ const UpdateRoadmap = props => {
     },
     []
   );
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
 
   const getManagersArray = businessId => {
     const object = business.find(business => business._id === businessId);
@@ -225,9 +236,55 @@ const UpdateRoadmap = props => {
     });
   };
 
-  const onSubmit = async e => {
-    e.preventDefault();
+  const getChauffeur = id => {
+    return chauffeurContext.chauffeurs.data.find(
+      chauffeur => chauffeur._id.toString() === id
+    );
+  };
 
+  const getVehicle = id => {
+    return vehicleContext.vehicles.data.find(
+      vehicle => vehicle._id.toString() === id
+    );
+  };
+
+  const getBusiness = id => {
+    return businessContext.business.data.find(
+      business => business._id.toString() === id
+    );
+  };
+
+  const getManager = (business, managerId) => {
+    return business.managers.find(
+      manager => manager._id.toString() === managerId
+    );
+  };
+
+  const printPDF = () => {
+    const formData = buildData();
+
+    formData.createdAt = moment(Date.now()).format("L");
+    formData.begin = moment(formData.begin).format("L");
+    formData.finish = moment(formData.finish).format("L");
+
+    formData.chauffeur = getChauffeur(formData.chauffeur);
+    formData.vehicle = getVehicle(formData.vehicle);
+    formData.business = getBusiness(formData.business);
+    formData.manager = getManager(formData.business, formData.manager);
+
+    jsreport.serverUrl = "http://localhost:5488";
+
+    let reportRequest = {
+      template: { shortid: "rkJTnK2ce" },
+      data: formData
+    };
+
+    jsreport.render(reportRequest);
+
+    return props.history.goBack();
+  };
+
+  const buildData = () => {
     const formData = {
       products: roadmap.products,
       chauffeur: roadmap.chauffeur ? roadmap.chauffeur : null,
@@ -261,7 +318,19 @@ const UpdateRoadmap = props => {
       city: roadmap.city
     };
 
-    await updateRoadmap(_id, formData, props.history);
+    return formData;
+  };
+
+  const onSubmit = async e => {
+    e.preventDefault();
+
+    const formData = buildData();
+
+    const res = await updateRoadmap(_id, formData);
+
+    if (res) {
+      toggleModal();
+    }
   };
 
   // Data
@@ -393,7 +462,7 @@ const UpdateRoadmap = props => {
           <CardHeader className="bg-white border-0">
             <Row>
               <Col>
-                <h3 className="mb-0">Crear Nueva Hoja de Ruta</h3>
+                <h3 className="mb-0">Actualizar Hoja de Ruta</h3>
               </Col>
               <Col
                 className="d-flex justify-content-end flex-wrap align-items-baseline"
@@ -807,6 +876,23 @@ const UpdateRoadmap = props => {
           </CardBody>
         </Form>
       </Card>
+      <ModalConfirmation
+        title="Imprimir"
+        modal={modal}
+        toggle={toggleModal}
+        onConfirm={e => {
+          e.preventDefault();
+
+          printPDF();
+        }}
+        onClose={() => {
+          toggleModal();
+
+          props.history.goBack();
+        }}
+        description="Hoja de ruta actualizada exitosamente. Desea imprimirlo?"
+        className="bg-primary"
+      />
     </Col>
   );
 };
