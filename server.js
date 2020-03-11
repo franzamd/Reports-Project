@@ -33,6 +33,7 @@ app.use(cors());
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "jsreport")));
 
 // Routes
 app.use("/api/auth", auth);

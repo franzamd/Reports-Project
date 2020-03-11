@@ -8,6 +8,11 @@
   "jsreport": {
     "entryPoint": "server.js"
   },
+  "proxy": {
+    "/*": {
+      "target": "http://[::1]:5000"
+    }
+  },
   "dependencies": {
     "jsreport": "2.7.1"
   }
