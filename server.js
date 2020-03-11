@@ -33,7 +33,6 @@ app.use(cors());
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "client/build")));
-app.use(express.static(path.join(__dirname, "jsreport")));
 
 // Routes
 app.use("/api/auth", auth);
@@ -46,9 +45,9 @@ app.use("/api/roadmaps", roadmaps);
 app.use(errorHandler);
 
 // Protect routes if 404 response via server port
-app.get("*", function(req, res) {
-  res.redirect("/");
-});
+// app.get("*", function(req, res) {
+//   res.redirect("/");
+// });
 
 const PORT = process.env.PORT || 5000;
 
