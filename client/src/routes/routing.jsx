@@ -1,4 +1,5 @@
 // Core Components
+import Users from "../views/Users/Users";
 import Chauffeurs from "../views/Chauffeurs/Chauffeurs";
 import CreateChauffeur from "../views/Chauffeurs/CreateChauffeur";
 import UpdateChauffeur from "../views/Chauffeurs/UpdateChauffeur";
@@ -19,6 +20,13 @@ import UpdateRoadmap from "../views/Roadmaps/UpdateRoadmap";
 import DetailsRoadmap from "../views/Roadmaps/DetailsRoadmap";
 
 var ThemeRoutes = [
+  // Users
+  {
+    path: "/admin/users",
+    name: "Usuarios",
+    icon: "mdi mdi-clipboard-check",
+    component: Users
+  },
   {
     path: "/admin/chauffeurs",
     name: "Choferes",

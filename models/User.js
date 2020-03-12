@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "usuario",
     enum: {
-      values: ["administrador", "odontologo", "recepcionista", "usuario"],
+      values: ["administrador", "usuario"],
       message: "Rol debe ser selccionado con una opción válida"
     }
   },

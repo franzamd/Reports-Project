@@ -10,6 +10,7 @@ import AdminLayout from "./layouts/AdminLayout";
 
 // Data
 import AuthState from "./context/auth/AuthState";
+import UserState from "./context/user/UserState";
 import ChauffeurState from "./context/chauffeur/ChauffeurState";
 import VehicleState from "./context/vehicle/VehicleState";
 import BusinessState from "./context/business/BusinessState";
@@ -21,17 +22,19 @@ const App = () => {
       <BusinessState>
         <VehicleState>
           <ChauffeurState>
-            <AuthState>
-              <BrowserRouter>
-                <Switch>
-                  <Route
-                    path="/auth"
-                    render={props => <AuthLayout {...props} />}
-                  />
-                  <PrivateRoute path="/" component={AdminLayout} />
-                </Switch>
-              </BrowserRouter>
-            </AuthState>
+            <UserState>
+              <AuthState>
+                <BrowserRouter>
+                  <Switch>
+                    <Route
+                      path="/auth"
+                      render={props => <AuthLayout {...props} />}
+                    />
+                    <PrivateRoute path="/" component={AdminLayout} />
+                  </Switch>
+                </BrowserRouter>
+              </AuthState>
+            </UserState>
           </ChauffeurState>
         </VehicleState>
       </BusinessState>

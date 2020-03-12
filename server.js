@@ -17,6 +17,7 @@ const app = express();
 
 // Routes files
 const auth = require("./routes/auth.js");
+const users = require("./routes/users.js");
 const chauffeurs = require("./routes/chauffeurs.js");
 const vehicles = require("./routes/vehicles.js");
 const business = require("./routes/business.js");
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, "client/build")));
 
 // Routes
 app.use("/api/auth", auth);
+app.use("/api/users", users);
 app.use("/api/chauffeurs", chauffeurs);
 app.use("/api/vehicles", vehicles);
 app.use("/api/business", business);
@@ -45,9 +47,9 @@ app.use("/api/roadmaps", roadmaps);
 app.use(errorHandler);
 
 // Protect routes if 404 response via server port
-// app.get("*", function(req, res) {
-//   res.redirect("/");
-// });
+app.get("*", function(req, res) {
+  res.redirect("/");
+});
 
 const PORT = process.env.PORT || 5000;
 

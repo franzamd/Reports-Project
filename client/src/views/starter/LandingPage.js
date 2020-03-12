@@ -32,11 +32,6 @@ const LadingPage = () => {
                 Login
               </Link>
             </NavItem>
-            <NavItem>
-              <Link className="nav-link js-scroll-trigger" to="/auth/register">
-                Registro
-              </Link>
-            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
@@ -53,7 +48,7 @@ const LadingPage = () => {
             </div>
             <div className="col-lg-8 align-self-baseline">
               <p className="text-white-75 font-weight-light mb-5">
-                Bienvenidos al aplicacion de gestión y control de carburantes y
+                Bienvenidos al aplicacion de gestión y control de carburantes en
                 carga nacional e internacional. Reportes YPFB
               </p>
               <Link
@@ -102,7 +97,7 @@ const LadingPage = () => {
                 <i className="fas fa-4x fa-users text-primary mb-4"></i>
                 <h3 className="h4 mb-2">Choferes</h3>
                 <p className="text-muted mb-0">
-                  Gestión de todos los choferes que trabajan en el trasnporte
+                  Gestión de todos los choferes que trabajan en el transporte
                 </p>
               </div>
             </div>
@@ -122,7 +117,7 @@ const LadingPage = () => {
                 <h3 className="h4 mb-2">Empresas</h3>
                 <p className="text-muted mb-0">
                   Gestión de todas empresas proveedoras de la carga de
-                  trasnporte con sus encargados
+                  transporte con sus encargados
                 </p>
               </div>
             </div>
@@ -131,8 +126,8 @@ const LadingPage = () => {
                 <i className="fas fa-4x fa-bookmark text-primary mb-4"></i>
                 <h3 className="h4 mb-2">Hojas de Rutas</h3>
                 <p className="text-muted mb-0">
-                  Gestión de todas las rutas de trasnporte que realizan las
-                  empresas de trasnporte
+                  Gestión de todas las rutas de transporte que realizan las
+                  empresas de transporte
                 </p>
               </div>
             </div>

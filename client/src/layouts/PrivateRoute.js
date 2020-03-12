@@ -37,7 +37,7 @@ const PrivateRoute = ({ component: Component, ...rest }, props) => {
         <Route
           {...rest}
           render={props =>
-            isAuthenticated && !loading && <Component {...props} />
+            isAuthenticated && !loading && <Component {...props} user={user} />
           }
         />
       }

@@ -4,6 +4,7 @@ import Header from "../components/header/header.jsx";
 import Sidebar from "../components/sidebar/sidebar.jsx";
 import Footer from "../components/footer/footer.jsx";
 import ThemeRoutes from "../routes/routing.jsx";
+import UserThemeRoutes from "../routes/userRouting";
 
 class AdminLayout extends React.Component {
   /*--------------------------------------------------------------------------------*/
@@ -71,6 +72,12 @@ class AdminLayout extends React.Component {
   }
 
   render() {
+    // Check user role for routes
+    const routes =
+      this.props.user.data && this.props.user.data.role === "admin"
+        ? ThemeRoutes
+        : UserThemeRoutes;
+
     /*--------------------------------------------------------------------------------*/
     /* Theme Setting && Layout Options wiil be Change From Here                       */
     /*--------------------------------------------------------------------------------*/
@@ -91,14 +98,14 @@ class AdminLayout extends React.Component {
         {/*--------------------------------------------------------------------------------*/}
         {/* Sidebar                                                                        */}
         {/*--------------------------------------------------------------------------------*/}
-        <Sidebar data={this.state} {...this.props} routes={ThemeRoutes} />
+        <Sidebar data={this.state} {...this.props} routes={routes} />
         {/*--------------------------------------------------------------------------------*/}
         {/* Page Main-Content                                                              */}
         {/*--------------------------------------------------------------------------------*/}
         <div className="page-wrapper d-block">
           <div className="page-content container-fluid">
             <Switch>
-              {ThemeRoutes.map((prop, key) => {
+              {routes.map((prop, key) => {
                 if (prop.redirect) {
                   return (
                     <Redirect from={prop.path} to={prop.pathTo} key={key} />

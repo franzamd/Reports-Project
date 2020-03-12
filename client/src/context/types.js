@@ -8,6 +8,13 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const LOGOUT = "LOGOUT";
 
+// Users
+export const GET_USERS = "GET_USERS";
+export const GET_USER = "GET_USER";
+export const SET_LOADING_USER = "SET_LOADING_USER";
+export const USER_ERROR = "USER_ERROR";
+export const RESET_USERS = "RESET_USERS";
+
 // Chauffeurs
 export const GET_CHAUFFEURS = "GET_CHAUFFEURS";
 export const GET_CHAUFFEUR = "GET_CHAUFFEUR";
