@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Container,
   Col,
@@ -10,42 +10,59 @@ import {
   Form
 } from "reactstrap";
 
-import withParamsState from "../../../HOC/withParamsState";
-import InputGroup from "../../../components/common/InputGroup";
-import ConfirmButton from "../../../components/common/ConfirmButton";
-import SelectListGroup from "../../../components/common/SelectListGroup";
-import DateFieldGroup from "../../../components/common/DateFieldGroup";
+import withParamsState from "../../HOC/withParamsState";
 
-import BusinessContext from "../../../context/business/businessContext";
+import InputGroup from "../../components/common/InputGroup";
+import ConfirmButton from "../../components/common/ConfirmButton";
+import SelectListGroup from "../../components/common/SelectListGroup";
+import DateFieldGroup from "../../components/common/DateFieldGroup";
 
-const UpdateManager = props => {
-  // Business Id
+import UserContext from "../../context/user/userContext";
+
+const UpdateUser = props => {
+  // user Id
   const { _id } = props.location.state;
-  const managerSelected = props.location.state.manager;
 
-  const businessContext = useContext(BusinessContext);
-  const { error, loading, updateManager } = businessContext;
+  const userContext = useContext(UserContext);
+  const { error, loading, updateUser, getUser, resetUsers } = userContext;
 
-  const [manager, setManager] = useState({
-    name: managerSelected.name,
-    lastname: managerSelected.lastname,
-    ci: managerSelected.ci,
-    role: managerSelected.role,
-    descrption: managerSelected.descrption,
-    state: managerSelected.state,
-    createdAt: managerSelected.createdAt
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    role: "",
+    state: "",
+    createdAt: ""
   });
+
+  useEffect(() => {
+    getUser(_id);
+  }, []);
+
+  useEffect(() => {
+    if (!loading && userContext.user && userContext.user.data) {
+      setUser({
+        ...user,
+        username: userContext.user.data.username,
+        email: userContext.user.data.email,
+        role: userContext.user.data.role,
+        state: userContext.user.data.state,
+        createdAt: userContext.user.data.createdAt
+      });
+    }
+  }, [loading]);
+
+  useEffect(() => () => resetUsers(), []);
 
   const handleInput = e => {
     if (e.target.name === "state") {
-      return setManager({
-        ...manager,
+      return setUser({
+        ...user,
         [e.target.name]: e.target.value === "true" ? true : false
       });
     }
 
-    setManager({
-      ...manager,
+    setUser({
+      ...user,
       [e.target.name]: e.target.value
     });
   };
@@ -54,30 +71,27 @@ const UpdateManager = props => {
     e.preventDefault();
 
     const formData = {
-      name: manager.name,
-      lastname: manager.lastname,
-      ci: manager.ci,
-      role: manager.role,
-      state: manager.state
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      state: user.state
     };
 
-    await updateManager(_id, managerSelected._id, formData, props.history);
+    await updateUser(_id, formData, props.history);
   };
 
-  const onBack = () => {
-    props.history.push({
-      pathname: "/admin/business/managers",
-      state: { _id }
-    });
-  };
-
-  const errorName = error && error.name ? error.name : null;
-  const errorLastName = error && error.lastname ? error.lastname : null;
-  const errorCI = error && error.ci ? error.ci : null;
+  const errorUsername = error && error.username ? error.username : null;
+  const errorEmail = error && error.email ? error.email : null;
   const errorRole = error && error.role ? error.role : null;
   const errorGlobal = typeof error === "string" ? error : null;
 
   // Options Select
+  const optionsRole = [
+    { _id: "1", label: "* Seleccione una opción", value: 0 },
+    { _id: "2", label: "Usuario", value: "usuario" },
+    { _id: "3", label: "Administrador", value: "administrador" }
+  ];
+
   const optionsState = [
     { _id: "1", label: "* Seleccione una opción", value: 0 },
     { _id: "2", label: "Activo", value: true },
@@ -92,14 +106,22 @@ const UpdateManager = props => {
             <CardHeader className="bg-white border-0">
               <Row>
                 <Col xs="8">
-                  <h3 className="mb-0">Crear Nuevo Encargado</h3>
+                  <h3 className="mb-0">Actualizar Usuario</h3>
                 </Col>
                 <Col
                   className="d-flex justify-content-end flex-wrap align-items-baseline"
                   xs="4"
                 >
                   <ConfirmButton onClick={onSubmit} loading={loading} />
-                  <Button onClick={onBack} size="sm" className="m-1">
+                  <Button
+                    onClick={e =>
+                      props.history.push({
+                        pathname: "/admin/users"
+                      })
+                    }
+                    size="sm"
+                    className="m-1"
+                  >
                     Cancelar
                   </Button>
                 </Col>
@@ -117,44 +139,34 @@ const UpdateManager = props => {
               <Row>
                 <Col lg="6">
                   <InputGroup
-                    label="Nombres *"
-                    placeholder="Ej. Orlando Raul"
-                    name="name"
-                    value={manager.name}
-                    error={errorName}
+                    label="Username *"
+                    placeholder="Ej. william"
+                    name="username"
+                    value={user.username}
+                    error={errorUsername}
                     onChange={handleInput}
                   />
                 </Col>
                 <Col lg="6">
                   <InputGroup
-                    label="Apellidos *"
-                    placeholder="Ej. Reyes Cardozo"
-                    name="lastname"
-                    value={manager.lastname}
-                    error={errorLastName}
+                    label="Email *"
+                    placeholder="Ej. willjhonson@gmail.com"
+                    name="email"
+                    value={user.email}
+                    error={errorEmail}
                     onChange={handleInput}
                   />
                 </Col>
               </Row>
               <Row>
-                <Col lg="6">
-                  <InputGroup
-                    label="C.I. *"
-                    placeholder="Ej. 6727194"
-                    name="ci"
-                    value={manager.ci}
-                    error={errorCI}
-                    onChange={handleInput}
-                  />
-                </Col>
-                <Col lg="6">
-                  <InputGroup
+                <Col lg="12">
+                  <SelectListGroup
                     label="Rol *"
-                    placeholder="Ej. Representante Legal"
                     name="role"
-                    value={manager.role}
-                    error={errorRole}
                     onChange={handleInput}
+                    options={optionsRole}
+                    value={user.role}
+                    error={errorRole}
                   />
                 </Col>
               </Row>
@@ -165,14 +177,14 @@ const UpdateManager = props => {
                     name="state"
                     onChange={handleInput}
                     options={optionsState}
-                    value={manager.state}
+                    value={user.state}
                   />
                 </Col>
                 <Col lg="6">
                   <DateFieldGroup
                     label="Fecha de Registro"
                     name="date"
-                    value={manager.createdAt}
+                    value={user.createdAt}
                   />
                 </Col>
               </Row>
@@ -184,4 +196,4 @@ const UpdateManager = props => {
   );
 };
 
-export default withParamsState(UpdateManager);
+export default withParamsState(UpdateUser);

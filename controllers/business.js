@@ -40,7 +40,8 @@ exports.getManagers = asyncHandler(async (req, res, next) => {
   if (!business) {
     return next(
       new ErrorResponse(
-        `Empresa con el id ${req.params.id} no ha sido encontrado`
+        `Empresa con el id ${req.params.id} no ha sido encontrado`,
+        404
       )
     );
   }
@@ -60,7 +61,8 @@ exports.createBusiness = asyncHandler(async (req, res, next) => {
   if (business) {
     return next(
       new ErrorResponse(
-        `Nombre ${req.body.name} ya se encuentra registrado en otra empresa`
+        `Nombre ${req.body.name} ya se encuentra registrado en otra empresa`,
+        400
       )
     );
   }
@@ -82,7 +84,8 @@ exports.createManager = asyncHandler(async (req, res, next) => {
   if (!business) {
     return next(
       new ErrorResponse(
-        `Empresa con el id ${req.params.id} no ha sido encontrado`
+        `Empresa con el id ${req.params.id} no ha sido encontrado`,
+        404
       )
     );
   }
@@ -124,14 +127,15 @@ exports.updateManager = asyncHandler(async (req, res, next) => {
   if (!business) {
     return next(
       new ErrorResponse(
-        `Empresa con el id ${req.params.id} no ha sido encontrado`
+        `Empresa con el id ${req.params.id} no ha sido encontrado`,
+        404
       )
     );
   }
 
   if (!business.managers.length > 0) {
     return next(
-      new ErrorResponse(`Empresa no tiene encargados por actualizar`)
+      new ErrorResponse(`Empresa no tiene encargados por actualizar`, 400)
     );
   }
 
@@ -184,7 +188,7 @@ exports.updateBusiness = asyncHandler(async (req, res, next) => {
 
   if (!business) {
     return next(
-      new ErrorResponse(`Empresa con el id ${req.params.id} no existe`)
+      new ErrorResponse(`Empresa con el id ${req.params.id} no existe`, 404)
     );
   }
 

@@ -1,5 +1,8 @@
 // Core Components
 import Users from "../views/Users/Users";
+import CreateUser from "../views/Users/CreateUser";
+import UpdateUser from "../views/Users/UpdateUser";
+import UpdateAuth from "../views/Users/UpdateAuth";
 import Chauffeurs from "../views/Chauffeurs/Chauffeurs";
 import CreateChauffeur from "../views/Chauffeurs/CreateChauffeur";
 import UpdateChauffeur from "../views/Chauffeurs/UpdateChauffeur";
@@ -26,6 +29,24 @@ var ThemeRoutes = [
     name: "Usuarios",
     icon: "mdi mdi-clipboard-check",
     component: Users
+  },
+  {
+    path: "/admin/users/create",
+    name: "Crear Usuario",
+    component: CreateUser,
+    hidden: true
+  },
+  {
+    path: "/admin/users/update",
+    name: "Actualizar Usuario",
+    component: UpdateUser,
+    hidden: true
+  },
+  {
+    path: "/admin/users/auth",
+    name: "Actualizar Acceso del Usuario",
+    component: UpdateAuth,
+    hidden: true
   },
   {
     path: "/admin/chauffeurs",

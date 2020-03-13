@@ -80,7 +80,8 @@ exports.createRoadmap = asyncHandler(async (req, res, next) => {
   if (roadmap) {
     return next(
       new ErrorResponse(
-        `Nº de tramite ${req.body.tramit} ya se encuentra registrado en otra hoja de ruta`
+        `Nº de tramite ${req.body.tramit} ya se encuentra registrado en otra hoja de ruta`,
+        400
       )
     );
   }
@@ -101,7 +102,10 @@ exports.updateRoadmap = asyncHandler(async (req, res, next) => {
 
   if (!roadmap) {
     return next(
-      new ErrorResponse(`Hoja de ruta con el id ${req.params.id} no existe`)
+      new ErrorResponse(
+        `Hoja de ruta con el id ${req.params.id} no existe`,
+        404
+      )
     );
   }
 

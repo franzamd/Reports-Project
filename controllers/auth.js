@@ -9,21 +9,13 @@ exports.register = asyncHandler(async (req, res, next) => {
   const { username, email, password, password2 } = req.body;
 
   let user;
+
   // Verify if user exist
   user = await User.findOne({ email });
 
   if (user) {
     return next(
       new ErrorResponse("Ya existe un usuario con el email registrado", 400)
-    );
-  }
-
-  // Verify if username exist
-  user = await User.findOne({ username });
-
-  if (user) {
-    return next(
-      new ErrorResponse("Ya existe un usuario con el username registrado", 400)
     );
   }
 
@@ -68,7 +60,10 @@ exports.login = asyncHandler(async (req, res, next) => {
   // Check if user is not blocked
   if (!user.state) {
     return next(
-      new ErrorResponse("Lo sentimos, el usuario se encuentra sin acceso", 403)
+      new ErrorResponse(
+        "Lo sentimos pero el usuario se encuentra sin acceso",
+        403
+      )
     );
   }
 

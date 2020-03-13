@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Container,
   Col,
@@ -18,7 +18,7 @@ import VehicleContext from "../../context/vehicle/vehicleContext";
 
 const CreateVehicle = props => {
   const vehicleContext = useContext(VehicleContext);
-  const { error, loading, createVehicle } = vehicleContext;
+  const { error, loading, createVehicle, resetVehicles } = vehicleContext;
 
   const [vehicle, setVehicle] = useState({
     transport: "",
@@ -27,6 +27,8 @@ const CreateVehicle = props => {
     brand: "",
     volume: ""
   });
+
+  useEffect(() => () => resetVehicles(), []);
 
   const handleInput = e => {
     setVehicle({
@@ -69,7 +71,7 @@ const CreateVehicle = props => {
   ];
 
   return (
-    <Container>
+    <Container className="d-flex justify-content-center">
       <Col xl="8">
         <Card>
           <Form onSubmit={onSubmit}>

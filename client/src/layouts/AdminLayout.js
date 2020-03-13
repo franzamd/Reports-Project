@@ -74,9 +74,11 @@ class AdminLayout extends React.Component {
   render() {
     // Check user role for routes
     const routes =
-      this.props.user.data && this.props.user.data.role === "admin"
+      this.props.user.data && this.props.user.data.role === "administrador"
         ? ThemeRoutes
-        : UserThemeRoutes;
+        : this.props.user.data && this.props.user.data.role === "usuario"
+        ? UserThemeRoutes
+        : [];
 
     /*--------------------------------------------------------------------------------*/
     /* Theme Setting && Layout Options wiil be Change From Here                       */

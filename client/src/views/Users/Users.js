@@ -178,11 +178,11 @@ const Users = props => {
                               <Link
                                 className="dropdown-item"
                                 to={{
-                                  pathname: "/admin/users/details",
-                                  state: { user }
+                                  pathname: "/admin/users/auth",
+                                  state: { _id: user._id }
                                 }}
                               >
-                                Ver Detalles
+                                Actualizar Acceso
                               </Link>
                               <Link
                                 className="dropdown-item"
@@ -191,7 +191,7 @@ const Users = props => {
                                   state: { _id: user._id }
                                 }}
                               >
-                                Actualizar
+                                Actualizar Datos
                               </Link>
                             </DropdownMenu>
                           </UncontrolledDropdown>

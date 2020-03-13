@@ -23,7 +23,13 @@ const UpdateVehicle = props => {
   const { _id } = props.location.state;
 
   const vehicleContext = useContext(VehicleContext);
-  const { error, loading, getVehicle, updateVehicle } = vehicleContext;
+  const {
+    error,
+    loading,
+    getVehicle,
+    updateVehicle,
+    resetVehicles
+  } = vehicleContext;
 
   const [vehicle, setVehicle] = useState({
     transport: "",
@@ -52,6 +58,8 @@ const UpdateVehicle = props => {
       });
     }
   }, [loading]);
+
+  useEffect(() => () => resetVehicles(), []);
 
   const handleInput = e => {
     if (e.target.name === "state") {
@@ -108,7 +116,7 @@ const UpdateVehicle = props => {
   ];
 
   return (
-    <Container>
+    <Container className="d-flex justify-content-center">
       <Col xl="8">
         <Card>
           <Form onSubmit={onSubmit}>

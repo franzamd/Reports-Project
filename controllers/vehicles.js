@@ -40,7 +40,8 @@ exports.createVehicle = asyncHandler(async (req, res, next) => {
   if (vehicle) {
     return next(
       new ErrorResponse(
-        `Nombre ${req.body.number} ya se encuentra registrado en otro vehiculo`
+        `Nombre ${req.body.number} ya se encuentra registrado en otro vehiculo`,
+        400
       )
     );
   }
@@ -61,7 +62,7 @@ exports.updateVehicle = asyncHandler(async (req, res, next) => {
 
   if (!vehicle) {
     return next(
-      new ErrorResponse(`Vehiculo con el id ${req.params.id} no existe`)
+      new ErrorResponse(`Vehiculo con el id ${req.params.id} no existe`, 404)
     );
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Container,
   Col,
@@ -17,7 +17,7 @@ import BusinessContext from "../../context/business/businessContext";
 
 const CreateBusiness = props => {
   const businessContext = useContext(BusinessContext);
-  const { error, loading, createBusiness } = businessContext;
+  const { error, loading, createBusiness, resetBusiness } = businessContext;
 
   const [business, setBusiness] = useState({
     name: "",
@@ -26,6 +26,8 @@ const CreateBusiness = props => {
     phone: "",
     description: ""
   });
+
+  useEffect(() => () => resetBusiness(), []);
 
   const handleInput = e => {
     setBusiness({
@@ -57,7 +59,7 @@ const CreateBusiness = props => {
   const errorGlobal = typeof error === "string" ? error : null;
 
   return (
-    <Container>
+    <Container className="d-flex justify-content-center">
       <Col xl="8">
         <Card>
           <Form onSubmit={onSubmit}>

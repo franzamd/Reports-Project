@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Container,
   Col,
@@ -18,7 +18,7 @@ import ChauffeurContext from "../../context/chauffeur/chauffeurContext";
 
 const CreateChauffeur = props => {
   const chauffeurContext = useContext(ChauffeurContext);
-  const { error, loading, createChauffeur } = chauffeurContext;
+  const { error, loading, createChauffeur, resetChauffeurs } = chauffeurContext;
 
   const [chauffeur, setChauffeur] = useState({
     name: "",
@@ -28,6 +28,13 @@ const CreateChauffeur = props => {
     address: "",
     license: ""
   });
+
+  useEffect(
+    () => () => {
+      resetChauffeurs();
+    },
+    []
+  );
 
   const handleInput = e => {
     setChauffeur({
@@ -75,7 +82,7 @@ const CreateChauffeur = props => {
   ];
 
   return (
-    <Container>
+    <Container className="d-flex justify-content-center">
       <Col xl="8">
         <Card>
           <Form onSubmit={onSubmit}>

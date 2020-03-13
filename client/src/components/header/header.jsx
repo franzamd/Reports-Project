@@ -12,7 +12,7 @@ import {
 
 import AuthContext from "../../context/auth/authContext";
 
-import profilephoto from "../../assets/images/users/1.jpg";
+import profilephoto from "../../assets/images/users/0.png";
 
 /*--------------------------------------------------------------------------------*/
 /* Import images which are need for the HEADER                                    */

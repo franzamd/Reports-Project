@@ -125,6 +125,28 @@ const UserState = props => {
     }
   };
 
+  // Update auth user
+  const updateAuthUser = async (id, formData, history) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    try {
+      setLoading();
+
+      await axios.put(`/api/users/${id}/auth`, formData, config);
+
+      history.goBack();
+    } catch (error) {
+      dispatch({
+        type: USER_ERROR,
+        payload: error.response.data.error
+      });
+    }
+  };
+
   // Set loading
   const setLoading = async () => {
     dispatch({
@@ -150,6 +172,7 @@ const UserState = props => {
         getUser,
         createUser,
         updateUser,
+        updateAuthUser,
         resetUsers,
         getUsersByRegex
       }}

@@ -40,7 +40,8 @@ exports.createChauffeur = asyncHandler(async (req, res, next) => {
   if (chauffeur) {
     return next(
       new ErrorResponse(
-        `C.I. ${req.body.ci} ya se encuentra registrado en otro chofer`
+        `C.I. ${req.body.ci} ya se encuentra registrado en otro chofer`,
+        400
       )
     );
   }
@@ -61,7 +62,7 @@ exports.updateChauffeur = asyncHandler(async (req, res, next) => {
 
   if (!chauffeur) {
     return next(
-      new ErrorResponse(`Chofer con el id ${req.params.id} no existe`)
+      new ErrorResponse(`Chofer con el id ${req.params.id} no existe`, 404)
     );
   }
 
@@ -84,6 +85,7 @@ exports.updateChauffeur = asyncHandler(async (req, res, next) => {
   }
 
   req.body.createdAt = Date.now();
+
   chauffeur = await Chauffeur.findByIdAndUpdate(req.params.id, req.body, {
     runValidators: true,
     new: true
