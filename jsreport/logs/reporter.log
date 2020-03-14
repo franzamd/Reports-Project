@@ -2373,3 +2373,249 @@
 2020-03-13T03:40:44.172Z - info: Verifying license key free
 2020-03-13T03:40:45.967Z - info: Using enterprise trial license
 2020-03-13T03:40:45.971Z - info: reporter initialized
+2020-03-14T13:39:20.681Z - info: Initializing jsreport@2.7.1 in development mode using configuration file: jsreport.config.json
+2020-03-14T13:39:20.682Z - info: Searching for available extensions in /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/
+2020-03-14T13:39:20.687Z - info: Extensions location cache not found, crawling directories
+2020-03-14T13:39:22.124Z - info: Found 35 extensions
+2020-03-14T13:39:22.503Z - info: Setting http-server strategy for rendering
+2020-03-14T13:39:22.645Z - info: Using extension cli@2.2.2
+2020-03-14T13:39:22.652Z - info: Using extension debug@2.1.3
+2020-03-14T13:39:22.656Z - info: Using extension express@2.6.0
+2020-03-14T13:39:22.866Z - info: Using extension freeze@2.0.0
+2020-03-14T13:39:22.870Z - info: Using extension handlebars@2.1.0
+2020-03-14T13:39:22.873Z - info: Using extension import-export@1.5.1
+2020-03-14T13:39:22.944Z - info: Using extension jsrender@2.1.1
+2020-03-14T13:39:22.946Z - info: Using extension tags@2.3.0
+2020-03-14T13:39:22.948Z - info: Using extension templates@2.3.2
+2020-03-14T13:39:22.952Z - info: Using extension authorization@2.2.6
+2020-03-14T13:39:22.958Z - info: Using extension base@2.0.2
+2020-03-14T13:39:22.961Z - info: Using extension browser-client@2.2.2
+2020-03-14T13:39:22.967Z - info: Using extension child-templates@1.3.1
+2020-03-14T13:39:22.975Z - info: Using extension chrome-pdf@1.7.1
+2020-03-14T13:39:23.065Z - info: Using extension data@2.2.0
+2020-03-14T13:39:23.066Z - info: Using extension docx@2.5.0
+2020-03-14T13:39:23.070Z - info: Using extension fs-store@2.7.2
+2020-03-14T13:39:23.607Z - info: Using extension licensing@2.2.1
+2020-03-14T13:39:23.645Z - info: Using extension pdf-utils@1.6.1
+2020-03-14T13:39:23.995Z - info: Using extension pptx@0.5.0
+2020-03-14T13:39:24.005Z - info: Using extension reports@2.2.1
+2020-03-14T13:39:24.015Z - info: Using extension static-pdf@0.3.1
+2020-03-14T13:39:24.112Z - info: Using extension studio@2.7.0
+2020-03-14T13:39:24.318Z - info: Using extension text@2.0.0
+2020-03-14T13:39:24.319Z - info: Using extension version-control@1.3.2
+2020-03-14T13:39:24.511Z - info: Using extension assets@1.5.2
+2020-03-14T13:39:24.543Z - info: Using extension html-to-xlsx@2.6.0
+2020-03-14T13:39:25.012Z - info: html-to-xlsx detected chrome as available html engine
+2020-03-14T13:39:25.012Z - info: Using extension scheduling@2.2.0
+2020-03-14T13:39:25.053Z - info: Using extension scripts@2.3.0
+2020-03-14T13:39:25.062Z - info: Using extension studio-theme-dark@0.3.0
+2020-03-14T13:39:25.063Z - info: Using extension xlsx@2.3.0
+2020-03-14T13:39:25.236Z - info: Using extension public-templates@2.1.0
+2020-03-14T13:39:25.237Z - info: Using extension resources@2.0.3
+2020-03-14T13:39:25.238Z - info: Using extension sample-template@2.5.1
+2020-03-14T13:39:25.240Z - info: Using general timeout for rendering (reportTimeout: 120000)
+2020-03-14T13:39:25.240Z - info: Using fs provider for template store.
+2020-03-14T13:39:25.243Z - info: fs store is persisting using fs
+2020-03-14T13:39:25.245Z - info: fs store is synchronizing using fs
+2020-03-14T13:39:25.254Z - info: fs store is loading data
+2020-03-14T13:39:25.353Z - info: fs store is initialized successfully
+2020-03-14T13:39:25.371Z - info: Creating default express app.
+2020-03-14T13:39:25.395Z - info: jsreport server successfully started on http port: 5488
+2020-03-14T13:39:25.396Z - info: fs store emits sockets to synchronize underlying changes with studio
+2020-03-14T13:39:25.419Z - info: Verifying license key free
+2020-03-14T13:39:26.712Z - info: Using enterprise trial license
+2020-03-14T13:39:26.719Z - info: reporter initialized
+2020-03-14T13:41:19.414Z - info: Starting rendering request 1 (user: null)
+2020-03-14T13:41:19.416Z - info: Rendering template { name: sales-main, recipe: html-to-xlsx, engine: handlebars, preview: true }
+2020-03-14T13:41:19.557Z - info: html-to-xlsx generation is starting
+2020-03-14T13:41:20.334Z - info: html-to-xlsx generation was finished
+2020-03-14T13:41:21.303Z - info: Rendering request 1 finished in 1889 ms
+2020-03-14T13:41:40.065Z - info: Starting rendering request 2 (user: null)
+2020-03-14T13:41:40.066Z - info: Rendering template { name: orders-main, recipe: chrome-pdf, engine: handlebars, preview: true }
+2020-03-14T13:41:44.060Z - info: pdf-utils is starting pdf processing
+2020-03-14T13:41:44.377Z - info: Starting rendering request 3 (user: null)
+2020-03-14T13:41:44.378Z - info: Rendering template { name: orders-header, recipe: chrome-pdf, engine: handlebars, preview: true }
+2020-03-14T13:41:44.927Z - info: Rendering request 3 finished in 550 ms
+2020-03-14T13:41:45.007Z - info: pdf-utils pdf processing was finished
+2020-03-14T13:41:45.007Z - info: Rendering request 2 finished in 4942 ms
+2020-03-14T13:41:50.952Z - info: Starting rendering request 4 (user: null)
+2020-03-14T13:41:50.953Z - info: Rendering template { name: sales-main, recipe: html-to-xlsx, engine: handlebars, preview: true }
+2020-03-14T13:41:50.980Z - info: html-to-xlsx generation is starting
+2020-03-14T13:41:51.391Z - info: html-to-xlsx generation was finished
+2020-03-14T13:41:52.168Z - info: Rendering request 4 finished in 1216 ms
+2020-03-14T13:42:12.862Z - info: Initializing jsreport@2.7.1 in development mode using configuration file: jsreport.config.json
+2020-03-14T13:42:12.862Z - info: Searching for available extensions in /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/
+2020-03-14T13:42:12.874Z - info: Extensions location cache contains up to date information, skipping crawling in /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/
+2020-03-14T13:42:12.883Z - info: Found 35 extensions
+2020-03-14T13:42:13.156Z - info: Setting http-server strategy for rendering
+2020-03-14T13:42:13.288Z - info: Using extension cli@2.2.2
+2020-03-14T13:42:13.293Z - info: Using extension debug@2.1.3
+2020-03-14T13:42:13.294Z - info: Using extension express@2.6.0
+2020-03-14T13:42:13.391Z - info: Using extension freeze@2.0.0
+2020-03-14T13:42:13.393Z - info: Using extension handlebars@2.1.0
+2020-03-14T13:42:13.394Z - info: Using extension import-export@1.5.1
+2020-03-14T13:42:13.426Z - info: Using extension jsrender@2.1.1
+2020-03-14T13:42:13.427Z - info: Using extension tags@2.3.0
+2020-03-14T13:42:13.430Z - info: Using extension templates@2.3.2
+2020-03-14T13:42:13.433Z - info: Using extension authorization@2.2.6
+2020-03-14T13:42:13.435Z - info: Using extension base@2.0.2
+2020-03-14T13:42:13.436Z - info: Using extension browser-client@2.2.2
+2020-03-14T13:42:13.438Z - info: Using extension child-templates@1.3.1
+2020-03-14T13:42:13.441Z - info: Using extension chrome-pdf@1.7.1
+2020-03-14T13:42:13.490Z - info: Using extension data@2.2.0
+2020-03-14T13:42:13.490Z - info: Using extension docx@2.5.0
+2020-03-14T13:42:13.494Z - info: Using extension fs-store@2.7.2
+2020-03-14T13:42:13.583Z - info: Using extension licensing@2.2.1
+2020-03-14T13:42:13.585Z - info: Using extension pdf-utils@1.6.1
+2020-03-14T13:42:13.708Z - info: Using extension pptx@0.5.0
+2020-03-14T13:42:13.711Z - info: Using extension reports@2.2.1
+2020-03-14T13:42:13.714Z - info: Using extension static-pdf@0.3.1
+2020-03-14T13:42:13.719Z - info: Using extension studio@2.7.0
+2020-03-14T13:42:13.788Z - info: Using extension text@2.0.0
+2020-03-14T13:42:13.789Z - info: Using extension version-control@1.3.2
+2020-03-14T13:42:13.840Z - info: Using extension assets@1.5.2
+2020-03-14T13:42:13.850Z - info: Using extension html-to-xlsx@2.6.0
+2020-03-14T13:42:14.026Z - info: html-to-xlsx detected chrome as available html engine
+2020-03-14T13:42:14.027Z - info: Using extension scheduling@2.2.0
+2020-03-14T13:42:14.052Z - info: Using extension scripts@2.3.0
+2020-03-14T13:42:14.056Z - info: Using extension studio-theme-dark@0.3.0
+2020-03-14T13:42:14.057Z - info: Using extension xlsx@2.3.0
+2020-03-14T13:42:14.140Z - info: Using extension public-templates@2.1.0
+2020-03-14T13:42:14.141Z - info: Using extension resources@2.0.3
+2020-03-14T13:42:14.141Z - info: Using extension sample-template@2.5.1
+2020-03-14T13:42:14.143Z - info: Using general timeout for rendering (reportTimeout: 120000)
+2020-03-14T13:42:14.143Z - info: Using fs provider for template store.
+2020-03-14T13:42:14.145Z - info: fs store is persisting using fs
+2020-03-14T13:42:14.146Z - info: fs store is synchronizing using fs
+2020-03-14T13:42:14.152Z - info: fs store is loading data
+2020-03-14T13:42:14.238Z - info: fs store is initialized successfully
+2020-03-14T13:42:14.266Z - info: Creating default express app.
+2020-03-14T13:42:14.286Z - info: jsreport server successfully started on http port: 5488
+2020-03-14T13:42:14.288Z - info: fs store emits sockets to synchronize underlying changes with studio
+2020-03-14T13:42:14.306Z - info: Verifying license key free
+2020-03-14T13:42:14.307Z - info: Using free license
+2020-03-14T13:42:14.319Z - info: reporter initialized
+2020-03-14T13:43:28.150Z - error: Error when processing OData POST: /odata/templates Error: Duplicated entry for key invoice-main(clone)
+    at persist (/Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/node_modules/jsreport-fs-store/lib/persistence.js:165:11)
+    at async /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/node_modules/jsreport-fs-store/lib/provider.js:141:9
+    at async lock (/Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/node_modules/jsreport-fs-store/lib/customUtils.js:145:12)
+2020-03-14T13:43:34.597Z - info: Verifying license key free
+2020-03-14T13:43:36.452Z - info: Using enterprise trial license
+2020-03-14T13:43:57.490Z - info: Verifying license key free
+2020-03-14T13:43:58.582Z - info: Using enterprise trial license
+2020-03-14T13:44:57.094Z - info: Initializing jsreport@2.7.1 in development mode using configuration file: jsreport.config.json
+2020-03-14T13:44:57.095Z - info: Searching for available extensions in /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/
+2020-03-14T13:44:57.102Z - info: Extensions location cache contains up to date information, skipping crawling in /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/
+2020-03-14T13:44:57.108Z - info: Found 35 extensions
+2020-03-14T13:44:57.365Z - info: Setting http-server strategy for rendering
+2020-03-14T13:44:57.522Z - info: Using extension cli@2.2.2
+2020-03-14T13:44:57.527Z - info: Using extension debug@2.1.3
+2020-03-14T13:44:57.528Z - info: Using extension express@2.6.0
+2020-03-14T13:44:57.616Z - info: Using extension freeze@2.0.0
+2020-03-14T13:44:57.617Z - info: Using extension handlebars@2.1.0
+2020-03-14T13:44:57.618Z - info: Using extension import-export@1.5.1
+2020-03-14T13:44:57.648Z - info: Using extension jsrender@2.1.1
+2020-03-14T13:44:57.648Z - info: Using extension tags@2.3.0
+2020-03-14T13:44:57.650Z - info: Using extension templates@2.3.2
+2020-03-14T13:44:57.651Z - info: Using extension authorization@2.2.6
+2020-03-14T13:44:57.653Z - info: Using extension base@2.0.2
+2020-03-14T13:44:57.654Z - info: Using extension browser-client@2.2.2
+2020-03-14T13:44:57.655Z - info: Using extension child-templates@1.3.1
+2020-03-14T13:44:57.657Z - info: Using extension chrome-pdf@1.7.1
+2020-03-14T13:44:57.699Z - info: Using extension data@2.2.0
+2020-03-14T13:44:57.699Z - info: Using extension docx@2.5.0
+2020-03-14T13:44:57.702Z - info: Using extension fs-store@2.7.2
+2020-03-14T13:44:57.772Z - info: Using extension licensing@2.2.1
+2020-03-14T13:44:57.774Z - info: Using extension pdf-utils@1.6.1
+2020-03-14T13:44:57.857Z - info: Using extension pptx@0.5.0
+2020-03-14T13:44:57.861Z - info: Using extension reports@2.2.1
+2020-03-14T13:44:57.863Z - info: Using extension static-pdf@0.3.1
+2020-03-14T13:44:57.864Z - info: Using extension studio@2.7.0
+2020-03-14T13:44:57.915Z - info: Using extension text@2.0.0
+2020-03-14T13:44:57.915Z - info: Using extension version-control@1.3.2
+2020-03-14T13:44:57.951Z - info: Using extension assets@1.5.2
+2020-03-14T13:44:57.958Z - info: Using extension html-to-xlsx@2.6.0
+2020-03-14T13:44:58.092Z - info: html-to-xlsx detected chrome as available html engine
+2020-03-14T13:44:58.092Z - info: Using extension scheduling@2.2.0
+2020-03-14T13:44:58.114Z - info: Using extension scripts@2.3.0
+2020-03-14T13:44:58.116Z - info: Using extension studio-theme-dark@0.3.0
+2020-03-14T13:44:58.117Z - info: Using extension xlsx@2.3.0
+2020-03-14T13:44:58.186Z - info: Using extension public-templates@2.1.0
+2020-03-14T13:44:58.187Z - info: Using extension resources@2.0.3
+2020-03-14T13:44:58.187Z - info: Using extension sample-template@2.5.1
+2020-03-14T13:44:58.188Z - info: Using general timeout for rendering (reportTimeout: 120000)
+2020-03-14T13:44:58.188Z - info: Using fs provider for template store.
+2020-03-14T13:44:58.191Z - info: fs store is persisting using fs
+2020-03-14T13:44:58.192Z - info: fs store is synchronizing using fs
+2020-03-14T13:44:58.196Z - info: fs store is loading data
+2020-03-14T13:44:58.249Z - info: fs store is initialized successfully
+2020-03-14T13:44:58.260Z - info: Creating default express app.
+2020-03-14T13:44:58.272Z - info: jsreport server successfully started on http port: 5488
+2020-03-14T13:44:58.272Z - info: fs store emits sockets to synchronize underlying changes with studio
+2020-03-14T13:44:58.282Z - info: Verifying license key free
+2020-03-14T13:44:58.283Z - info: Using free license
+2020-03-14T13:44:58.287Z - info: reporter initialized
+2020-03-14T13:45:20.872Z - info: Starting rendering request 1 (user: null)
+2020-03-14T13:45:20.875Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: true }
+2020-03-14T13:45:21.608Z - info: Rendering request 1 finished in 736 ms
+2020-03-14T13:50:37.057Z - info: Starting rendering request 2 (user: null)
+2020-03-14T13:50:37.057Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T13:50:37.724Z - info: Rendering request 2 finished in 667 ms
+2020-03-14T13:54:09.038Z - info: Starting rendering request 3 (user: null)
+2020-03-14T13:54:09.038Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T13:54:09.695Z - info: Rendering request 3 finished in 658 ms
+2020-03-14T13:55:50.161Z - info: Starting rendering request 4 (user: null)
+2020-03-14T13:55:50.162Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T13:55:50.824Z - info: Rendering request 4 finished in 663 ms
+2020-03-14T15:11:43.902Z - info: Initializing jsreport@2.7.1 in development mode using configuration file: jsreport.config.json
+2020-03-14T15:11:43.903Z - info: Searching for available extensions in /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/
+2020-03-14T15:11:43.908Z - info: Extensions location cache contains up to date information, skipping crawling in /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/
+2020-03-14T15:11:43.913Z - info: Found 35 extensions
+2020-03-14T15:11:44.180Z - info: Setting http-server strategy for rendering
+2020-03-14T15:11:44.305Z - info: Using extension cli@2.2.2
+2020-03-14T15:11:44.309Z - info: Using extension debug@2.1.3
+2020-03-14T15:11:44.310Z - info: Using extension express@2.6.0
+2020-03-14T15:11:44.441Z - info: Using extension freeze@2.0.0
+2020-03-14T15:11:44.443Z - info: Using extension handlebars@2.1.0
+2020-03-14T15:11:44.445Z - info: Using extension import-export@1.5.1
+2020-03-14T15:11:44.481Z - info: Using extension jsrender@2.1.1
+2020-03-14T15:11:44.481Z - info: Using extension tags@2.3.0
+2020-03-14T15:11:44.483Z - info: Using extension templates@2.3.2
+2020-03-14T15:11:44.485Z - info: Using extension authorization@2.2.6
+2020-03-14T15:11:44.491Z - info: Using extension base@2.0.2
+2020-03-14T15:11:44.493Z - info: Using extension browser-client@2.2.2
+2020-03-14T15:11:44.495Z - info: Using extension child-templates@1.3.1
+2020-03-14T15:11:44.499Z - info: Using extension chrome-pdf@1.7.1
+2020-03-14T15:11:44.562Z - info: Using extension data@2.2.0
+2020-03-14T15:11:44.563Z - info: Using extension docx@2.5.0
+2020-03-14T15:11:44.566Z - info: Using extension fs-store@2.7.2
+2020-03-14T15:11:44.672Z - info: Using extension licensing@2.2.1
+2020-03-14T15:11:44.674Z - info: Using extension pdf-utils@1.6.1
+2020-03-14T15:11:44.785Z - info: Using extension pptx@0.5.0
+2020-03-14T15:11:44.788Z - info: Using extension reports@2.2.1
+2020-03-14T15:11:44.791Z - info: Using extension static-pdf@0.3.1
+2020-03-14T15:11:44.795Z - info: Using extension studio@2.7.0
+2020-03-14T15:11:44.858Z - info: Using extension text@2.0.0
+2020-03-14T15:11:44.859Z - info: Using extension version-control@1.3.2
+2020-03-14T15:11:44.938Z - info: Using extension assets@1.5.2
+2020-03-14T15:11:44.951Z - info: Using extension html-to-xlsx@2.6.0
+2020-03-14T15:11:45.186Z - info: html-to-xlsx detected chrome as available html engine
+2020-03-14T15:11:45.186Z - info: Using extension scheduling@2.2.0
+2020-03-14T15:11:45.213Z - info: Using extension scripts@2.3.0
+2020-03-14T15:11:45.216Z - info: Using extension studio-theme-dark@0.3.0
+2020-03-14T15:11:45.217Z - info: Using extension xlsx@2.3.0
+2020-03-14T15:11:45.332Z - info: Using extension public-templates@2.1.0
+2020-03-14T15:11:45.333Z - info: Using extension resources@2.0.3
+2020-03-14T15:11:45.334Z - info: Using extension sample-template@2.5.1
+2020-03-14T15:11:45.336Z - info: Using general timeout for rendering (reportTimeout: 120000)
+2020-03-14T15:11:45.336Z - info: Using fs provider for template store.
+2020-03-14T15:11:45.338Z - info: fs store is persisting using fs
+2020-03-14T15:11:45.339Z - info: fs store is synchronizing using fs
+2020-03-14T15:11:45.343Z - info: fs store is loading data
+2020-03-14T15:11:45.391Z - info: fs store is initialized successfully
+2020-03-14T15:11:45.402Z - info: Creating default express app.
+2020-03-14T15:11:45.422Z - info: jsreport server successfully started on http port: 5488
+2020-03-14T15:11:45.422Z - info: fs store emits sockets to synchronize underlying changes with studio
+2020-03-14T15:11:45.438Z - info: Verifying license key free
+2020-03-14T15:11:45.438Z - info: Using free license
+2020-03-14T15:11:45.442Z - info: reporter initialized

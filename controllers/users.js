@@ -140,7 +140,7 @@ exports.updateAuthUser = asyncHandler(async (req, res, next) => {
   if (!isMatch) {
     return next(
       new ErrorResponse(
-        `Password actual no corresponde al password nuevo del usuario`,
+        `Password actual ingresado es incorrecta del usuario`,
         400
       )
     );

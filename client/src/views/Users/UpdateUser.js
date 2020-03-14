@@ -17,6 +17,7 @@ import ConfirmButton from "../../components/common/ConfirmButton";
 import SelectListGroup from "../../components/common/SelectListGroup";
 import DateFieldGroup from "../../components/common/DateFieldGroup";
 
+import img1 from "../../assets/images/users/0.png";
 import UserContext from "../../context/user/userContext";
 
 const UpdateUser = props => {
@@ -100,7 +101,26 @@ const UpdateUser = props => {
 
   return (
     <Container className="d-flex justify-content-center">
-      <Col xl="8">
+      <Col className="order-xl-2 mb-5 mb-xl-0" xl="4" lg={4}>
+        <Card className="card-profile shadow">
+          <Row className="justify-content-center">
+            <Col className="order-lg-2 m-4" lg="3">
+              <div className="card-profile-image d-flex justify-content-center ">
+                <img
+                  style={{
+                    width: "200px",
+                    height: "200px"
+                  }}
+                  alt={user.username}
+                  className="rounded-circle"
+                  src={img1}
+                />
+              </div>
+            </Col>
+          </Row>
+        </Card>
+      </Col>
+      <Col>
         <Card>
           <Form onSubmit={onSubmit}>
             <CardHeader className="bg-white border-0">

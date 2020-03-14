@@ -12,13 +12,15 @@
         "marginRight": "1cm",
         "marginBottom": "1cm",
         "marginLeft": "1cm",
-        "format": "Letter"
+        "format": "Letter",
+        "width": "21.6",
+        "height": "27.9"
     },
     "creationDate": {
         "$$date": 1583769404117
     },
     "modificationDate": {
-        "$$date": 1583817268216
+        "$$date": 1584194039185
     },
     "_id": "slOZSdqmHAsPHs0u",
     "$entitySet": "templates"

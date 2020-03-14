@@ -14,6 +14,7 @@ import withParamsState from "../../HOC/withParamsState";
 
 import InputGroup from "../../components/common/InputGroup";
 import ConfirmButton from "../../components/common/ConfirmButton";
+import ModalConfirmation from "../../components/common/ModalConfirmation";
 
 import UserContext from "../../context/user/userContext";
 
@@ -29,6 +30,7 @@ const UpdateAuth = props => {
     oldPassword: "",
     password: ""
   });
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     getUser(_id);
@@ -44,6 +46,12 @@ const UpdateAuth = props => {
   }, [loading]);
 
   useEffect(() => () => resetUsers(), []);
+
+  const toggleModal = e => {
+    e.preventDefault();
+
+    setModal(!modal);
+  };
 
   const handleInput = e => {
     setUser({
@@ -71,7 +79,7 @@ const UpdateAuth = props => {
     <Container className="d-flex justify-content-center">
       <Col xl="8">
         <Card>
-          <Form onSubmit={onSubmit}>
+          <Form onSubmit={toggleModal}>
             <CardHeader className="bg-white border-0">
               <Row>
                 <Col xs="8">
@@ -81,7 +89,7 @@ const UpdateAuth = props => {
                   className="d-flex justify-content-end flex-wrap align-items-baseline"
                   xs="4"
                 >
-                  <ConfirmButton onClick={onSubmit} loading={loading} />
+                  <ConfirmButton onClick={toggleModal} loading={loading} />
                   <Button
                     onClick={e =>
                       props.history.push({
@@ -144,6 +152,15 @@ const UpdateAuth = props => {
           </Form>
         </Card>
       </Col>
+      <ModalConfirmation
+        title="Confirmar"
+        modal={modal}
+        toggle={toggleModal}
+        onConfirm={onSubmit}
+        onClose={toggleModal}
+        description="Esta seguro de modificar los datos de autenticación?"
+        className="bg-primary"
+      />
     </Container>
   );
 };

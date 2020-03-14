@@ -37,6 +37,8 @@ const Header = () => {
   };
 
   const username = user && user.data ? user.data.username : "";
+  const email = user && user.data ? user.data.email : "";
+  const role = user && user.data ? user.data.role : "";
 
   return (
     <header className="topbar navbarbg" data-navbarbg="skin6">
@@ -58,7 +60,7 @@ const Header = () => {
 
           {window.innerWidth < 768 && (
             <Nav className="ml-auto float-right" navbar>
-              <div className="d-flex align-items-center">{username}</div>
+              <div>{username}</div>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret className="pro-pic">
                   <img
@@ -102,6 +104,11 @@ const Header = () => {
                 />
               </DropdownToggle>
               <DropdownMenu right className="user-dd">
+                <div className="d-flex flex-column m-3">
+                  <div className="font-weight-bold">{email}</div>
+                  <div className="text-warning">{role}</div>
+                </div>
+                <DropdownItem divider />
                 <DropdownItem href="/" onClick={logout} className="mt-2">
                   <i className="fa fa-power-off mr-1 ml-1" /> Logout
                 </DropdownItem>
