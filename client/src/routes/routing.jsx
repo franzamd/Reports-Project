@@ -14,6 +14,7 @@ import DetailsVehicle from "../views/Vehicles/DetailsVehicle";
 import Business from "../views/Business/Business";
 import CreateBusiness from "../views/Business/CreateBusiness";
 import UpdateBusiness from "../views/Business/UpdateBusiness";
+import DetailsBusiness from "../views/Business/DetailsBusiness";
 import Managers from "../views/Business/Managers/Managers";
 import CreateManager from "../views/Business/Managers/CreateManager";
 import UpdateManager from "../views/Business/Managers/UpdateManager";
@@ -114,6 +115,12 @@ var ThemeRoutes = [
     path: "/admin/business/update",
     name: "Actualizar Empresa",
     component: UpdateBusiness,
+    hidden: true
+  },
+  {
+    path: "/admin/business/details",
+    name: "Detalles Empresa",
+    component: DetailsBusiness,
     hidden: true
   },
   // Managers

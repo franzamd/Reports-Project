@@ -1,41 +1,12 @@
-import React, { useState } from "react";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  Collapse,
-  Nav,
-  NavItem
-} from "reactstrap";
+import React from "react";
 import { Link } from "react-router-dom";
 
 // Files required
 import "./creative.css";
 
 const LadingPage = () => {
-  const [collapsed, setCollapsed] = useState(true);
-
-  const toggleNavbar = () => setCollapsed(!collapsed);
-
   return (
     <div>
-      {/* <!-- Navigation --> */}
-      <Navbar color="light" light>
-        <NavbarBrand href="/" className="mr-auto">
-          Reportes YPFB
-        </NavbarBrand>
-        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-        <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
-            <NavItem>
-              <Link className="nav-link js-scroll-trigger" to="/auth/login">
-                Login
-              </Link>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar>
-
       {/* <!-- Masthead --> */}
       <header className="masthead">
         <div className="container h-100">

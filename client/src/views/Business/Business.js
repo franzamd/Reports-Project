@@ -169,6 +169,15 @@ const Business = props => {
                               <Link
                                 className="dropdown-item"
                                 to={{
+                                  pathname: "/admin/business/details",
+                                  state: { business: item }
+                                }}
+                              >
+                                Ver Detalles
+                              </Link>
+                              <Link
+                                className="dropdown-item"
+                                to={{
                                   pathname: "/admin/business/managers",
                                   state: { _id: item._id }
                                 }}

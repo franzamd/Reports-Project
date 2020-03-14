@@ -66,7 +66,7 @@ exports.updateVehicle = asyncHandler(async (req, res, next) => {
     );
   }
 
-  vehicle = await Vehicle.findOne({ ci: req.body.ci });
+  vehicle = await Vehicle.findOne({ number: req.body.number });
 
   // Check if same number or vehicle same id
   if (

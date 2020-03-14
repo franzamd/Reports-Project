@@ -13,22 +13,21 @@ import classnames from "classnames";
 import moment from "moment";
 import "moment/locale/es";
 
-import img1 from "../../assets/images/sites/vehicle.png";
+import img from "../../assets/images/img5.png";
 
 import withParamsState from "../../HOC/withParamsState";
 
 moment.locale("es");
 
-const DetailsVehicle = props => {
+const DetailsBusiness = props => {
   const {
-    transport,
-    color,
-    number,
-    brand,
-    volume,
+    name,
+    nit,
+    address,
+    phone,
     state,
     createdAt
-  } = props.location.state.vehicle;
+  } = props.location.state.business;
 
   return (
     <Container>
@@ -36,7 +35,7 @@ const DetailsVehicle = props => {
         <Row className="d-flex justify-content-center">
           <Col lg={4} className="align-self-center">
             <CardImg
-              src={img1}
+              src={img}
               className="rounded mx-auto d-block"
               style={{
                 maxWidth: "300px",
@@ -44,41 +43,31 @@ const DetailsVehicle = props => {
               }}
             />
           </Col>
-          <Col lg={6}>
+          <Col lg={8}>
             <CardBody>
               <CardTitle className="text-center">
-                Información del Vehiculo
+                Información de la Empresa
               </CardTitle>
               <div className="d-flex col">
-                <label className="mr-3 font-weight-bold">
-                  Medio de transporte:
-                </label>
-                <p className="d-inline ">{transport}</p>
+                <label className="mr-3 font-weight-bold">Nombres:</label>
+                <p className="d-inline">{name}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3 font-weight-bold">Color:</label>
-                <p className="d-inline ">{color}</p>
+                <label className="mr-3 font-weight-bold">NIT:</label>
+                <p className="d-inline">{nit}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3 font-weight-bold">
-                  Número de placa:
-                </label>
-                <p className="d-inline ">{number}</p>
+                <label className="mr-3 font-weight-bold">Teléfono:</label>
+                <p className="d-inline">{phone}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3 font-weight-bold">Marca:</label>
-                <p className="d-inline ">{brand}</p>
-              </div>
-              <div className="d-flex col">
-                <label className="mr-3 font-weight-bold">
-                  Volumen (Carga Total):
-                </label>
-                <p className="d-inline ">{volume}</p>
+                <label className="mr-3 font-weight-bold">Dirección:</label>
+                <p className="d-inline">{address}</p>
               </div>
               <div className="d-flex col">
                 <label className="mr-3 font-weight-bold">Estado:</label>
                 <p
-                  className={classnames("d-inline ", {
+                  className={classnames("d-inline", {
                     "text-success": state,
                     "text-danger": !state
                   })}
@@ -97,7 +86,7 @@ const DetailsVehicle = props => {
                   color="primary"
                   onClick={() =>
                     props.history.push({
-                      pathname: "/admin/vehicles"
+                      pathname: "/admin/business"
                     })
                   }
                 >
@@ -112,4 +101,4 @@ const DetailsVehicle = props => {
   );
 };
 
-export default withParamsState(DetailsVehicle);
+export default withParamsState(DetailsBusiness);

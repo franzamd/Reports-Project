@@ -16,6 +16,7 @@ import InputGroup from "../../components/common/InputGroup";
 import ConfirmButton from "../../components/common/ConfirmButton";
 import ModalConfirmation from "../../components/common/ModalConfirmation";
 
+import img4 from "../../assets/images/img4.png";
 import UserContext from "../../context/user/userContext";
 
 const UpdateAuth = props => {
@@ -23,6 +24,7 @@ const UpdateAuth = props => {
   const { _id } = props.location.state;
 
   const userContext = useContext(UserContext);
+
   const { error, loading, updateAuthUser, getUser, resetUsers } = userContext;
 
   const [user, setUser] = useState({
@@ -77,81 +79,98 @@ const UpdateAuth = props => {
 
   return (
     <Container className="d-flex justify-content-center">
-      <Col xl="8">
-        <Card>
-          <Form onSubmit={toggleModal}>
-            <CardHeader className="bg-white border-0">
-              <Row>
-                <Col xs="8">
-                  <h3 className="mb-0">Actualizar Acceso del Usuario</h3>
-                </Col>
-                <Col
-                  className="d-flex justify-content-end flex-wrap align-items-baseline"
-                  xs="4"
-                >
-                  <ConfirmButton onClick={toggleModal} loading={loading} />
-                  <Button
-                    onClick={e =>
-                      props.history.push({
-                        pathname: "/admin/users"
-                      })
-                    }
-                    size="sm"
-                    className="m-1"
+      <Row>
+        <Col className="order-xl-2  mb-xl-0" xl="4" lg={4}>
+          <Card className="card-profile shadow ">
+            <Row>
+              <Col className="card-profile-image d-flex justify-content-center p-3">
+                <img
+                  style={{
+                    width: "200px",
+                    height: "200px"
+                  }}
+                  alt=""
+                  className="rounded-circle"
+                  src={img4}
+                />
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+        <Col>
+          <Card>
+            <Form onSubmit={toggleModal}>
+              <CardHeader className="bg-white border-0">
+                <Row>
+                  <Col xs="8">
+                    <h3 className="mb-0">Actualizar Acceso del Usuario</h3>
+                  </Col>
+                  <Col
+                    className="d-flex justify-content-end flex-wrap align-items-baseline"
+                    xs="4"
                   >
-                    Cancelar
-                  </Button>
-                </Col>
-              </Row>
-            </CardHeader>
-            <CardBody>
-              <div className="mb-3 font-italic">
-                <small>Los campos con * son obligatorios</small>
-              </div>
-              {errorGlobal && (
-                <div className="text-danger text-center mb-3 font-italic">
-                  <small>{errorGlobal}</small>
+                    <ConfirmButton onClick={toggleModal} loading={loading} />
+                    <Button
+                      onClick={e =>
+                        props.history.push({
+                          pathname: "/admin/users"
+                        })
+                      }
+                      size="sm"
+                      className="m-1"
+                    >
+                      Cancelar
+                    </Button>
+                  </Col>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="mb-3 font-italic">
+                  <small>Los campos con * son obligatorios</small>
                 </div>
-              )}
-              <Row>
-                <Col lg="12">
-                  <InputGroup
-                    disabled={true}
-                    label="Email"
-                    placeholder=""
-                    name="email"
-                    value={user.email}
-                    onChange={handleInput}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col lg="6">
-                  <InputGroup
-                    label="Actual Password *"
-                    placeholder=""
-                    type="password"
-                    name="oldPassword"
-                    value={user.oldPassword}
-                    onChange={handleInput}
-                    error={errorPassword}
-                  />
-                </Col>
-                <Col lg="6">
-                  <InputGroup
-                    label="Nuevo Password *"
-                    placeholder=""
-                    type="password"
-                    name="password"
-                    value={user.password}
-                    onChange={handleInput}
-                  />
-                </Col>
-              </Row>
-            </CardBody>
-          </Form>
-        </Card>
-      </Col>
+                {errorGlobal && (
+                  <div className="text-danger text-center mb-3 font-italic">
+                    <small>{errorGlobal}</small>
+                  </div>
+                )}
+                <Row>
+                  <Col lg="12">
+                    <InputGroup
+                      disabled={true}
+                      label="Email"
+                      placeholder=""
+                      name="email"
+                      value={user.email}
+                      onChange={handleInput}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg="6">
+                    <InputGroup
+                      label="Actual Password *"
+                      placeholder=""
+                      name="oldPassword"
+                      value={user.oldPassword}
+                      onChange={handleInput}
+                      error={errorPassword}
+                    />
+                  </Col>
+                  <Col lg="6">
+                    <InputGroup
+                      label="Nuevo Password *"
+                      placeholder=""
+                      name="password"
+                      value={user.password}
+                      onChange={handleInput}
+                    />
+                  </Col>
+                </Row>
+              </CardBody>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
       <ModalConfirmation
         title="Confirmar"
         modal={modal}

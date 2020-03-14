@@ -84,7 +84,7 @@ const Users = props => {
         <Card className="shadow">
           <CardHeaderTable
             title="Administración de Usuarios"
-            description="Listado actual de todos los usuarios con authenticación registrados en el sistema"
+            description="Listado actual de todos los usuarios con autenticación registrados en el sistema"
             currentItem={currentItem.value}
             dropdownOpen={dropdownOpen}
             onRefreshItems={onRefreshItems}

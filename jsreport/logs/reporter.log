@@ -2619,3 +2619,97 @@
 2020-03-14T15:11:45.438Z - info: Verifying license key free
 2020-03-14T15:11:45.438Z - info: Using free license
 2020-03-14T15:11:45.442Z - info: reporter initialized
+2020-03-14T17:35:02.646Z - info: Initializing jsreport@2.7.1 in development mode using configuration file: jsreport.config.json
+2020-03-14T17:35:02.647Z - info: Searching for available extensions in /Users/franzmedrano/Documents/Workspace/Projects/Reports-Project/app/jsreport/
+2020-03-14T17:35:02.650Z - info: Extensions location cache not found, crawling directories
+2020-03-14T17:35:03.197Z - info: Found 35 extensions
+2020-03-14T17:35:03.394Z - info: Setting http-server strategy for rendering
+2020-03-14T17:35:03.500Z - info: Using extension cli@2.2.2
+2020-03-14T17:35:03.505Z - info: Using extension debug@2.1.3
+2020-03-14T17:35:03.506Z - info: Using extension express@2.6.0
+2020-03-14T17:35:03.621Z - info: Using extension freeze@2.0.0
+2020-03-14T17:35:03.622Z - info: Using extension handlebars@2.1.0
+2020-03-14T17:35:03.625Z - info: Using extension import-export@1.5.1
+2020-03-14T17:35:03.660Z - info: Using extension jsrender@2.1.1
+2020-03-14T17:35:03.661Z - info: Using extension tags@2.3.0
+2020-03-14T17:35:03.663Z - info: Using extension templates@2.3.2
+2020-03-14T17:35:03.666Z - info: Using extension authorization@2.2.6
+2020-03-14T17:35:03.668Z - info: Using extension base@2.0.2
+2020-03-14T17:35:03.670Z - info: Using extension browser-client@2.2.2
+2020-03-14T17:35:03.671Z - info: Using extension child-templates@1.3.1
+2020-03-14T17:35:03.675Z - info: Using extension chrome-pdf@1.7.1
+2020-03-14T17:35:03.738Z - info: Using extension data@2.2.0
+2020-03-14T17:35:03.738Z - info: Using extension docx@2.5.0
+2020-03-14T17:35:03.741Z - info: Using extension fs-store@2.7.2
+2020-03-14T17:35:03.845Z - info: Using extension licensing@2.2.1
+2020-03-14T17:35:03.847Z - info: Using extension pdf-utils@1.6.1
+2020-03-14T17:35:03.954Z - info: Using extension pptx@0.5.0
+2020-03-14T17:35:03.957Z - info: Using extension reports@2.2.1
+2020-03-14T17:35:03.960Z - info: Using extension static-pdf@0.3.1
+2020-03-14T17:35:03.964Z - info: Using extension studio@2.7.0
+2020-03-14T17:35:04.021Z - info: Using extension text@2.0.0
+2020-03-14T17:35:04.022Z - info: Using extension version-control@1.3.2
+2020-03-14T17:35:04.107Z - info: Using extension assets@1.5.2
+2020-03-14T17:35:04.118Z - info: Using extension html-to-xlsx@2.6.0
+2020-03-14T17:35:04.428Z - info: html-to-xlsx detected chrome as available html engine
+2020-03-14T17:35:04.429Z - info: Using extension scheduling@2.2.0
+2020-03-14T17:35:04.461Z - info: Using extension scripts@2.3.0
+2020-03-14T17:35:04.466Z - info: Using extension studio-theme-dark@0.3.0
+2020-03-14T17:35:04.467Z - info: Using extension xlsx@2.3.0
+2020-03-14T17:35:04.607Z - info: Using extension public-templates@2.1.0
+2020-03-14T17:35:04.608Z - info: Using extension resources@2.0.3
+2020-03-14T17:35:04.609Z - info: Using extension sample-template@2.5.1
+2020-03-14T17:35:04.611Z - info: Using general timeout for rendering (reportTimeout: 120000)
+2020-03-14T17:35:04.611Z - info: Using fs provider for template store.
+2020-03-14T17:35:04.614Z - info: fs store is persisting using fs
+2020-03-14T17:35:04.614Z - info: fs store is synchronizing using fs
+2020-03-14T17:35:04.619Z - info: fs store is loading data
+2020-03-14T17:35:04.675Z - info: fs store is initialized successfully
+2020-03-14T17:35:04.687Z - info: Creating default express app.
+2020-03-14T17:35:04.706Z - info: jsreport server successfully started on http port: 5488
+2020-03-14T17:35:04.706Z - info: fs store emits sockets to synchronize underlying changes with studio
+2020-03-14T17:35:04.720Z - info: Verifying license key free
+2020-03-14T17:35:04.721Z - info: Using free license
+2020-03-14T17:35:04.724Z - info: reporter initialized
+2020-03-14T20:45:48.545Z - info: Starting rendering request 1 (user: null)
+2020-03-14T20:45:48.547Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T20:45:49.606Z - info: Rendering request 1 finished in 1063 ms
+2020-03-14T20:47:28.419Z - info: Starting rendering request 2 (user: null)
+2020-03-14T20:47:28.420Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T20:47:29.164Z - info: Rendering request 2 finished in 745 ms
+2020-03-14T20:49:29.004Z - info: Starting rendering request 3 (user: null)
+2020-03-14T20:49:29.005Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T20:49:29.713Z - info: Rendering request 3 finished in 708 ms
+2020-03-14T20:54:39.322Z - info: Starting rendering request 4 (user: null)
+2020-03-14T20:54:39.323Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T20:54:40.073Z - info: Rendering request 4 finished in 750 ms
+2020-03-14T20:55:21.756Z - info: Starting rendering request 5 (user: null)
+2020-03-14T20:55:21.757Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T20:55:22.655Z - info: Rendering request 5 finished in 899 ms
+2020-03-14T21:00:59.385Z - info: Starting rendering request 6 (user: null)
+2020-03-14T21:00:59.385Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:01:00.201Z - info: Rendering request 6 finished in 816 ms
+2020-03-14T21:02:18.117Z - info: Starting rendering request 7 (user: null)
+2020-03-14T21:02:18.117Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:02:18.950Z - info: Rendering request 7 finished in 833 ms
+2020-03-14T21:02:48.878Z - info: Starting rendering request 8 (user: null)
+2020-03-14T21:02:48.879Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:02:49.535Z - info: Rendering request 8 finished in 657 ms
+2020-03-14T21:22:05.333Z - info: Starting rendering request 9 (user: null)
+2020-03-14T21:22:05.334Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:22:06.154Z - info: Rendering request 9 finished in 821 ms
+2020-03-14T21:22:18.727Z - info: Starting rendering request 10 (user: null)
+2020-03-14T21:22:18.728Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:22:19.418Z - info: Rendering request 10 finished in 691 ms
+2020-03-14T21:22:31.906Z - info: Starting rendering request 11 (user: null)
+2020-03-14T21:22:31.907Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:22:32.561Z - info: Rendering request 11 finished in 655 ms
+2020-03-14T21:22:57.167Z - info: Starting rendering request 12 (user: null)
+2020-03-14T21:22:57.167Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:22:57.793Z - info: Rendering request 12 finished in 626 ms
+2020-03-14T21:26:24.107Z - info: Starting rendering request 13 (user: null)
+2020-03-14T21:26:24.108Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:26:24.806Z - info: Rendering request 13 finished in 699 ms
+2020-03-14T21:28:10.545Z - info: Starting rendering request 14 (user: null)
+2020-03-14T21:28:10.546Z - info: Rendering template { name: invoice-main, recipe: chrome-pdf, engine: handlebars, preview: false }
+2020-03-14T21:28:11.250Z - info: Rendering request 14 finished in 705 ms

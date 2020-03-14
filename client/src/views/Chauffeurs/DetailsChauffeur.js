@@ -51,27 +51,29 @@ const DetailsChauffeur = props => {
                 Información del Chofer
               </CardTitle>
               <div className="d-flex col">
-                <label className="mr-3">Nombres:</label>
+                <label className="mr-3 font-weight-bold">Nombres:</label>
                 <p className="d-inline">{name}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3">Apellidos:</label>
+                <label className="mr-3 font-weight-bold">Apellidos:</label>
                 <p className="d-inline">{lastname}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3">C.I.:</label>
+                <label className="mr-3 font-weight-bold">C.I.:</label>
                 <p className="d-inline">{ci}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3">Expedido:</label>
+                <label className="mr-3 font-weight-bold">Expedido:</label>
                 <p className="d-inline">{issued}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3">Licencia/Brevet:</label>
+                <label className="mr-3 font-weight-bold">
+                  Licencia/Brevet:
+                </label>
                 <p className="d-inline">{license}</p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3">Estado:</label>
+                <label className="mr-3 font-weight-bold">Estado:</label>
                 <p
                   className={classnames("d-inline", {
                     "text-success": state,
@@ -82,7 +84,7 @@ const DetailsChauffeur = props => {
                 </p>
               </div>
               <div className="d-flex col">
-                <label className="mr-3">Dirección:</label>
+                <label className="mr-3 font-weight-bold">Dirección:</label>
                 <p className="d-inline">{address}</p>
               </div>
               <div className="d-flex col font-weight-bold">

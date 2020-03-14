@@ -168,7 +168,7 @@ const RoadmapSchema = new mongoose.Schema({
   authorization: {
     type: String,
     trim: true,
-    required: [true, "Autorización comprar local es requerido"],
+    required: [true, "Autorización compra local es requerido"],
     maxlength: [
       30,
       "Autorización comprar local no debe superar mas de 30 carácteres"

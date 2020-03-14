@@ -91,7 +91,7 @@ const Managers = props => {
 
     if (currentItem.name === "ci") {
       filtered = businessSelected.data.managers.filter(item => {
-        return item.ci.includes(value);
+        return item.ci.toLowerCase().includes(value);
       });
     }
 
@@ -155,9 +155,7 @@ const Managers = props => {
           </CardHeaderTable>
           {loading ? (
             <LoadingItems />
-          ) : businessSelected &&
-            businessSelected.data &&
-            businessSelected.data.managers.length === 0 ? (
+          ) : currentItems.length === 0 ? (
             <NotFoundItems />
           ) : (
             <div>
@@ -172,6 +170,9 @@ const Managers = props => {
                     </th>
                     <th scope="col" className="text-center">
                       C.I.
+                    </th>
+                    <th scope="col" className="text-center">
+                      Rol
                     </th>
                     <th scope="col" className="text-center">
                       Estado
@@ -191,6 +192,7 @@ const Managers = props => {
                         <td className="text-center">{manager.name}</td>
                         <td className="text-center">{manager.lastname}</td>
                         <td className="text-center">{manager.ci}</td>
+                        <td className="text-center">{manager.role}</td>
                         <td className="text-center">
                           {manager.state ? (
                             <Badge color="success" className="badge-dot">

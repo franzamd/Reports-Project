@@ -1,6 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import jsreport from "jsreport-browser-client-dist";
-import { Col, Card, Button, CardBody, Row, CardHeader } from "reactstrap";
+import {
+  Col,
+  Card,
+  Button,
+  CardBody,
+  Row,
+  CardHeader,
+  Table
+} from "reactstrap";
 import classnames from "classnames";
 import moment from "moment";
 import "moment/locale/es";
@@ -95,7 +103,7 @@ const DetailsRoadmap = props => {
   };
 
   const printPDF = () => {
-    roadmap.createdAt = moment(Date.now()).format("L");
+    roadmap.createdAt = moment().format("DD MMMM YYYY, h:mm:ss a");
     roadmap.begin = moment(roadmap.begin).format("L");
     roadmap.finish = moment(roadmap.finish).format("L");
 
@@ -238,66 +246,56 @@ const DetailsRoadmap = props => {
             Información Productos
           </h6>
           <Row>
-            {roadmap.products.map((item, i) => {
-              return (
-                <Col key={i} className="d-flex justify-content-center">
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Suntancia:
-                    </label>
-                    <p className="d-inline">{item.substance}</p>
-                  </div>
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Primaria:
-                    </label>
-                    <p className="d-inline">{item.types.primary}</p>
-                  </div>
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Producto Terminado:
-                    </label>
-                    <p className="d-inline">{item.substance}</p>
-                  </div>
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Primaria:
-                    </label>
-                    <p className="d-inline">{item.types.primary}</p>
-                  </div>
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Porcentaje:
-                    </label>
-                    <p className="d-inline">{item.types.percentage}</p>
-                  </div>
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Cantidad:
-                    </label>
-                    <p className="d-inline">{item.amount}</p>
-                  </div>
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Unidad Kg/Lt.:
-                    </label>
-                    <p className="d-inline">{item.unit}</p>
-                  </div>
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Tipo:
-                    </label>
-                    <p className="d-inline">{item.container.type}</p>
-                  </div>
-                  <div className="d-flex col">
-                    <label className="mr-3 font-weight-bold col-form-label-sm">
-                      Nombre:
-                    </label>
-                    <p className="d-inline">{item.name}</p>
-                  </div>
-                </Col>
-              );
-            })}
+            <Table size="sm" responsive>
+              <thead>
+                <tr>
+                  <th scope="col" className="text-center">
+                    Suntancia
+                  </th>
+                  <th scope="col" className="text-center">
+                    Primaria
+                  </th>
+                  <th scope="col" className="text-center">
+                    Producto Terminado
+                  </th>
+                  <th scope="col" className="text-center">
+                    Porcentaje
+                  </th>
+                  <th scope="col" className="text-center">
+                    Cantidad
+                  </th>
+                  <th scope="col" className="text-center">
+                    Unidad Kg/Lt
+                  </th>
+                  <th scope="col" className="text-center">
+                    Tipo
+                  </th>
+                  <th scope="col" className="text-center">
+                    Cantidad
+                  </th>
+                  <th scope="col" className="text-center">
+                    Nombre
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {roadmap.products.map((item, i) => {
+                  return (
+                    <tr key={i}>
+                      <td className="text-center">{item.substance}</td>
+                      <td className="text-center">{item.types.primary}</td>
+                      <td className="text-center">{item.types.product}</td>
+                      <td className="text-center">{item.types.percentage}</td>
+                      <td className="text-center">{item.amount}</td>
+                      <td className="text-center">{item.unit}</td>
+                      <td className="text-center">{item.container.type}</td>
+                      <td className="text-center">{item.container.amount}</td>
+                      <td className="text-center">{item.name}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
           </Row>
           <hr className="my-4" />
           <h6 className="heading-small text-muted mb-4">

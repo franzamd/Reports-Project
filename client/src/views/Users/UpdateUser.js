@@ -19,12 +19,15 @@ import DateFieldGroup from "../../components/common/DateFieldGroup";
 
 import img1 from "../../assets/images/users/0.png";
 import UserContext from "../../context/user/userContext";
+import AuthContext from "../../context/auth/authContext";
 
 const UpdateUser = props => {
   // user Id
   const { _id } = props.location.state;
 
   const userContext = useContext(UserContext);
+  const authContext = useContext(AuthContext);
+
   const { error, loading, updateUser, getUser, resetUsers } = userContext;
 
   const [user, setUser] = useState({
@@ -52,7 +55,17 @@ const UpdateUser = props => {
     }
   }, [loading]);
 
-  useEffect(() => () => resetUsers(), []);
+  useEffect(
+    // Check if same user changed their data
+    () => () => {
+      if (authContext.user && _id === authContext.user.data._id) {
+        authContext.loadUser();
+      }
+
+      resetUsers();
+    },
+    []
+  );
 
   const handleInput = e => {
     if (e.target.name === "state") {
@@ -81,6 +94,10 @@ const UpdateUser = props => {
     await updateUser(_id, formData, props.history);
   };
 
+  const actualUser =
+    authContext.user && authContext.user.data ? authContext.user.data : null;
+
+  // Errors
   const errorUsername = error && error.username ? error.username : null;
   const errorEmail = error && error.email ? error.email : null;
   const errorRole = error && error.role ? error.role : null;
@@ -101,117 +118,123 @@ const UpdateUser = props => {
 
   return (
     <Container className="d-flex justify-content-center">
-      <Col className="order-xl-2 mb-5 mb-xl-0" xl="4" lg={4}>
-        <Card className="card-profile shadow">
-          <Row className="justify-content-center">
-            <Col className="order-lg-2 m-4" lg="3">
-              <div className="card-profile-image d-flex justify-content-center ">
+      <Row>
+        <Col className="order-xl-2  mb-xl-0" xl="4" lg={4}>
+          <Card className="card-profile shadow ">
+            <Row>
+              <Col className="card-profile-image d-flex justify-content-center p-3">
                 <img
                   style={{
                     width: "200px",
                     height: "200px"
                   }}
-                  alt={user.username}
+                  alt=""
                   className="rounded-circle"
                   src={img1}
                 />
-              </div>
-            </Col>
-          </Row>
-        </Card>
-      </Col>
-      <Col>
-        <Card>
-          <Form onSubmit={onSubmit}>
-            <CardHeader className="bg-white border-0">
-              <Row>
-                <Col xs="8">
-                  <h3 className="mb-0">Actualizar Usuario</h3>
-                </Col>
-                <Col
-                  className="d-flex justify-content-end flex-wrap align-items-baseline"
-                  xs="4"
-                >
-                  <ConfirmButton onClick={onSubmit} loading={loading} />
-                  <Button
-                    onClick={e =>
-                      props.history.push({
-                        pathname: "/admin/users"
-                      })
-                    }
-                    size="sm"
-                    className="m-1"
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+        <Col>
+          <Card>
+            <Form onSubmit={onSubmit}>
+              <CardHeader className="bg-white border-0">
+                <Row>
+                  <Col xs="8">
+                    <h3 className="mb-0">Actualizar Usuario</h3>
+                  </Col>
+                  <Col
+                    className="d-flex justify-content-end flex-wrap align-items-baseline"
+                    xs="4"
                   >
-                    Cancelar
-                  </Button>
-                </Col>
-              </Row>
-            </CardHeader>
-            <CardBody>
-              <div className="mb-3 font-italic">
-                <small>Los campos con * son obligatorios</small>
-              </div>
-              {errorGlobal && (
-                <div className="text-danger text-center mb-3 font-italic">
-                  <small>{errorGlobal}</small>
+                    <ConfirmButton onClick={onSubmit} loading={loading} />
+                    <Button
+                      onClick={e =>
+                        props.history.push({
+                          pathname: "/admin/users"
+                        })
+                      }
+                      size="sm"
+                      className="m-1"
+                    >
+                      Cancelar
+                    </Button>
+                  </Col>
+                </Row>
+              </CardHeader>
+              <CardBody>
+                <div className="mb-3 font-italic">
+                  <small>Los campos con * son obligatorios</small>
                 </div>
-              )}
-              <Row>
-                <Col lg="6">
-                  <InputGroup
-                    label="Username *"
-                    placeholder="Ej. william"
-                    name="username"
-                    value={user.username}
-                    error={errorUsername}
-                    onChange={handleInput}
-                  />
-                </Col>
-                <Col lg="6">
-                  <InputGroup
-                    label="Email *"
-                    placeholder="Ej. willjhonson@gmail.com"
-                    name="email"
-                    value={user.email}
-                    error={errorEmail}
-                    onChange={handleInput}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col lg="12">
-                  <SelectListGroup
-                    label="Rol *"
-                    name="role"
-                    onChange={handleInput}
-                    options={optionsRole}
-                    value={user.role}
-                    error={errorRole}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col lg="6">
-                  <SelectListGroup
-                    label="Estado"
-                    name="state"
-                    onChange={handleInput}
-                    options={optionsState}
-                    value={user.state}
-                  />
-                </Col>
-                <Col lg="6">
-                  <DateFieldGroup
-                    label="Fecha de Registro"
-                    name="date"
-                    value={user.createdAt}
-                  />
-                </Col>
-              </Row>
-            </CardBody>
-          </Form>
-        </Card>
-      </Col>
+                {errorGlobal && (
+                  <div className="text-danger text-center mb-3 font-italic">
+                    <small>{errorGlobal}</small>
+                  </div>
+                )}
+                <Row>
+                  <Col lg="6">
+                    <InputGroup
+                      label="Username *"
+                      placeholder="Ej. william"
+                      name="username"
+                      value={user.username}
+                      error={errorUsername}
+                      onChange={handleInput}
+                    />
+                  </Col>
+                  <Col lg="6">
+                    <InputGroup
+                      label="Email *"
+                      placeholder="Ej. willjhonson@gmail.com"
+                      name="email"
+                      value={user.email}
+                      error={errorEmail}
+                      onChange={handleInput}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg="12">
+                    <SelectListGroup
+                      disabled={
+                        actualUser._id.toString() === _id ? true : false
+                      }
+                      label="Rol *"
+                      name="role"
+                      onChange={handleInput}
+                      options={optionsRole}
+                      value={user.role}
+                      error={errorRole}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg="6">
+                    <SelectListGroup
+                      disabled={
+                        actualUser._id.toString() === _id ? true : false
+                      }
+                      label="Estado"
+                      name="state"
+                      onChange={handleInput}
+                      options={optionsState}
+                      value={user.state}
+                    />
+                  </Col>
+                  <Col lg="6">
+                    <DateFieldGroup
+                      label="Fecha de Registro"
+                      name="date"
+                      value={user.createdAt}
+                    />
+                  </Col>
+                </Row>
+              </CardBody>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 };

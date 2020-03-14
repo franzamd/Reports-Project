@@ -228,7 +228,7 @@ const CreateRoadmap = props => {
   const printPDF = () => {
     const formData = buildData();
 
-    formData.createdAt = moment(Date.now()).format("L");
+    formData.createdAt = moment().format("DD MMMM YYYY, h:mm:ss a");
     formData.begin = moment(formData.begin).format("L");
     formData.finish = moment(formData.finish).format("L");
 
@@ -273,10 +273,10 @@ const CreateRoadmap = props => {
           address: roadmap.itinerary.destination.address
         },
         origin: {
-          municipality: roadmap.itinerary.destination.municipality,
-          province: roadmap.itinerary.destination.province,
-          departament: roadmap.itinerary.destination.departament,
-          address: roadmap.itinerary.destination.address
+          municipality: roadmap.itinerary.origin.municipality,
+          province: roadmap.itinerary.origin.province,
+          departament: roadmap.itinerary.origin.departament,
+          address: roadmap.itinerary.origin.address
         }
       },
       route: roadmap.route,
@@ -455,11 +455,6 @@ const CreateRoadmap = props => {
                 <small>{errorGlobal}</small>
               </div>
             )}
-            {errorGlobal && (
-              <div className="text-danger text-center mb-3 font-italic">
-                <small>{errorGlobal}</small>
-              </div>
-            )}
             <Row>
               <Col lg="6">
                 <InputGroup
@@ -595,7 +590,7 @@ const CreateRoadmap = props => {
                       <InputGroup
                         isLabelSmall={true}
                         label="Cantidad"
-                        placeholder="Ej. 2200000"
+                        placeholder="Ej. 22000"
                         name="amount"
                         value={product.amount}
                         onChange={e => handleInputProducts(e, i)}

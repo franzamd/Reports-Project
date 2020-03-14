@@ -5,7 +5,8 @@ const VehicleSchema = new mongoose.Schema({
     type: String,
     required: [true, "Medio de transporte es requerido"],
     enum: {
-      values: ["Camion", "Cisterna", "Tren", "Avion", "Barcaza", "Otro"]
+      values: ["Camion", "Cisterna", "Tren", "Avion", "Barcaza", "Otro"],
+      message: "Medio de transporte debe ser seleccionado con una opción válida"
     }
   },
   color: {
