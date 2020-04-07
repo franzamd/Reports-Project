@@ -47,7 +47,7 @@ app.use("/api/roadmaps", roadmaps);
 app.use(errorHandler);
 
 // Protect routes if 404 response via server port
-app.get("*", function(req, res) {
+app.get("*", function (req, res) {
   res.redirect("/");
 });
 
