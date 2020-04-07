@@ -1,9 +1,10 @@
 import {
   GET_ROADMAPS,
   GET_ROADMAP,
-  SET_LOADING_ROADMAP,
+  SET_LOADING_TRUE_ROADMAP,
+  SET_LOADING_FALSE_ROADMAP,
   ROADMAP_ERROR,
-  RESET_ROADMAPS
+  RESET_ROADMAPS,
 } from "../types";
 
 export default (state, action) => {
@@ -13,33 +14,38 @@ export default (state, action) => {
         ...state,
         roadmaps: action.payload,
         loading: false,
-        error: null
+        error: null,
       };
     case GET_ROADMAP: {
       return {
         ...state,
         loading: false,
         roadmap: action.payload,
-        error: null
+        error: null,
       };
     }
-    case SET_LOADING_ROADMAP:
+    case SET_LOADING_TRUE_ROADMAP:
       return {
         ...state,
-        loading: true
+        loading: true,
+      };
+    case SET_LOADING_FALSE_ROADMAP:
+      return {
+        ...state,
+        loading: false,
       };
     case ROADMAP_ERROR:
       return {
         ...state,
         error: action.payload,
-        loading: false
+        loading: false,
       };
     case RESET_ROADMAPS:
       return {
         roadmaps: {},
         roadmap: {},
         loading: false,
-        error: null
+        error: null,
       };
     default:
       return state;

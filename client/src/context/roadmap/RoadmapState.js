@@ -7,17 +7,18 @@ import RoadmapContext from "./roadmapContext";
 import {
   GET_ROADMAPS,
   GET_ROADMAP,
-  SET_LOADING_ROADMAP,
+  SET_LOADING_TRUE_ROADMAP,
+  SET_LOADING_FALSE_ROADMAP,
   ROADMAP_ERROR,
-  RESET_ROADMAPS
+  RESET_ROADMAPS,
 } from "../types";
 
-const RoadmapState = props => {
+const RoadmapState = (props) => {
   const initialState = {
     roadmaps: {},
     roadmap: {},
     loading: false,
-    error: null
+    error: null,
   };
 
   const [state, dispatch] = useReducer(roadmapReducer, initialState);
@@ -25,56 +26,56 @@ const RoadmapState = props => {
   // Get roadmaps
   const getRoadmaps = async () => {
     try {
-      setLoading();
+      setLoadingTrue();
 
       const res = await axios.get("/api/roadmaps");
 
       dispatch({
         type: GET_ROADMAPS,
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
       dispatch({
         ROADMAP_ERROR,
-        payload: error.response.data.error
+        payload: error.response.data.error,
       });
     }
   };
 
   // Get roadmap
-  const getRoadmap = async id => {
+  const getRoadmap = async (id) => {
     try {
-      setLoading();
+      setLoadingTrue();
 
       const res = await axios.get(`/api/roadmaps/${id}`);
 
       dispatch({
         type: GET_ROADMAP,
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
       dispatch({
         ROADMAP_ERROR,
-        payload: error.response.data.error
+        payload: error.response.data.error,
       });
     }
   };
 
   // Get roadmap data by populate
-  const getRoadmapByPopulate = async id => {
+  const getRoadmapByPopulate = async (id) => {
     try {
-      setLoading();
+      setLoadingTrue();
 
       const res = await axios.get(`/api/roadmaps/${id}/all`);
 
       dispatch({
         type: GET_ROADMAP,
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
       dispatch({
         ROADMAP_ERROR,
-        payload: error.response.data.error
+        payload: error.response.data.error,
       });
     }
   };
@@ -82,7 +83,7 @@ const RoadmapState = props => {
   // Fetch all roadmaps by query param regex
   const getRoadmapsByRegex = async (text, select) => {
     try {
-      setLoading();
+      setLoadingTrue();
 
       const res = await axios.get(
         `/api/roadmaps?${select}[regex]=${text}&${select}[options]=i`
@@ -90,26 +91,26 @@ const RoadmapState = props => {
 
       dispatch({
         type: GET_ROADMAPS,
-        payload: res.data
+        payload: res.data,
       });
     } catch (error) {
       dispatch({
         ROADMAP_ERROR,
-        payload: error.response.data.error
+        payload: error.response.data.error,
       });
     }
   };
 
   // Create a new roadmap
-  const createRoadmap = async formData => {
+  const createRoadmap = async (formData) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     try {
-      setLoading();
+      setLoadingTrue();
 
       await axios.post("/api/roadmaps", formData, config);
 
@@ -117,7 +118,7 @@ const RoadmapState = props => {
     } catch (error) {
       dispatch({
         type: ROADMAP_ERROR,
-        payload: error.response.data.error
+        payload: error.response.data.error,
       });
     }
   };
@@ -126,12 +127,12 @@ const RoadmapState = props => {
   const updateRoadmap = async (id, formData) => {
     const config = {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     try {
-      setLoading();
+      setLoadingTrue();
 
       await axios.put(`/api/roadmaps/${id}`, formData, config);
 
@@ -139,22 +140,51 @@ const RoadmapState = props => {
     } catch (error) {
       dispatch({
         type: ROADMAP_ERROR,
-        payload: error.response.data.error
+        payload: error.response.data.error,
       });
     }
   };
 
-  // Set loading
-  const setLoading = async () => {
+  // Update roadmap delivered
+  const updateRoadmapDelivered = async (id, formData) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      setLoadingTrue();
+
+      await axios.put(`/api/roadmaps/${id}`, formData, config);
+
+      setLoadingFalse();
+    } catch (error) {
+      dispatch({
+        type: ROADMAP_ERROR,
+        payload: error.response.data.error,
+      });
+    }
+  };
+
+  // Set loading true
+  const setLoadingTrue = async () => {
     dispatch({
-      type: SET_LOADING_ROADMAP
+      type: SET_LOADING_TRUE_ROADMAP,
+    });
+  };
+
+  // Set loading false
+  const setLoadingFalse = async () => {
+    dispatch({
+      type: SET_LOADING_FALSE_ROADMAP,
     });
   };
 
   // Reset roadmaps
   const resetRoadmaps = async () => {
     dispatch({
-      type: RESET_ROADMAPS
+      type: RESET_ROADMAPS,
     });
   };
 
@@ -171,7 +201,8 @@ const RoadmapState = props => {
         createRoadmap,
         updateRoadmap,
         resetRoadmaps,
-        getRoadmapsByRegex
+        getRoadmapsByRegex,
+        updateRoadmapDelivered,
       }}
     >
       {props.children}

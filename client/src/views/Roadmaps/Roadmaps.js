@@ -9,7 +9,7 @@ import {
   UncontrolledDropdown,
   DropdownMenu,
   DropdownToggle,
-  CardFooter
+  CardFooter,
 } from "reactstrap";
 import "moment/locale/es";
 import moment from "moment";
@@ -20,26 +20,34 @@ import CardHeaderTable from "../../components/common/CardHeaderTable";
 import NotFoundItems from "../../components/common/NotFoundItems";
 import LoadingItems from "../../components/common/LoadingItems";
 import PaginationFooter from "../../components/common/PaginationFooter";
+import ModalConfirmation from "../../components/common/ModalConfirmation";
 
 moment().locale("es");
 
-const Roadmaps = props => {
+const Roadmaps = (props) => {
   const roadmapContext = useContext(RoadmapsContext);
   const {
     roadmaps,
     loading,
     getRoadmaps,
     getRoadmapsByRegex,
-    resetRoadmaps
+    resetRoadmaps,
+    updateRoadmapDelivered,
   } = roadmapContext;
 
   const [dropdownOpen, setDropDown] = useState(false);
   const [currentItem, setCurrentItem] = useState({
     name: "tramit",
-    value: "Nº Tramite"
+    value: "Nº Tramite",
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [roadmapSelected, setRoadmapSelected] = useState({
+    _id: "",
+    tramit: "",
+    delivered: "",
+  });
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     getRoadmaps();
@@ -47,15 +55,19 @@ const Roadmaps = props => {
 
   useEffect(() => () => resetRoadmaps(), []);
 
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
   const toggleDropDown = () => {
     setDropDown(!dropdownOpen);
   };
 
-  const onCaptureItem = e => {
+  const onCaptureItem = (e) => {
     setCurrentItem({ name: e.target.name, value: e.target.value });
   };
 
-  const handleSearchText = e => {
+  const handleSearchText = (e) => {
     if (currentItem.name === "tramit") {
       getRoadmapsByRegex(e.target.value, currentItem.name);
     }
@@ -67,6 +79,18 @@ const Roadmaps = props => {
 
   const addItem = () => {
     props.history.push("/admin/roadmaps/create");
+  };
+
+  const onRoadmapDelivered = async (e) => {
+    e.preventDefault();
+
+    if (roadmapSelected._id && roadmapSelected.tramit) {
+      await updateRoadmapDelivered(roadmapSelected._id, {
+        delivered: !roadmapSelected.delivered,
+      });
+    }
+    await onRefreshItems();
+    toggleModal();
   };
 
   // Pagination
@@ -141,6 +165,9 @@ const Roadmaps = props => {
                       Estado
                     </th>
                     <th scope="col" className="text-center">
+                      Entrega
+                    </th>
+                    <th scope="col" className="text-center">
                       Registro
                     </th>
                     <th scope="col" className="text-center">
@@ -149,7 +176,7 @@ const Roadmaps = props => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map(item => {
+                  {currentItems.map((item) => {
                     return (
                       <tr key={item._id}>
                         <td className="text-center">{item.tramit}</td>
@@ -165,13 +192,22 @@ const Roadmaps = props => {
                         <td className="text-center">
                           {item.state ? (
                             <Badge color="success" className="badge-dot">
-                              <i className="bg-success" />
                               Activo
                             </Badge>
                           ) : (
                             <Badge color="danger" className="badge-dot">
-                              <i className="bg-danger" />
                               Inactivo
+                            </Badge>
+                          )}
+                        </td>
+                        <td className="text-center">
+                          {item.delivered ? (
+                            <Badge color="success" className="badge-dot">
+                              Entregado
+                            </Badge>
+                          ) : (
+                            <Badge color="warning" className="badge-dot">
+                              <div className="text-white">Pendiente</div>
                             </Badge>
                           )}
                         </td>
@@ -185,7 +221,7 @@ const Roadmaps = props => {
                               href="/"
                               role="button"
                               size="sm"
-                              onClick={e => e.preventDefault()}
+                              onClick={(e) => e.preventDefault()}
                             >
                               <i className="fas fa-ellipsis-v" />
                             </DropdownToggle>
@@ -194,7 +230,7 @@ const Roadmaps = props => {
                                 className="dropdown-item"
                                 to={{
                                   pathname: "/admin/roadmaps/details",
-                                  state: { _id: item._id }
+                                  state: { _id: item._id },
                                 }}
                               >
                                 Ver Detalles
@@ -203,11 +239,27 @@ const Roadmaps = props => {
                                 className="dropdown-item"
                                 to={{
                                   pathname: "/admin/roadmaps/update",
-                                  state: { _id: item._id }
+                                  state: { _id: item._id },
                                 }}
                               >
                                 Actualizar
                               </Link>
+                              <div
+                                onClick={() => {
+                                  toggleModal();
+                                  setRoadmapSelected({
+                                    _id: item._id,
+                                    tramit: item.tramit,
+                                    delivered: item.delivered,
+                                  });
+                                }}
+                                style={{ boxShadow: "none" }}
+                                className="btn dropdown-item"
+                              >
+                                {`Marcar como ${
+                                  item.delivered ? "pendiente" : "entregado"
+                                }`}
+                              </div>
                             </DropdownMenu>
                           </UncontrolledDropdown>
                         </td>
@@ -230,6 +282,18 @@ const Roadmaps = props => {
           )}
         </Card>
       </div>
+      <ModalConfirmation
+        title="Confirmar Acción"
+        modal={modal}
+        loading={loading}
+        toggle={toggleModal}
+        onConfirm={onRoadmapDelivered}
+        onClose={toggleModal}
+        description={`Esta seguro de marcar como ${
+          roadmapSelected.delivered ? "pendiente" : "entregado"
+        } al Nº de tramite ${roadmapSelected.tramit}`}
+        className="bg-primary"
+      />
     </Col>
   );
 };

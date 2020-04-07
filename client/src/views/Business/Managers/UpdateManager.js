@@ -7,7 +7,7 @@ import {
   CardBody,
   Row,
   Button,
-  Form
+  Form,
 } from "reactstrap";
 
 import withParamsState from "../../../HOC/withParamsState";
@@ -18,7 +18,7 @@ import DateFieldGroup from "../../../components/common/DateFieldGroup";
 
 import BusinessContext from "../../../context/business/businessContext";
 
-const UpdateManager = props => {
+const UpdateManager = (props) => {
   // Business Id
   const { _id } = props.location.state;
   const managerSelected = props.location.state.manager;
@@ -33,24 +33,24 @@ const UpdateManager = props => {
     role: managerSelected.role,
     descrption: managerSelected.descrption,
     state: managerSelected.state,
-    createdAt: managerSelected.createdAt
+    createdAt: managerSelected.createdAt,
   });
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     if (e.target.name === "state") {
       return setManager({
         ...manager,
-        [e.target.name]: e.target.value === "true" ? true : false
+        [e.target.name]: e.target.value === "true" ? true : false,
       });
     }
 
     setManager({
       ...manager,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -58,7 +58,7 @@ const UpdateManager = props => {
       lastname: manager.lastname,
       ci: manager.ci,
       role: manager.role,
-      state: manager.state
+      state: manager.state,
     };
 
     await updateManager(_id, managerSelected._id, formData, props.history);
@@ -67,7 +67,7 @@ const UpdateManager = props => {
   const onBack = () => {
     props.history.push({
       pathname: "/admin/business/managers",
-      state: { _id }
+      state: { _id },
     });
   };
 
@@ -81,7 +81,7 @@ const UpdateManager = props => {
   const optionsState = [
     { _id: "1", label: "* Seleccione una opción", value: 0 },
     { _id: "2", label: "Activo", value: true },
-    { _id: "3", label: "Inactivo", value: false }
+    { _id: "3", label: "Inactivo", value: false },
   ];
 
   return (
@@ -92,7 +92,7 @@ const UpdateManager = props => {
             <CardHeader className="bg-white border-0">
               <Row>
                 <Col xs="8">
-                  <h3 className="mb-0">Crear Nuevo Encargado</h3>
+                  <h3 className="mb-0">Actualizar Encargado</h3>
                 </Col>
                 <Col
                   className="d-flex justify-content-end flex-wrap align-items-baseline"

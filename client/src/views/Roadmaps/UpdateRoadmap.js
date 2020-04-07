@@ -19,7 +19,7 @@ import withParamsState from "../../HOC/withParamsState";
 
 moment().locale("es");
 
-const UpdateRoadmap = props => {
+const UpdateRoadmap = (props) => {
   // Roadmap id
   const { _id } = props.location.state;
 
@@ -33,7 +33,7 @@ const UpdateRoadmap = props => {
     loading,
     getRoadmapByPopulate,
     updateRoadmap,
-    resetRoadmaps
+    resetRoadmaps,
   } = roadmapContext;
   const { getBusinessByState, resetBusiness } = businessContext;
   const { getVehiclesByState, resetVehicles } = vehicleContext;
@@ -46,16 +46,16 @@ const UpdateRoadmap = props => {
         types: {
           primary: "",
           product: "",
-          percentage: ""
+          percentage: "",
         },
         amount: "",
         unit: "",
         container: {
           type: "",
-          amount: ""
+          amount: "",
         },
-        name: ""
-      }
+        name: "",
+      },
     ],
     chauffeur: "",
     vehicle: "",
@@ -70,20 +70,21 @@ const UpdateRoadmap = props => {
         municipality: "",
         province: "",
         departament: "",
-        address: ""
+        address: "",
       },
       origin: {
         municipality: "",
         province: "",
         departament: "",
-        address: ""
-      }
+        address: "",
+      },
     },
     route: "",
     tramit: "",
     city: "",
     state: "",
-    createdAt: ""
+    createdAt: "",
+    delivered: "",
   });
 
   const [dataManagers, setDataManagers] = useState([]);
@@ -136,18 +137,18 @@ const UpdateRoadmap = props => {
     setModal(!modal);
   };
 
-  const getManagersArray = businessId => {
-    const object = business.find(business => business._id === businessId);
+  const getManagersArray = (businessId) => {
+    const object = business.find((business) => business._id === businessId);
 
     const data = [];
 
     if (object && object.managers.length > 0) {
-      object.managers.map(manager => {
+      object.managers.map((manager) => {
         if (manager.state) {
           return data.push({
             _id: manager._id,
             label: `C.I.: ${manager.ci} - ${manager.name} ${manager.lastname} - ${manager.role}`,
-            value: manager._id
+            value: manager._id,
           });
         } else return null;
       });
@@ -156,16 +157,16 @@ const UpdateRoadmap = props => {
     data.unshift({
       _id: "1",
       label: "* Seleccione una opción",
-      value: 0
+      value: 0,
     });
 
     setDataManagers(data);
   };
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     setRoadmap({
       ...roadmap,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -179,24 +180,24 @@ const UpdateRoadmap = props => {
           types: {
             primary: "",
             product: "",
-            percentage: ""
+            percentage: "",
           },
           amount: "",
           unit: "",
           container: {
             type: "",
-            amount: ""
+            amount: "",
           },
-          name: ""
-        }
-      ]
+          name: "",
+        },
+      ],
     });
   };
 
-  const removeProduct = index => {
+  const removeProduct = (index) => {
     setRoadmap({
       ...roadmap,
-      products: roadmap.products.filter((p, i) => i !== index)
+      products: roadmap.products.filter((p, i) => i !== index),
     });
   };
 
@@ -206,7 +207,7 @@ const UpdateRoadmap = props => {
       products: roadmap.products.map((product, i) => {
         if (index !== i) return product;
         return { ...product, [e.target.name]: e.target.value };
-      })
+      }),
     });
   };
 
@@ -217,9 +218,9 @@ const UpdateRoadmap = props => {
         if (index !== i) return product;
         return {
           ...product,
-          [path]: { ...product[path], [e.target.name]: e.target.value }
+          [path]: { ...product[path], [e.target.name]: e.target.value },
         };
-      })
+      }),
     });
   };
 
@@ -230,33 +231,33 @@ const UpdateRoadmap = props => {
         ...roadmap.itinerary,
         [path2]: {
           ...roadmap.itinerary[path2],
-          [e.target.name]: e.target.value
-        }
-      }
+          [e.target.name]: e.target.value,
+        },
+      },
     });
   };
 
-  const getChauffeur = id => {
+  const getChauffeur = (id) => {
     return chauffeurContext.chauffeurs.data.find(
-      chauffeur => chauffeur._id.toString() === id
+      (chauffeur) => chauffeur._id.toString() === id
     );
   };
 
-  const getVehicle = id => {
+  const getVehicle = (id) => {
     return vehicleContext.vehicles.data.find(
-      vehicle => vehicle._id.toString() === id
+      (vehicle) => vehicle._id.toString() === id
     );
   };
 
-  const getBusiness = id => {
+  const getBusiness = (id) => {
     return businessContext.business.data.find(
-      business => business._id.toString() === id
+      (business) => business._id.toString() === id
     );
   };
 
   const getManager = (business, managerId) => {
     return business.managers.find(
-      manager => manager._id.toString() === managerId
+      (manager) => manager._id.toString() === managerId
     );
   };
 
@@ -276,7 +277,7 @@ const UpdateRoadmap = props => {
 
     let reportRequest = {
       template: { shortid: "rkJTnK2ce" },
-      data: formData
+      data: formData,
     };
 
     jsreport.render(reportRequest);
@@ -304,25 +305,26 @@ const UpdateRoadmap = props => {
           municipality: roadmap.itinerary.destination.municipality,
           province: roadmap.itinerary.destination.province,
           departament: roadmap.itinerary.destination.departament,
-          address: roadmap.itinerary.destination.address
+          address: roadmap.itinerary.destination.address,
         },
         origin: {
           municipality: roadmap.itinerary.origin.municipality,
           province: roadmap.itinerary.origin.province,
           departament: roadmap.itinerary.origin.departament,
-          address: roadmap.itinerary.origin.address
-        }
+          address: roadmap.itinerary.origin.address,
+        },
       },
       route: roadmap.route,
       tramit: roadmap.tramit,
       city: roadmap.city,
-      state: roadmap.state
+      state: roadmap.state,
+      delivered: roadmap.delivered,
     };
 
     return formData;
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = buildData();
@@ -384,54 +386,54 @@ const UpdateRoadmap = props => {
     { _id: "7", label: "Potosi", value: "Potosi" },
     { _id: "8", label: "Chuquisaca", value: "Chuquisaca" },
     { _id: "9", label: "Beni", value: "Beni" },
-    { _id: "10", label: "Pando", value: "Pando" }
+    { _id: "10", label: "Pando", value: "Pando" },
   ];
   const optionsState = [
     { _id: "1", label: "* Seleccione una opción", value: 0 },
     { _id: "2", label: "Activo", value: true },
-    { _id: "3", label: "Inactivo", value: false }
+    { _id: "3", label: "Inactivo", value: false },
   ];
 
-  const optionsBusiness = business.map(item => {
+  const optionsBusiness = business.map((item) => {
     return {
       _id: item._id,
       label: `REGISTRO: ${item.nit} - ${item.name}`,
-      value: item._id
+      value: item._id,
     };
   });
 
   optionsBusiness.unshift({
     _id: "1",
     label: "* Seleccione una opción",
-    value: 0
+    value: 0,
   });
 
-  const optionsVehicles = vehicles.map(item => {
+  const optionsVehicles = vehicles.map((item) => {
     return {
       _id: item._id,
       label: `Placa: ${item.number} - ${item.brand} - ${item.color}`,
-      value: item._id
+      value: item._id,
     };
   });
 
   optionsVehicles.unshift({
     _id: "1",
     label: "* Seleccione una opción",
-    value: 0
+    value: 0,
   });
 
-  const optionsChauffeurs = chauffeurs.map(item => {
+  const optionsChauffeurs = chauffeurs.map((item) => {
     return {
       _id: item._id,
       label: `C.I.: ${item.ci} - ${item.name} ${item.lastname}`,
-      value: item._id
+      value: item._id,
     };
   });
 
   optionsChauffeurs.unshift({
     _id: "1",
     label: "* Seleccione una opción",
-    value: 0
+    value: 0,
   });
 
   if (error && typeof error === "object") {
@@ -443,7 +445,7 @@ const UpdateRoadmap = props => {
       "itinerary.origin.municipality": errorOriginMunicipality,
       "itinerary.origin.departament": errorOriginDepartament,
       "itinerary.origin.province": errorOriginProvince,
-      "itinerary.origin.address": errorOriginAddress
+      "itinerary.origin.address": errorOriginAddress,
     } = error;
 
     errorItineraryDestinationMunicipality = errorDestinationMunicipality;
@@ -473,7 +475,7 @@ const UpdateRoadmap = props => {
                 <Button
                   onClick={() =>
                     props.history.push({
-                      pathname: "/admin/roadmaps"
+                      pathname: "/admin/roadmaps",
                     })
                   }
                   size="sm"
@@ -591,7 +593,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. Gasolina"
                         name="substance"
                         value={product.substance}
-                        onChange={e => handleInputProducts(e, i)}
+                        onChange={(e) => handleInputProducts(e, i)}
                       />
                     </Col>
                     <Col lg={1} md={1} xs={1}>
@@ -601,7 +603,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. N"
                         name="primary"
                         value={product.types.primary}
-                        onChange={e => handleInputProductPath(e, i, "types")}
+                        onChange={(e) => handleInputProductPath(e, i, "types")}
                       />
                     </Col>
                     <Col>
@@ -611,7 +613,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. S"
                         name="product"
                         value={product.types.product}
-                        onChange={e => handleInputProductPath(e, i, "types")}
+                        onChange={(e) => handleInputProductPath(e, i, "types")}
                       />
                     </Col>
                     <Col lg={1} md={1} xs={1}>
@@ -621,7 +623,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. 50,00"
                         name="percentage"
                         value={product.types.percentage}
-                        onChange={e => handleInputProductPath(e, i, "types")}
+                        onChange={(e) => handleInputProductPath(e, i, "types")}
                       />
                     </Col>
                     <Col>
@@ -631,7 +633,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. 22000"
                         name="amount"
                         value={product.amount}
-                        onChange={e => handleInputProducts(e, i)}
+                        onChange={(e) => handleInputProducts(e, i)}
                       />
                     </Col>
                     <Col>
@@ -641,7 +643,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. lit"
                         name="unit"
                         value={product.unit}
-                        onChange={e => handleInputProducts(e, i)}
+                        onChange={(e) => handleInputProducts(e, i)}
                       />
                     </Col>
                     <Col>
@@ -651,7 +653,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. Acto Camion"
                         name="type"
                         value={product.container.type}
-                        onChange={e =>
+                        onChange={(e) =>
                           handleInputProductPath(e, i, "container")
                         }
                       />
@@ -663,7 +665,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. 1"
                         name="amount"
                         value={product.container.amount}
-                        onChange={e =>
+                        onChange={(e) =>
                           handleInputProductPath(e, i, "container")
                         }
                       />
@@ -675,7 +677,7 @@ const UpdateRoadmap = props => {
                         placeholder="Ej. Condensado"
                         name="name"
                         value={product.name}
-                        onChange={e => handleInputProducts(e, i)}
+                        onChange={(e) => handleInputProducts(e, i)}
                       />
                     </Col>
                     <button
@@ -712,7 +714,9 @@ const UpdateRoadmap = props => {
                   name="address"
                   value={roadmap.itinerary.origin.address}
                   error={errorItineraryOriginAddress}
-                  onChange={e => handleInputItinerary(e, "itinerary", "origin")}
+                  onChange={(e) =>
+                    handleInputItinerary(e, "itinerary", "origin")
+                  }
                 />
               </Col>
               <Col lg="6">
@@ -722,7 +726,9 @@ const UpdateRoadmap = props => {
                   name="departament"
                   value={roadmap.itinerary.origin.departament}
                   error={errorItineraryOriginDepartament}
-                  onChange={e => handleInputItinerary(e, "itinerary", "origin")}
+                  onChange={(e) =>
+                    handleInputItinerary(e, "itinerary", "origin")
+                  }
                 />
               </Col>
             </Row>
@@ -734,7 +740,9 @@ const UpdateRoadmap = props => {
                   name="province"
                   value={roadmap.itinerary.origin.province}
                   error={errorItineraryOriginProvince}
-                  onChange={e => handleInputItinerary(e, "itinerary", "origin")}
+                  onChange={(e) =>
+                    handleInputItinerary(e, "itinerary", "origin")
+                  }
                 />
               </Col>
               <Col lg="6">
@@ -744,7 +752,9 @@ const UpdateRoadmap = props => {
                   name="municipality"
                   value={roadmap.itinerary.origin.municipality}
                   error={errorItineraryOriginMunicipality}
-                  onChange={e => handleInputItinerary(e, "itinerary", "origin")}
+                  onChange={(e) =>
+                    handleInputItinerary(e, "itinerary", "origin")
+                  }
                 />
               </Col>
             </Row>
@@ -756,7 +766,7 @@ const UpdateRoadmap = props => {
                   name="address"
                   value={roadmap.itinerary.destination.address}
                   error={errorItineraryDestinationAddress}
-                  onChange={e =>
+                  onChange={(e) =>
                     handleInputItinerary(e, "itinerary", "destination")
                   }
                 />
@@ -768,7 +778,7 @@ const UpdateRoadmap = props => {
                   name="departament"
                   value={roadmap.itinerary.destination.departament}
                   error={errorItineraryDestinationDepartament}
-                  onChange={e =>
+                  onChange={(e) =>
                     handleInputItinerary(e, "itinerary", "destination")
                   }
                 />
@@ -782,7 +792,7 @@ const UpdateRoadmap = props => {
                   name="province"
                   value={roadmap.itinerary.destination.province}
                   error={errorItineraryDestinationProvince}
-                  onChange={e =>
+                  onChange={(e) =>
                     handleInputItinerary(e, "itinerary", "destination")
                   }
                 />
@@ -794,7 +804,7 @@ const UpdateRoadmap = props => {
                   name="municipality"
                   value={roadmap.itinerary.destination.municipality}
                   error={errorItineraryDestinationMunicipality}
-                  onChange={e =>
+                  onChange={(e) =>
                     handleInputItinerary(e, "itinerary", "destination")
                   }
                 />
@@ -859,7 +869,7 @@ const UpdateRoadmap = props => {
             <Row>
               <Col lg="6">
                 <SelectListGroup
-                  label="Estado"
+                  label="Estado de Registro"
                   name="state"
                   onChange={handleInput}
                   options={optionsState}
@@ -874,6 +884,16 @@ const UpdateRoadmap = props => {
                 />
               </Col>
             </Row>
+            <Row>
+              <Col lg="12">
+                <InputGroup
+                  disabled={true}
+                  name="delivered"
+                  label="Estado de Entrega"
+                  value={roadmap.delivered ? "Entregado" : "Pendiente"}
+                />
+              </Col>
+            </Row>
           </CardBody>
         </Form>
       </Card>
@@ -881,7 +901,7 @@ const UpdateRoadmap = props => {
         title="Imprimir"
         modal={modal}
         toggle={toggleModal}
-        onConfirm={e => {
+        onConfirm={(e) => {
           e.preventDefault();
 
           printPDF();

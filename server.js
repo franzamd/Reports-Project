@@ -50,7 +50,7 @@ app.use(errorHandler);
 app.get("*", function (req, res) {
   res.redirect("/");
 });
-// test port
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
@@ -58,4 +58,3 @@ app.listen(PORT, () => {
     `Server runing in ${process.env.NODE_ENV} mode port ${PORT}`.yellow.bold
   );
 });
-// Test commit

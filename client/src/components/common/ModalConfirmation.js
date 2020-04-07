@@ -9,7 +9,8 @@ const ModalConfirmation = ({
   messages,
   className,
   onConfirm,
-  onClose
+  onClose,
+  loading,
 }) => {
   const infoMessages = messages.map((message, index) => {
     if (message.value) {
@@ -33,7 +34,7 @@ const ModalConfirmation = ({
         {messages && <div className="mt-2">{infoMessages}</div>}
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" onClick={onConfirm}>
+        <Button disabled={loading} color="primary" onClick={onConfirm}>
           Aceptar
         </Button>
         <Button onClick={onClose}>Cancelar</Button>
@@ -44,7 +45,7 @@ const ModalConfirmation = ({
 
 ModalConfirmation.defaultProps = {
   messages: [],
-  title: ""
+  title: "",
 };
 
 export default ModalConfirmation;

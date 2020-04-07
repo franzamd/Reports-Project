@@ -23,9 +23,9 @@ incoming API request.
 					  <img src="{#asset ypfb.png @encoding=dataURI}" style="width:100%; width:150px;" />
 					</div>
 				    <h3 class="text-center font-weight-bold mb-2">HOJA DE RUTA</h3>
-					<p class="text-center font-weight-bold mb-2">Nº de tramite: {{tramit}}</p>
-					<p class="text-center mb-2">Fecha: {{createdAt}}</p>
-					<p class="text-center font-weight-bold mb-2"><small>Ciudad: {{city}}</small></p>
+					<p class="text-center font-weight-bold mb-1">Nº de tramite: {{tramit}}</p>
+					<p class="text-center  mb-1">Fecha: {{createdAt}}</p>
+					<p class="text-center mb-2">Ciudad: {{city}}</p>
                     <div class="row pb-2 p-2">
                         <div class="col-md-6">
 						<h4>Información Empresa</h4>
@@ -136,20 +136,20 @@ incoming API request.
 						     <div class="col text-right">
                              <p><strong>Municipio</strong>: {{ itinerary.destination.municipality }}</p>
 						    </div>
-						 </div>
+						 </div>	
                         </div>	
-							<div class="col">
+						<div class="col">
+							<div class="row">
+								<div class="col col-12">
+									<p class=""><strong>Ruta a seguir </strong>: {{ route }}</p>			
+							</div>
+							<div class="col col-12">
+									<p class=""><strong>Plazo de validez de la Hoja de Ruta</strong>: {{ validity }}</p>			
+							</div>
+							</div>
 								<div class="row">
-								<div class="col col-12">
-									  <p class=""><strong>Ruta a seguir </strong>: {{ route }}</p>			
-								</div>
-								<div class="col col-12">
-									  <p class=""><strong>Plazo de validez de la Hoja de Ruta</strong>: {{ validity }}</p>			
-								</div>
-								</div>
-									<div class="row">
-								<div class="col text-left">
-									  <p class=""><strong>Desde el dia</strong>: {{ begin }}</p>	
+									<div class="col text-left">
+									<p class=""><strong>Desde el dia</strong>: {{ begin }}</p>	
 								</div>
 								<div class="col text-right">
 									  <p class="text-right"><strong>Hasta el dia</strong>: {{ finish }}</p>		
@@ -159,7 +159,25 @@ incoming API request.
 								</div>
 							</div>
 							</div>
-							<hr></hr>
+						<hr></hr>
+						<br></br>
+						<br></br>
+						<div class="col mt-5">
+							<div class="row">
+							<div class="col d-flex justify-content-center">
+								<div class="d-flex flex-column">
+								<p class="m-0 p-0">--------------------------------</p>
+								<p class="text-center"><strong>Encargado</strong></p>
+								</div>
+							</div>
+							<div class="col d-flex justify-content-center">
+								<div class="d-flex flex-column">
+								<p class="m-0 p-0">----------------------------------------</p>
+								<p class="text-center"><strong>Jefe Distrital o Regional</strong></p>
+								</div>
+							</div>
+							</div>
+						</div>
         </div>
     </div>
     </body>
