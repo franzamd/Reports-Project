@@ -160,17 +160,22 @@ exports.updateManager = asyncHandler(async (req, res, next) => {
     );
   }
 
-  business.managers.map(manager => {
+  const managers = business.managers.map(manager => {
     if (manager._id.toString() === req.params.managerId) {
-      manager._id = manager._id;
-      manager.name = req.body.name;
-      manager.lastname = req.body.lastname;
-      manager.ci = req.body.ci;
-      manager.role = req.body.role;
-      manager.state = req.body.state;
-      manager.createdAt = Date.now();
+     return {
+      _id: manager._id,
+      name: req.body.name,
+      lastname: req.body.lastname,
+      ci: req.body.ci,
+      role: req.body.role,
+      state: req.body.state,
+      createdAt: Date.now()
+     }
     }
+    return manager
   });
+  
+  business.managers = managers;
 
   await business.save();
 
