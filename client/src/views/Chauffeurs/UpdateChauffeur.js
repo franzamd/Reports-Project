@@ -7,7 +7,7 @@ import {
   CardBody,
   Row,
   Button,
-  Form
+  Form,
 } from "reactstrap";
 
 import withParamsState from "../../HOC/withParamsState";
@@ -18,7 +18,7 @@ import DateFieldGroup from "../../components/common/DateFieldGroup";
 
 import ChauffeurContext from "../../context/chauffeur/chauffeurContext";
 
-const UpdateChauffeur = props => {
+const UpdateChauffeur = (props) => {
   // Chauffeur Id
   const { _id } = props.location.state;
 
@@ -33,7 +33,11 @@ const UpdateChauffeur = props => {
     address: "",
     license: "",
     state: "",
-    createdAt: ""
+    createdAt: "",
+    user: {
+      _id: "",
+      username: "",
+    },
   });
 
   useEffect(() => {
@@ -54,26 +58,27 @@ const UpdateChauffeur = props => {
         address: chauffeurContext.chauffeur.data.address,
         license: chauffeurContext.chauffeur.data.license,
         state: chauffeurContext.chauffeur.data.state,
-        createdAt: chauffeurContext.chauffeur.data.createdAt
+        createdAt: chauffeurContext.chauffeur.data.createdAt,
+        user: chauffeurContext.chauffeur.data.user,
       });
     }
   }, [loading]);
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     if (e.target.name === "state") {
       return setChaufeur({
         ...chauffeur,
-        [e.target.name]: e.target.value === "true" ? true : false
+        [e.target.name]: e.target.value === "true" ? true : false,
       });
     }
 
     setChaufeur({
       ...chauffeur,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -83,7 +88,7 @@ const UpdateChauffeur = props => {
       issued: chauffeur.issued,
       address: chauffeur.address,
       license: chauffeur.license,
-      state: chauffeur.state
+      state: chauffeur.state,
     };
 
     await updateChauffeur(_id, formData, props.history);
@@ -109,13 +114,13 @@ const UpdateChauffeur = props => {
     { _id: "7", label: "Tarija", value: "TJ" },
     { _id: "8", label: "Santa Cruz", value: "SC" },
     { _id: "9", label: "Beni", value: "BE" },
-    { _id: "10", label: "Pando", value: "PA" }
+    { _id: "10", label: "Pando", value: "PA" },
   ];
 
   const optionsState = [
     { _id: "1", label: "* Seleccione una opción", value: 0 },
     { _id: "2", label: "Activo", value: true },
-    { _id: "3", label: "Inactivo", value: false }
+    { _id: "3", label: "Inactivo", value: false },
   ];
 
   return (
@@ -136,7 +141,7 @@ const UpdateChauffeur = props => {
                   <Button
                     onClick={() =>
                       props.history.push({
-                        pathname: "/admin/chauffeurs"
+                        pathname: "/admin/chauffeurs",
                       })
                     }
                     size="sm"
@@ -225,7 +230,7 @@ const UpdateChauffeur = props => {
               <Row>
                 <Col lg="6">
                   <SelectListGroup
-                    label="Estado"
+                    label="Estado *"
                     name="state"
                     onChange={handleInput}
                     options={optionsState}
@@ -237,6 +242,16 @@ const UpdateChauffeur = props => {
                     label="Fecha de Registro"
                     name="date"
                     value={chauffeur.createdAt}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col lg="12">
+                  <InputGroup
+                    disabled={true}
+                    label="Registrado por usuario"
+                    name="date"
+                    value={chauffeur.user.username}
                   />
                 </Col>
               </Row>

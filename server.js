@@ -5,6 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
+const open = require("open"); // Opens the image in the default image viewer
 require("colors");
 
 // Load env variables global
@@ -57,4 +58,20 @@ app.listen(PORT, () => {
   console.log(
     `Server runing in ${process.env.NODE_ENV} mode port ${PORT}`.yellow.bold
   );
+
+  if (process.env.NODE_ENV === "production") {
+    // Opens the image in the default image viewer
+    (async () => {
+      // Opens the url in the default browser
+      await open("http://localhost:5000");
+
+      // Specify the app to open in
+      await open("http://localhost:5000", { app: "firefox" });
+
+      // Specify app arguments
+      await open("http://localhost:5000", {
+        app: ["google chrome", "--incognito"],
+      });
+    })();
+  }
 });

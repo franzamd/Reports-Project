@@ -5,6 +5,7 @@ const Roadmap = require("../models/Roadmap");
 const Chauffeur = require("../models/Chauffeur");
 const Business = require("../models/Business");
 const Vehicle = require("../models/Vehicle");
+const User = require("../models/User");
 
 // @desc Get roadmaps
 // @route GET /api/roadmaps
@@ -17,43 +18,12 @@ exports.getRoadmaps = asyncHandler(async (req, res, next) => {
 // @route GET /api/roadmap/:id/all
 // @access Public
 exports.getRoadmapByPopulate = asyncHandler(async (req, res, next) => {
-  const roadmap = await Roadmap.findById(req.params.id);
-
-  if (!roadmap) {
-    return next(
-      new ErrorResponse(
-        `Hoja de Ruta con el id ${req.params.id} no ha sido encontrado`,
-        404
-      )
-    );
-  }
-
-  res.status(200).json({
-    success: true,
-    data: roadmap
-  });
-});
-
-// @desc Get roadmaps
-// @route GET /api/roadmaps/:id
-// @access Public
-exports.getRoadmap = asyncHandler(async (req, res, next) => {
   const roadmap = await Roadmap.findById(req.params.id).populate([
     {
-      path: "chauffeur",
-      select: "name ci lastname license",
-      model: Chauffeur
+      path: "user",
+      select: "username",
+      model: User,
     },
-    {
-      path: "vehicle",
-      select: "number brand color volume transport",
-      model: Vehicle
-    },
-    {
-      path: "business",
-      select: "name nit managers",
-      model: Business
-    }
   ]);
 
   if (!roadmap) {
@@ -67,7 +37,49 @@ exports.getRoadmap = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: roadmap
+    data: roadmap,
+  });
+});
+
+// @desc Get roadmaps
+// @route GET /api/roadmaps/:id
+// @access Public
+exports.getRoadmap = asyncHandler(async (req, res, next) => {
+  const roadmap = await Roadmap.findById(req.params.id).populate([
+    {
+      path: "chauffeur",
+      select: "name ci lastname license",
+      model: Chauffeur,
+    },
+    {
+      path: "vehicle",
+      select: "number brand color volume transport",
+      model: Vehicle,
+    },
+    {
+      path: "business",
+      select: "name nit managers",
+      model: Business,
+    },
+    {
+      path: "user",
+      select: "username",
+      model: User,
+    },
+  ]);
+
+  if (!roadmap) {
+    return next(
+      new ErrorResponse(
+        `Hoja de Ruta con el id ${req.params.id} no ha sido encontrado`,
+        404
+      )
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    data: roadmap,
   });
 });
 
@@ -75,6 +87,7 @@ exports.getRoadmap = asyncHandler(async (req, res, next) => {
 // @route POST /api/roadmaps
 // @access Public
 exports.createRoadmap = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let roadmap = await Roadmap.findOne({ tramit: req.body.tramit });
 
   if (roadmap) {
@@ -90,7 +103,7 @@ exports.createRoadmap = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: roadmap
+    data: roadmap,
   });
 });
 
@@ -98,6 +111,7 @@ exports.createRoadmap = asyncHandler(async (req, res, next) => {
 // @route PUT /api/roadmaps/:id
 // @access Public
 exports.updateRoadmap = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let roadmap = await Roadmap.findById(req.params.id);
 
   if (!roadmap) {
@@ -131,11 +145,11 @@ exports.updateRoadmap = asyncHandler(async (req, res, next) => {
 
   roadmap = await Roadmap.findByIdAndUpdate(req.params.id, req.body, {
     runValidators: true,
-    new: true
+    new: true,
   });
 
   res.status(201).json({
     success: true,
-    data: roadmap
+    data: roadmap,
   });
 });

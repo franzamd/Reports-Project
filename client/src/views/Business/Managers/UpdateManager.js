@@ -161,7 +161,7 @@ const UpdateManager = (props) => {
               <Row>
                 <Col lg="6">
                   <SelectListGroup
-                    label="Estado"
+                    label="Estado *"
                     name="state"
                     onChange={handleInput}
                     options={optionsState}

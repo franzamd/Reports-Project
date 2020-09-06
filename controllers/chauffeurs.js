@@ -2,6 +2,7 @@ const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
 const Chauffeur = require("../models/Chauffeur");
+const User = require("../models/User");
 
 // @desc Get chauffeurs
 // @route GET /api/chauffeurs
@@ -14,7 +15,11 @@ exports.getChauffeurs = asyncHandler(async (req, res, next) => {
 // @route GET /api/chauffeurs/:id
 // @access Public
 exports.getChauffeur = asyncHandler(async (req, res, next) => {
-  const chauffeur = await Chauffeur.findById(req.params.id);
+  const chauffeur = await Chauffeur.findById(req.params.id).populate({
+    path: "user",
+    select: "username",
+    model: User,
+  });
 
   if (!chauffeur) {
     return next(
@@ -27,7 +32,7 @@ exports.getChauffeur = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: chauffeur
+    data: chauffeur,
   });
 });
 
@@ -35,6 +40,7 @@ exports.getChauffeur = asyncHandler(async (req, res, next) => {
 // @route POST /api/chauffeurs
 // @access Public
 exports.createChauffeur = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let chauffeur = await Chauffeur.findOne({ ci: req.body.ci });
 
   if (chauffeur) {
@@ -50,7 +56,7 @@ exports.createChauffeur = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: chauffeur
+    data: chauffeur,
   });
 });
 
@@ -58,6 +64,7 @@ exports.createChauffeur = asyncHandler(async (req, res, next) => {
 // @route PUT /api/chauffeur/:id
 // @access Public
 exports.updateChauffeur = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let chauffeur = await Chauffeur.findById(req.params.id);
 
   if (!chauffeur) {
@@ -88,11 +95,11 @@ exports.updateChauffeur = asyncHandler(async (req, res, next) => {
 
   chauffeur = await Chauffeur.findByIdAndUpdate(req.params.id, req.body, {
     runValidators: true,
-    new: true
+    new: true,
   });
 
   res.status(201).json({
     success: true,
-    data: chauffeur
+    data: chauffeur,
   });
 });

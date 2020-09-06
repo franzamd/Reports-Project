@@ -7,19 +7,19 @@ import {
   Button,
   CardBody,
   Row,
-  Container
+  Container,
 } from "reactstrap";
 import classnames from "classnames";
 import moment from "moment";
 import "moment/locale/es";
 
-import img1 from "../../assets/images/sites/vehicle.png";
+import img from "../../assets/images/sites/vehicle.png";
 
 import withParamsState from "../../HOC/withParamsState";
 
 moment.locale("es");
 
-const DetailsVehicle = props => {
+const DetailsVehicle = (props) => {
   const {
     transport,
     color,
@@ -27,20 +27,21 @@ const DetailsVehicle = props => {
     brand,
     volume,
     state,
-    createdAt
+    user,
+    createdAt,
   } = props.location.state.vehicle;
 
   return (
     <Container>
-      <Card>
+      <Card className="col">
         <Row className="d-flex justify-content-center">
           <Col lg={4} className="align-self-center">
             <CardImg
-              src={img1}
+              src={img}
               className="rounded mx-auto d-block"
               style={{
                 maxWidth: "300px",
-                maxHeight: "400px"
+                maxHeight: "400px",
               }}
             />
           </Col>
@@ -71,7 +72,7 @@ const DetailsVehicle = props => {
               </div>
               <div className="d-flex col">
                 <label className="mr-3 font-weight-bold">
-                  Volumen (Carga Total):
+                  Volumen (Carga Total en Kg.):
                 </label>
                 <p className="d-inline ">{volume}</p>
               </div>
@@ -80,7 +81,7 @@ const DetailsVehicle = props => {
                 <p
                   className={classnames("d-inline ", {
                     "text-success": state,
-                    "text-danger": !state
+                    "text-danger": !state,
                   })}
                 >
                   {state ? "Activo" : "Inactivo"}
@@ -92,16 +93,20 @@ const DetailsVehicle = props => {
                   {moment(createdAt).format("DD MMMM YYYY, h:mm:ss a")}
                 </p>
               </div>
+              <div className="d-flex col">
+                <label className="mr-3 font-weight-bold">Registrado por:</label>
+                <p className="d-inline ">{user.username}</p>
+              </div>
               <div className="d-flex justify-content-center my-2">
                 <Button
                   color="primary"
                   onClick={() =>
                     props.history.push({
-                      pathname: "/admin/vehicles"
+                      pathname: "/admin/vehicles",
                     })
                   }
                 >
-                  Atras
+                  Atrás
                 </Button>
               </div>
             </CardBody>

@@ -6,7 +6,7 @@ const {
   createBusiness,
   createManager,
   updateManager,
-  updateBusiness
+  updateBusiness,
 } = require("../controllers/business");
 
 const Business = require("../models/Business");
@@ -23,18 +23,18 @@ router.use(authorize("administrador", "usuario"));
 
 router
   .route("/")
-  .get(advancedResults(Business), getBusiness)
+  .get(
+    advancedResults(Business, {
+      path: "user",
+      select: "_id username",
+    }),
+    getBusiness
+  )
   .post(createBusiness);
 
-router
-  .route("/:id")
-  .get(getBusinessById)
-  .put(updateBusiness);
+router.route("/:id").get(getBusinessById).put(updateBusiness);
 
-router
-  .route("/:id/managers")
-  .get(getManagers)
-  .post(createManager);
+router.route("/:id/managers").get(getManagers).post(createManager);
 
 router.route("/:id/managers/:managerId").put(updateManager);
 

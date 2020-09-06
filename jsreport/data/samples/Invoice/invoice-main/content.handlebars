@@ -22,13 +22,13 @@ incoming API request.
 					<div class="text-center">
 					  <img src="{#asset ypfb.png @encoding=dataURI}" style="width:100%; width:150px;" />
 					</div>
-				    <h3 class="text-center font-weight-bold mb-2">HOJA DE RUTA</h3>
+				    <h1 class="text-center font-weight-bold mb-2">HOJA DE RUTA</h1>
 					<p class="text-center font-weight-bold mb-1">Nº de tramite: {{tramit}}</p>
-					<p class="text-center  mb-1">Fecha: {{createdAt}}</p>
-					<p class="text-center mb-2">Ciudad: {{city}}</p>
+					<p class="text-center  mb-1"><strong>Fecha de Emisión: </strong>{{createdAt}}</p>
+					<p class="text-center mb-2"><strong>Ciudad: </strong>{{city}}</p>
                     <div class="row pb-2 p-2">
                         <div class="col-md-6">
-						<h4>Información Empresa</h4>
+						<h4>INFORMACIÓN DE LA EMPRESA</h4>
                          <p class="mb-2"><strong>Empresa</strong>: {{business.name}}</p>
                          <p class="mb-2"><strong>Registro:</strong> {{ business.nit}}</p>						 
                          <p class="mb-2"><strong>Encargado:</strong> {{ manager.name }} {{ manager.lastname }} - {{ manager.role }}</p>						 
@@ -36,7 +36,7 @@ incoming API request.
                         </div>
 
                         <div class="col-md-6 text-right">
-						 <h4>Información Vehiculo</h4>
+						 <h4>INFORMACIÓN DEL VEHICULO</h4>
                          <p class="mb-2"><strong>Transporte</strong>: {{ vehicle.transport}}</p>
                          <p class="mb-2"><strong>Placa</strong>: {{ vehicle.number}}</p>
                          <p class="mb-2"><strong>Marca</strong>: {{ vehicle.brand}}</p>
@@ -44,7 +44,7 @@ incoming API request.
                         </div>
                     </div>
 					<hr></hr>
-					<h5 class="text-center">LISTA DE PRODUCTOS</h5>
+					<h3 class="text-center">LISTA DE PRODUCTOS</h3>
                     <div class="table-responsive">
 					<table class="table table-bordered mb-2">
 						<thead>
@@ -81,27 +81,19 @@ incoming API request.
     	</div>
 			    <hr></hr>
 						<div class="col">
-						 <h4>Información Conductor</h4>
+						 <h4>INFORMACIÓN DEL CONDUCTOR</h4>
 						 <div class="row">
-						  	<div class="col d-flex justify-content-center">
-                         	<p class="mb-2"><strong>Nombres</strong>: {{ chauffeur.name}}</p>
-							 </div>
-						 	<div class="col d-flex justify-content-center">
-                             <p class="mb-2"><strong>Apellidos</strong>: {{ chauffeur.lastname}}</p>
-							 </div>
-						 </div>
-						  <div class="row">
-						    <div class="col d-flex justify-content-center">
-                         	<p class="mb-2"><strong>C.I.</strong>: {{ chauffeur.ci}}</p>
-						    </div>
-						     <div class="col d-flex justify-content-center">
+						  	<div class="col d-flex justify-content-around">
+                         	<p class=""><strong>Nombres</strong>: {{ chauffeur.name}}</p>
+                             <p class=""><strong>Apellidos</strong>: {{ chauffeur.lastname}}</p>
+							 <p class=""><strong>C.I.</strong>: {{ chauffeur.ci}}</p>
                              <p><strong>Licencia</strong>: {{ chauffeur.license}}</p>
-						    </div>
+							 </div>
 						 </div>
                         </div>
 						<hr></hr>
 						<div class="col mb-3">
-						 <h4>Itinerario Origen</h4>
+						 <h4>ITINERARIO ORIGEN</h4>
 						 <div class="row">
 						  	<div class="col col-8 text-left">
                          	<p class=""><strong>Lugar de despacho (Origen)</strong>: {{ itinerary.origin.address}}</p>
@@ -120,7 +112,7 @@ incoming API request.
 						 </div>
                         </div>	
 						<div class="col mb-3">
-						 <h4>Itinerario Destino</h4>
+						 <h4>ITINERARIO DESTINO</h4>
 						 <div class="row">
 						  	<div class="col col-8 text-left">
                          	<p class=""><strong>Lugar de despacho (Destino)</strong>: {{ itinerary.destination.address}}</p>
@@ -140,24 +132,31 @@ incoming API request.
                         </div>	
 						<div class="col">
 							<div class="row">
-								<div class="col col-12">
+								<div class="col col">
 									<p class=""><strong>Ruta a seguir </strong>: {{ route }}</p>			
+								</div>
 							</div>
-							<div class="col col-12">
+							<div class="row">
+								<div class="col col">
 									<p class=""><strong>Plazo de validez de la Hoja de Ruta</strong>: {{ validity }}</p>			
-							</div>
+								</div>
 							</div>
 								<div class="row">
 									<div class="col text-left">
-									<p class=""><strong>Desde el dia</strong>: {{ begin }}</p>	
-								</div>
-								<div class="col text-right">
+										<p class=""><strong>Desde el dia</strong>: {{ begin }}</p>	
+									</div>
+									<div class="col text-right">
 									  <p class="text-right"><strong>Hasta el dia</strong>: {{ finish }}</p>		
-								</div>	
-									<div class="col col-12">
+									</div>
+								</div>		
+								<div class="row">				
+									<div class="col text-left">
 									  <p class=""><strong>Nº de licencia o Autorización para la compra local</strong>: {{ authorization }}</p>			
+									</div>
+									<div class="col text-right">
+									  <p class=""><strong>Registrado por usuario: </strong>: {{ username }}</p>			
+									</div>
 								</div>
-							</div>
 							</div>
 						<hr></hr>
 						<br></br>
@@ -166,14 +165,14 @@ incoming API request.
 							<div class="row">
 							<div class="col d-flex justify-content-center">
 								<div class="d-flex flex-column">
-								<p class="m-0 p-0">--------------------------------</p>
-								<p class="text-center"><strong>Encargado</strong></p>
+								<p class="m-0 p-0">--------------------------------------------------------------</p>
+								<p class="text-center"><strong>ENCARGADO</strong></p>
 								</div>
 							</div>
 							<div class="col d-flex justify-content-center">
 								<div class="d-flex flex-column">
-								<p class="m-0 p-0">----------------------------------------</p>
-								<p class="text-center"><strong>Jefe Distrital o Regional</strong></p>
+								<p class="m-0 p-0">--------------------------------------------------------------</p>
+								<p class="text-center"><strong>JEFE DISTRITAL O REGIONAL</strong></p>
 								</div>
 							</div>
 							</div>

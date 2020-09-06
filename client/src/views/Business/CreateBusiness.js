@@ -144,7 +144,7 @@ const CreateBusiness = props => {
               <h6 className="heading-small text-muted mb-4">
                 Información Adicional
               </h6>
-              <div className="pl-lg-4">
+              <div className="">
                 <InputGroup
                   label="Descripción"
                   placeholder="Algún comentario ..."

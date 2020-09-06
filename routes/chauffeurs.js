@@ -3,7 +3,7 @@ const {
   getChauffeurs,
   createChauffeur,
   getChauffeur,
-  updateChauffeur
+  updateChauffeur,
 } = require("../controllers/chauffeurs");
 
 const Chauffeur = require("../models/Chauffeur");
@@ -20,12 +20,15 @@ router.use(authorize("administrador", "usuario"));
 
 router
   .route("/")
-  .get(advancedResults(Chauffeur), getChauffeurs)
+  .get(
+    advancedResults(Chauffeur, {
+      path: "user",
+      select: "_id username",
+    }),
+    getChauffeurs
+  )
   .post(createChauffeur);
 
-router
-  .route("/:id")
-  .get(getChauffeur)
-  .put(updateChauffeur);
+router.route("/:id").get(getChauffeur).put(updateChauffeur);
 
 module.exports = router;

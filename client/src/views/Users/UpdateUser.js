@@ -7,7 +7,7 @@ import {
   CardBody,
   Row,
   Button,
-  Form
+  Form,
 } from "reactstrap";
 
 import withParamsState from "../../HOC/withParamsState";
@@ -21,7 +21,7 @@ import img1 from "../../assets/images/users/0.png";
 import UserContext from "../../context/user/userContext";
 import AuthContext from "../../context/auth/authContext";
 
-const UpdateUser = props => {
+const UpdateUser = (props) => {
   // user Id
   const { _id } = props.location.state;
 
@@ -35,7 +35,7 @@ const UpdateUser = props => {
     email: "",
     role: "",
     state: "",
-    createdAt: ""
+    createdAt: "",
   });
 
   useEffect(() => {
@@ -50,7 +50,8 @@ const UpdateUser = props => {
         email: userContext.user.data.email,
         role: userContext.user.data.role,
         state: userContext.user.data.state,
-        createdAt: userContext.user.data.createdAt
+        createdAt: userContext.user.data.createdAt,
+        user: userContext.user.data.user,
       });
     }
   }, [loading]);
@@ -67,28 +68,28 @@ const UpdateUser = props => {
     []
   );
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     if (e.target.name === "state") {
       return setUser({
         ...user,
-        [e.target.name]: e.target.value === "true" ? true : false
+        [e.target.name]: e.target.value === "true" ? true : false,
       });
     }
 
     setUser({
       ...user,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
       username: user.username,
       email: user.email,
       role: user.role,
-      state: user.state
+      state: user.state,
     };
 
     await updateUser(_id, formData, props.history);
@@ -107,13 +108,13 @@ const UpdateUser = props => {
   const optionsRole = [
     { _id: "1", label: "* Seleccione una opción", value: 0 },
     { _id: "2", label: "Usuario", value: "usuario" },
-    { _id: "3", label: "Administrador", value: "administrador" }
+    { _id: "3", label: "Administrador", value: "administrador" },
   ];
 
   const optionsState = [
     { _id: "1", label: "* Seleccione una opción", value: 0 },
     { _id: "2", label: "Activo", value: true },
-    { _id: "3", label: "Inactivo", value: false }
+    { _id: "3", label: "Inactivo", value: false },
   ];
 
   return (
@@ -126,7 +127,7 @@ const UpdateUser = props => {
                 <img
                   style={{
                     width: "200px",
-                    height: "200px"
+                    height: "200px",
                   }}
                   alt=""
                   className="rounded-circle"
@@ -150,9 +151,9 @@ const UpdateUser = props => {
                   >
                     <ConfirmButton onClick={onSubmit} loading={loading} />
                     <Button
-                      onClick={e =>
+                      onClick={(e) =>
                         props.history.push({
-                          pathname: "/admin/users"
+                          pathname: "/admin/users",
                         })
                       }
                       size="sm"
@@ -215,7 +216,7 @@ const UpdateUser = props => {
                       disabled={
                         actualUser._id.toString() === _id ? true : false
                       }
-                      label="Estado"
+                      label="Estado *"
                       name="state"
                       onChange={handleInput}
                       options={optionsState}

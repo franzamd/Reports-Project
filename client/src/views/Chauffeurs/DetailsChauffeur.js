@@ -7,7 +7,7 @@ import {
   Button,
   CardBody,
   Row,
-  Container
+  Container,
 } from "reactstrap";
 import classnames from "classnames";
 import moment from "moment";
@@ -19,7 +19,7 @@ import withParamsState from "../../HOC/withParamsState";
 
 moment.locale("es");
 
-const DetailsChauffeur = props => {
+const DetailsChauffeur = (props) => {
   const {
     name,
     lastname,
@@ -28,7 +28,8 @@ const DetailsChauffeur = props => {
     license,
     address,
     state,
-    createdAt
+    user,
+    createdAt,
   } = props.location.state.chauffeur;
 
   return (
@@ -41,7 +42,7 @@ const DetailsChauffeur = props => {
               className="rounded mx-auto d-block"
               style={{
                 maxWidth: "300px",
-                maxHeight: "400px"
+                maxHeight: "400px",
               }}
             />
           </Col>
@@ -77,7 +78,7 @@ const DetailsChauffeur = props => {
                 <p
                   className={classnames("d-inline", {
                     "text-success": state,
-                    "text-danger": !state
+                    "text-danger": !state,
                   })}
                 >
                   {state ? "Activo" : "Inactivo"}
@@ -93,16 +94,20 @@ const DetailsChauffeur = props => {
                   {moment(createdAt).format("DD MMMM YYYY, h:mm:ss a")}
                 </p>
               </div>
+              <div className="d-flex col">
+                <label className="mr-3 font-weight-bold">Registrado por:</label>
+                <p className="d-inline">{user.username}</p>
+              </div>
               <div className="d-flex justify-content-center my-2">
                 <Button
                   color="primary"
                   onClick={() =>
                     props.history.push({
-                      pathname: "/admin/chauffeurs"
+                      pathname: "/admin/chauffeurs",
                     })
                   }
                 >
-                  Atras
+                  Atrás
                 </Button>
               </div>
             </CardBody>

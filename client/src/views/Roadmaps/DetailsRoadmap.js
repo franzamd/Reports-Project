@@ -7,7 +7,7 @@ import {
   CardBody,
   Row,
   CardHeader,
-  Table
+  Table,
 } from "reactstrap";
 import classnames from "classnames";
 import moment from "moment";
@@ -21,7 +21,7 @@ import withParamsState from "../../HOC/withParamsState";
 
 moment.locale("es");
 
-const DetailsRoadmap = props => {
+const DetailsRoadmap = (props) => {
   // Roadmap Id
   const { _id } = props.location.state;
 
@@ -35,16 +35,16 @@ const DetailsRoadmap = props => {
         types: {
           primary: "",
           product: "",
-          percentage: ""
+          percentage: "",
         },
         amount: "",
         unit: "",
         container: {
           type: "",
-          amount: ""
+          amount: "",
         },
-        name: ""
-      }
+        name: "",
+      },
     ],
     chauffeur: "",
     vehicle: "",
@@ -59,20 +59,25 @@ const DetailsRoadmap = props => {
         municipality: "",
         province: "",
         departament: "",
-        address: ""
+        address: "",
       },
       origin: {
         municipality: "",
         province: "",
         departament: "",
-        address: ""
-      }
+        address: "",
+      },
     },
     route: "",
     tramit: "",
     city: "",
     state: "",
-    createdAt: ""
+    createdAt: "",
+    user: {
+      _id: "",
+      username: "",
+    },
+    delivered: null,
   });
 
   useEffect(() => {
@@ -98,7 +103,7 @@ const DetailsRoadmap = props => {
 
   const getManager = (business, managerId) => {
     return business.managers.find(
-      manager => manager._id.toString() === managerId
+      (manager) => manager._id.toString() === managerId
     );
   };
 
@@ -106,24 +111,20 @@ const DetailsRoadmap = props => {
     roadmap.createdAt = moment().format("DD MMMM YYYY, h:mm:ss a");
     roadmap.begin = moment(roadmap.begin).format("L");
     roadmap.finish = moment(roadmap.finish).format("L");
-
     roadmap.manager = getManager(roadmap.business, roadmap.manager);
-
     jsreport.serverUrl = "http://localhost:5488";
 
     let reportRequest = {
       template: { shortid: "rkJTnK2ce" },
-      data: roadmap
+      data: roadmap,
     };
-
     jsreport.render(reportRequest);
-
     return props.history.goBack();
   };
 
-  const getManagerData = id => {
+  const getManagerData = (id) => {
     if (roadmap.business.managers) {
-      const manager = roadmap.business.managers.find(item => {
+      const manager = roadmap.business.managers.find((item) => {
         if (item._id.toString() === id) return item;
         return {};
       });
@@ -138,7 +139,7 @@ const DetailsRoadmap = props => {
         <CardHeader className="bg-white border-0">
           <Row>
             <Col xs="8">
-              <h3 className="mb-0">Información de la Hoja de Ruta</h3>
+              <h3 className="mb-0">INFORMACIÓN de la Hoja de Ruta</h3>
             </Col>
             <Col
               className="d-flex justify-content-end flex-wrap align-items-baseline"
@@ -150,9 +151,9 @@ const DetailsRoadmap = props => {
                 loading={loading}
               />
               <Button
-                onClick={e =>
+                onClick={(e) =>
                   props.history.push({
-                    pathname: "/admin/roadmaps"
+                    pathname: "/admin/roadmaps",
                   })
                 }
                 size="sm"
@@ -177,7 +178,9 @@ const DetailsRoadmap = props => {
             </div>
           </Row>
           <hr className="my-4" />
-          <h6 className="heading-small text-muted mb-4">Información Empresa</h6>
+          <h6 className="heading-small text-muted mb-4">
+            INFORMACIÓN DE LA EMPRESA
+          </h6>
           <Row>
             <div className="d-flex col">
               <label className="mr-3 font-weight-bold">Empresa:</label>
@@ -196,7 +199,7 @@ const DetailsRoadmap = props => {
           </Row>
           <hr className="my-4" />
           <h6 className="heading-small text-muted mb-4">
-            Información Vehiculo
+            INFORMACIÓN DEL VEHÍCULO
           </h6>
           <Row>
             <div className="d-flex col">
@@ -219,7 +222,9 @@ const DetailsRoadmap = props => {
             </div>
           </Row>
           <hr className="my-4" />
-          <h6 className="heading-small text-muted mb-4">Información Chofer</h6>
+          <h6 className="heading-small text-muted mb-4">
+            INFORMACIÓN DEL CHOFER
+          </h6>
           <Row>
             <div className="d-flex col">
               <label className="mr-3 font-weight-bold">C.I.:</label>
@@ -242,64 +247,66 @@ const DetailsRoadmap = props => {
             </div>
           </Row>
           <hr className="my-4" />
-          <h6 className="heading-small text-muted mb-4">
-            Información Productos
+          <h6 className="heading-small text-muted mb-4 text-center">
+            INFORMACIÓN DE LOS PRODUCTOS
           </h6>
           <Row>
-            <Table size="sm" responsive>
-              <thead>
-                <tr>
-                  <th scope="col" className="text-center">
-                    Suntancia
-                  </th>
-                  <th scope="col" className="text-center">
-                    Primaria
-                  </th>
-                  <th scope="col" className="text-center">
-                    Producto Terminado
-                  </th>
-                  <th scope="col" className="text-center">
-                    Porcentaje
-                  </th>
-                  <th scope="col" className="text-center">
-                    Cantidad
-                  </th>
-                  <th scope="col" className="text-center">
-                    Unidad Kg/Lt
-                  </th>
-                  <th scope="col" className="text-center">
-                    Tipo
-                  </th>
-                  <th scope="col" className="text-center">
-                    Cantidad
-                  </th>
-                  <th scope="col" className="text-center">
-                    Nombre
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {roadmap.products.map((item, i) => {
-                  return (
-                    <tr key={i}>
-                      <td className="text-center">{item.substance}</td>
-                      <td className="text-center">{item.types.primary}</td>
-                      <td className="text-center">{item.types.product}</td>
-                      <td className="text-center">{item.types.percentage}</td>
-                      <td className="text-center">{item.amount}</td>
-                      <td className="text-center">{item.unit}</td>
-                      <td className="text-center">{item.container.type}</td>
-                      <td className="text-center">{item.container.amount}</td>
-                      <td className="text-center">{item.name}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+            <Col>
+              <Table size="sm" responsive>
+                <thead>
+                  <tr>
+                    <th scope="col" className="text-center">
+                      Suntancia
+                    </th>
+                    <th scope="col" className="text-center">
+                      Primaria
+                    </th>
+                    <th scope="col" className="text-center">
+                      Producto Terminado
+                    </th>
+                    <th scope="col" className="text-center">
+                      Porcentaje
+                    </th>
+                    <th scope="col" className="text-center">
+                      Cantidad
+                    </th>
+                    <th scope="col" className="text-center">
+                      Unidad Kg/Lt
+                    </th>
+                    <th scope="col" className="text-center">
+                      Tipo
+                    </th>
+                    <th scope="col" className="text-center">
+                      Cantidad
+                    </th>
+                    <th scope="col" className="text-center">
+                      Nombre
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {roadmap.products.map((item, i) => {
+                    return (
+                      <tr key={i}>
+                        <td className="text-center">{item.substance}</td>
+                        <td className="text-center">{item.types.primary}</td>
+                        <td className="text-center">{item.types.product}</td>
+                        <td className="text-center">{item.types.percentage}</td>
+                        <td className="text-center">{item.amount}</td>
+                        <td className="text-center">{item.unit}</td>
+                        <td className="text-center">{item.container.type}</td>
+                        <td className="text-center">{item.container.amount}</td>
+                        <td className="text-center">{item.name}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </Col>
           </Row>
           <hr className="my-4" />
           <h6 className="heading-small text-muted mb-4">
-            Información Itinerario
+            INFORMACIÓN DEL ITINERARIO
           </h6>
           <Row>
             <div className="d-flex col">
@@ -382,30 +389,41 @@ const DetailsRoadmap = props => {
               <label className="mr-3 font-weight-bold">Desde el dia:</label>
               <p className="d-inline">
                 {" "}
-                {moment(roadmap.begin).format("DD MMMM YYYY, h:mm:ss a")}
+                {moment(roadmap.begin.slice(0, 10)).format("L")}
               </p>
             </div>
             <div className="d-flex col">
               <label className="mr-3 font-weight-bold">Hasta el dia:</label>
               <p className="d-inline">
                 {" "}
-                {moment(roadmap.finish).format("DD MMMM YYYY, h:mm:ss a")}
+                {moment(roadmap.finish.slice(0, 10)).format("L")}
               </p>
             </div>
           </Row>
           <hr className="my-4" />
           <h6 className="heading-small text-muted mb-4">
-            Información Adicional
+            INFORMACIÓN ADICIONAL
           </h6>
           <div className="d-flex col">
             <label className="mr-3 font-weight-bold">Estado:</label>
             <p
               className={classnames("d-inline", {
                 "text-success": roadmap.state,
-                "text-danger": !roadmap.state
+                "text-danger": !roadmap.state,
               })}
             >
               {roadmap.state ? "Activo" : "Inactivo"}
+            </p>
+          </div>
+          <div className="d-flex col">
+            <label className="mr-3 font-weight-bold">Entrega:</label>
+            <p
+              className={classnames("d-inline", {
+                "text-success": roadmap.delivered,
+                "text-warning": !roadmap.delivered,
+              })}
+            >
+              {roadmap.delivered ? "Entregado" : "Pendiente"}
             </p>
           </div>
           <div className="d-flex col font-weight-bold">
@@ -413,6 +431,12 @@ const DetailsRoadmap = props => {
             <p className="d-inline">
               {moment(roadmap.createdAt).format("DD MMMM YYYY, h:mm:ss a")}
             </p>
+          </div>
+          <div className="d-flex col font-weight-bold">
+            <label className="mr-3 font-weight-bold">
+              Registrado por usuario:
+            </label>
+            <p className="d-inline">{roadmap.user.username}</p>
           </div>
         </CardBody>
       </Card>

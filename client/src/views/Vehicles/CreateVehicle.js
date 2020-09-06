@@ -25,7 +25,7 @@ const CreateVehicle = props => {
     color: "",
     number: "",
     brand: "",
-    volume: ""
+    volume: "",
   });
 
   useEffect(() => () => resetVehicles(), []);
@@ -143,7 +143,7 @@ const CreateVehicle = props => {
                 </Col>
                 <Col lg="6">
                   <InputGroup
-                    label="Marca"
+                    label="Marca *"
                     placeholder="Ej. Volvo"
                     name="brand"
                     value={vehicle.brand}
@@ -155,7 +155,7 @@ const CreateVehicle = props => {
               <Row>
                 <Col lg="12">
                   <InputGroup
-                    label="Volumen (Carga Total) *"
+                    label="Volumen (Carga Total en Kg.) *"
                     placeholder="Ej. 20000"
                     name="volume"
                     value={vehicle.volume}

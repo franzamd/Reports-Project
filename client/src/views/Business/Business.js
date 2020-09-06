@@ -9,7 +9,7 @@ import {
   UncontrolledDropdown,
   DropdownMenu,
   DropdownToggle,
-  CardFooter
+  CardFooter,
 } from "reactstrap";
 import "moment/locale/es";
 import moment from "moment";
@@ -23,20 +23,20 @@ import PaginationFooter from "../../components/common/PaginationFooter";
 
 moment().locale("es");
 
-const Business = props => {
+const Business = (props) => {
   const businessContext = useContext(BusinessContext);
   const {
     business,
     loading,
     getBusiness,
     getBusinessByRegex,
-    resetBusiness
+    resetBusiness,
   } = businessContext;
 
   const [dropdownOpen, setDropDown] = useState(false);
   const [currentItem, setCurrentItem] = useState({
     name: "name",
-    value: "Nombres"
+    value: "Nombres",
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -51,11 +51,11 @@ const Business = props => {
     setDropDown(!dropdownOpen);
   };
 
-  const onCaptureItem = e => {
+  const onCaptureItem = (e) => {
     setCurrentItem({ name: e.target.name, value: e.target.value });
   };
 
-  const handleSearchText = e => {
+  const handleSearchText = (e) => {
     if (currentItem.name === "name") {
       getBusinessByRegex(e.target.value, currentItem.name);
     }
@@ -133,7 +133,7 @@ const Business = props => {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentItems.map(item => {
+                  {currentItems.map((item) => {
                     return (
                       <tr key={item._id}>
                         <td className="text-center">{item.name}</td>
@@ -161,7 +161,7 @@ const Business = props => {
                               href="/"
                               role="button"
                               size="sm"
-                              onClick={e => e.preventDefault()}
+                              onClick={(e) => e.preventDefault()}
                             >
                               <i className="fas fa-ellipsis-v" />
                             </DropdownToggle>
@@ -170,7 +170,7 @@ const Business = props => {
                                 className="dropdown-item"
                                 to={{
                                   pathname: "/admin/business/details",
-                                  state: { business: item }
+                                  state: { business: item },
                                 }}
                               >
                                 Ver Detalles
@@ -179,7 +179,7 @@ const Business = props => {
                                 className="dropdown-item"
                                 to={{
                                   pathname: "/admin/business/managers",
-                                  state: { _id: item._id }
+                                  state: { _id: item._id },
                                 }}
                               >
                                 Ver Trabajadores
@@ -188,7 +188,7 @@ const Business = props => {
                                 className="dropdown-item"
                                 to={{
                                   pathname: "/admin/business/update",
-                                  state: { _id: item._id }
+                                  state: { _id: item._id },
                                 }}
                               >
                                 Actualizar

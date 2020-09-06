@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: [true, "Ingrese un username"],
-    maxlength: [10, "Username no debe ser superar los 10 caracteres"]
+    maxlength: [10, "Username no debe ser superar los 10 caracteres"],
   },
   email: {
     type: String,
@@ -16,38 +16,38 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Ingrese un email"],
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Ingresa un email válido"
-    ]
+      "Ingresa un email válido",
+    ],
   },
   role: {
     type: String,
     default: "usuario",
     enum: {
       values: ["administrador", "usuario"],
-      message: "Rol debe ser selccionado con una opción válida"
-    }
+      message: "Rol debe ser selccionado con una opción válida",
+    },
   },
   password: {
     type: String,
     required: [true, "Ingrese un password"],
     trim: true,
     minlength: [6, "Password debe ser 6 o mas caracteres"],
-    select: false
+    select: false,
   },
   resetPasswordToken: String,
   resetPasswordExpire: Date,
   state: {
     type: Boolean,
-    default: true
+    default: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 // Encrypt password with bcrypt
-UserSchema.pre("save", async function(next) {
+UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
@@ -57,19 +57,19 @@ UserSchema.pre("save", async function(next) {
 });
 
 // Match user entered password to hashed password in DB
-UserSchema.methods.matchPassword = async function(enteredPassword) {
+UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 // Sign JWT and return
-UserSchema.methods.getSinedJwtToken = function() {
+UserSchema.methods.getSinedJwtToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
+    expiresIn: process.env.JWT_EXPIRE,
   });
 };
 
 // Generate and hash password token
-UserSchema.methods.getResetPasswordToken = function() {
+UserSchema.methods.getResetPasswordToken = function () {
   // Generate token with crypto
   const resetToken = crypto.randomBytes(20).toString("hex");
 

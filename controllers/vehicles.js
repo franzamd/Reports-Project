@@ -2,6 +2,7 @@ const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
 const Vehicle = require("../models/Vehicle");
+const User = require("../models/User");
 
 // @desc Get vehicles
 // @route GET /api/vehicles
@@ -14,7 +15,11 @@ exports.getVehicles = asyncHandler(async (req, res, next) => {
 // @route GET /api/vehicles/:id
 // @access Public
 exports.getVehicle = asyncHandler(async (req, res, next) => {
-  const vehicle = await Vehicle.findById(req.params.id);
+  const vehicle = await Vehicle.findById(req.params.id).populate({
+    path: "user",
+    select: "username",
+    model: User,
+  });
 
   if (!vehicle) {
     return next(
@@ -27,7 +32,7 @@ exports.getVehicle = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: vehicle
+    data: vehicle,
   });
 });
 
@@ -35,6 +40,7 @@ exports.getVehicle = asyncHandler(async (req, res, next) => {
 // @route POST /api/vehicles
 // @access Public
 exports.createVehicle = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let vehicle = await Vehicle.findOne({ number: req.body.number });
 
   if (vehicle) {
@@ -50,7 +56,7 @@ exports.createVehicle = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: vehicle
+    data: vehicle,
   });
 });
 
@@ -58,6 +64,7 @@ exports.createVehicle = asyncHandler(async (req, res, next) => {
 // @route PUT /api/vehicle/:id
 // @access Public
 exports.updateVehicle = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let vehicle = await Vehicle.findById(req.params.id);
 
   if (!vehicle) {
@@ -87,11 +94,11 @@ exports.updateVehicle = asyncHandler(async (req, res, next) => {
   req.body.createdAt = Date.now();
   vehicle = await Vehicle.findByIdAndUpdate(req.params.id, req.body, {
     runValidators: true,
-    new: true
+    new: true,
   });
 
   res.status(201).json({
     success: true,
-    data: vehicle
+    data: vehicle,
   });
 });

@@ -7,7 +7,7 @@ import {
   CardBody,
   Row,
   Button,
-  Form
+  Form,
 } from "reactstrap";
 
 import withParamsState from "../../HOC/withParamsState";
@@ -18,7 +18,7 @@ import DateFieldGroup from "../../components/common/DateFieldGroup";
 
 import VehicleContext from "../../context/vehicle/vehicleContext";
 
-const UpdateVehicle = props => {
+const UpdateVehicle = (props) => {
   // Vehicle Id
   const { _id } = props.location.state;
 
@@ -28,7 +28,7 @@ const UpdateVehicle = props => {
     loading,
     getVehicle,
     updateVehicle,
-    resetVehicles
+    resetVehicles,
   } = vehicleContext;
 
   const [vehicle, setVehicle] = useState({
@@ -38,7 +38,11 @@ const UpdateVehicle = props => {
     brand: "",
     volume: "",
     state: "",
-    createdAt: ""
+    createdAt: "",
+    user: {
+      _id: "",
+      username: "",
+    },
   });
 
   useEffect(() => {
@@ -54,28 +58,29 @@ const UpdateVehicle = props => {
         brand: vehicleContext.vehicle.data.brand,
         volume: vehicleContext.vehicle.data.volume,
         state: vehicleContext.vehicle.data.state,
-        createdAt: vehicleContext.vehicle.data.createdAt
+        createdAt: vehicleContext.vehicle.data.createdAt,
+        user: vehicleContext.vehicle.data.user,
       });
     }
   }, [loading]);
 
   useEffect(() => () => resetVehicles(), []);
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     if (e.target.name === "state") {
       return setVehicle({
         ...vehicle,
-        [e.target.name]: e.target.value === "true" ? true : false
+        [e.target.name]: e.target.value === "true" ? true : false,
       });
     }
 
     setVehicle({
       ...vehicle,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -84,7 +89,7 @@ const UpdateVehicle = props => {
       number: vehicle.number,
       brand: vehicle.brand,
       volume: vehicle.volume,
-      state: vehicle.state
+      state: vehicle.state,
     };
 
     await updateVehicle(_id, formData, props.history);
@@ -106,13 +111,13 @@ const UpdateVehicle = props => {
     { _id: "4", label: "Tren", value: "Tren" },
     { _id: "5", label: "Avion", value: "Avion" },
     { _id: "6", label: "Barcaza", value: "Barcaza" },
-    { _id: "7", label: "Otro", value: "Otro" }
+    { _id: "7", label: "Otro", value: "Otro" },
   ];
 
   const optionsState = [
     { _id: "1", label: "* Seleccione una opción", value: 0 },
     { _id: "2", label: "Activo", value: true },
-    { _id: "3", label: "Inactivo", value: false }
+    { _id: "3", label: "Inactivo", value: false },
   ];
 
   return (
@@ -133,7 +138,7 @@ const UpdateVehicle = props => {
                   <Button
                     onClick={() =>
                       props.history.push({
-                        pathname: "/admin/vehicles"
+                        pathname: "/admin/vehicles",
                       })
                     }
                     size="sm"
@@ -188,7 +193,7 @@ const UpdateVehicle = props => {
                 </Col>
                 <Col lg="6">
                   <InputGroup
-                    label="Marca"
+                    label="Marca *"
                     placeholder="Ej. Volvo"
                     name="brand"
                     value={vehicle.brand}
@@ -200,7 +205,7 @@ const UpdateVehicle = props => {
               <Row>
                 <Col lg="6">
                   <InputGroup
-                    label="Volumen *"
+                    label="Volumen (Carga Total en Kg.) *"
                     placeholder="Ej. 20000"
                     name="volume"
                     value={vehicle.volume}
@@ -210,7 +215,7 @@ const UpdateVehicle = props => {
                 </Col>
                 <Col lg="6">
                   <SelectListGroup
-                    label="Estado"
+                    label="Estado *"
                     name="state"
                     onChange={handleInput}
                     options={optionsState}
@@ -219,11 +224,19 @@ const UpdateVehicle = props => {
                 </Col>
               </Row>
               <Row>
-                <Col lg="12">
+                <Col lg="6">
                   <DateFieldGroup
                     label="Fecha de Registro"
                     name="date"
                     value={vehicle.createdAt}
+                  />
+                </Col>
+                <Col lg="6">
+                  <InputGroup
+                    disabled={true}
+                    label="Registrado por usuario"
+                    name="date"
+                    value={vehicle.user.username}
                   />
                 </Col>
               </Row>

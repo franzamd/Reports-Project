@@ -183,23 +183,28 @@ const RoadmapSchema = new mongoose.Schema({
   },
   manager: {
     type: mongoose.Schema.ObjectId,
-    ref: "business.managers",
+    ref: "Business.managers",
     required: [true, "Responsable es requerido"],
   },
   business: {
     type: mongoose.Schema.ObjectId,
-    ref: "business",
+    ref: "Business",
     required: [true, "Empresa es requerido"],
   },
   vehicle: {
     type: mongoose.Schema.ObjectId,
-    ref: "vehicle",
+    ref: "Vehicle",
     required: [true, "Vehiculo es requerdo"],
   },
   chauffeur: {
     type: mongoose.Schema.ObjectId,
-    ref: "chauffeur",
+    ref: "Chauffeur",
     required: [true, "Chofer es requerido"],
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "Usuario es requerido"],
   },
   delivered: {
     type: Boolean,

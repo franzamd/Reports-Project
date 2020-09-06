@@ -7,7 +7,7 @@ import {
   CardBody,
   Row,
   Button,
-  Form
+  Form,
 } from "reactstrap";
 
 import InputGroup from "../../components/common/InputGroup";
@@ -16,7 +16,7 @@ import SelectListGroup from "../../components/common/SelectListGroup";
 
 import ChauffeurContext from "../../context/chauffeur/chauffeurContext";
 
-const CreateChauffeur = props => {
+const CreateChauffeur = (props) => {
   const chauffeurContext = useContext(ChauffeurContext);
   const { error, loading, createChauffeur, resetChauffeurs } = chauffeurContext;
 
@@ -26,7 +26,7 @@ const CreateChauffeur = props => {
     ci: "",
     issued: "",
     address: "",
-    license: ""
+    license: "",
   });
 
   useEffect(
@@ -36,14 +36,14 @@ const CreateChauffeur = props => {
     []
   );
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     setChauffeur({
       ...chauffeur,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -52,7 +52,7 @@ const CreateChauffeur = props => {
       ci: chauffeur.ci,
       issued: chauffeur.issued,
       address: chauffeur.address,
-      license: chauffeur.license
+      license: chauffeur.license,
     };
 
     await createChauffeur(formData, props.history);
@@ -78,7 +78,7 @@ const CreateChauffeur = props => {
     { _id: "7", label: "Tarija", value: "TJ" },
     { _id: "8", label: "Santa Cruz", value: "SC" },
     { _id: "9", label: "Beni", value: "BE" },
-    { _id: "10", label: "Pando", value: "PA" }
+    { _id: "10", label: "Pando", value: "PA" },
   ];
 
   return (
@@ -97,9 +97,9 @@ const CreateChauffeur = props => {
                 >
                   <ConfirmButton onClick={onSubmit} loading={loading} />
                   <Button
-                    onClick={e =>
+                    onClick={(e) =>
                       props.history.push({
-                        pathname: "/admin/chauffeurs"
+                        pathname: "/admin/chauffeurs",
                       })
                     }
                     size="sm"

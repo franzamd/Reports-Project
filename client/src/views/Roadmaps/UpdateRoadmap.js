@@ -85,6 +85,10 @@ const UpdateRoadmap = (props) => {
     state: "",
     createdAt: "",
     delivered: "",
+    user: {
+      _id: "",
+      username: "",
+    },
   });
 
   const [dataManagers, setDataManagers] = useState([]);
@@ -319,6 +323,7 @@ const UpdateRoadmap = (props) => {
       city: roadmap.city,
       state: roadmap.state,
       delivered: roadmap.delivered,
+      username: roadmap.user.username,
     };
 
     return formData;
@@ -374,6 +379,9 @@ const UpdateRoadmap = (props) => {
   let errorItineraryOriginDepartament;
   let errorItineraryOriginProvince;
   let errorItineraryOriginAddress;
+
+  // Reg Expression numbers
+  const reg = new RegExp("^[0-9]+$");
 
   // Options Select
   const optionsCity = [
@@ -519,7 +527,7 @@ const UpdateRoadmap = (props) => {
             </Row>
             <hr className="my-4" />
             <h6 className="heading-small text-muted mb-4">
-              Información Empresa
+              INFORMACIÓN DE LA EMPRESA
             </h6>
             <Row>
               <Col lg="12">
@@ -548,7 +556,7 @@ const UpdateRoadmap = (props) => {
             </Row>
             <hr className="my-4" />
             <h6 className="heading-small text-muted mb-4">
-              Información Chofer
+              INFORMACIÓN DEL CHOFER
             </h6>
             <Row>
               <Col lg="12">
@@ -564,7 +572,7 @@ const UpdateRoadmap = (props) => {
             </Row>
             <hr className="my-4" />
             <h6 className="heading-small text-muted mb-4">
-              Información Vehiculo
+              INFORMACIÓN DEL VEHÍCULO
             </h6>
             <Row>
               <Col lg="12">
@@ -580,7 +588,7 @@ const UpdateRoadmap = (props) => {
             </Row>
             <hr className="my-4" />
             <h6 className="heading-small text-muted mb-4">
-              Información Productos
+              INFORMACIÓN DE LOS PRODUCTOS
             </h6>
             {roadmap.products.map((product, i) => {
               return (
@@ -592,7 +600,7 @@ const UpdateRoadmap = (props) => {
                         label="Sunstancia"
                         placeholder="Ej. Gasolina"
                         name="substance"
-                        value={product.substance}
+                        value={product.substance ? product.substance : ""}
                         onChange={(e) => handleInputProducts(e, i)}
                       />
                     </Col>
@@ -602,7 +610,9 @@ const UpdateRoadmap = (props) => {
                         label="Primaria"
                         placeholder="Ej. N"
                         name="primary"
-                        value={product.types.primary}
+                        value={
+                          product.types.primary ? product.types.primary : ""
+                        }
                         onChange={(e) => handleInputProductPath(e, i, "types")}
                       />
                     </Col>
@@ -612,7 +622,9 @@ const UpdateRoadmap = (props) => {
                         label="P. terminado"
                         placeholder="Ej. S"
                         name="product"
-                        value={product.types.product}
+                        value={
+                          product.types.product ? product.types.product : ""
+                        }
                         onChange={(e) => handleInputProductPath(e, i, "types")}
                       />
                     </Col>
@@ -622,7 +634,11 @@ const UpdateRoadmap = (props) => {
                         label="%"
                         placeholder="Ej. 50,00"
                         name="percentage"
-                        value={product.types.percentage}
+                        value={
+                          product.types.percentage
+                            ? product.types.percentage
+                            : ""
+                        }
                         onChange={(e) => handleInputProductPath(e, i, "types")}
                       />
                     </Col>
@@ -632,8 +648,15 @@ const UpdateRoadmap = (props) => {
                         label="Cantidad"
                         placeholder="Ej. 22000"
                         name="amount"
-                        value={product.amount}
-                        onChange={(e) => handleInputProducts(e, i)}
+                        value={product.amount ? product.amount : ""}
+                        onChange={(e) => {
+                          if (
+                            reg.test(e.target.value) ||
+                            e.target.value === ""
+                          ) {
+                            handleInputProducts(e, i);
+                          }
+                        }}
                       />
                     </Col>
                     <Col>
@@ -642,7 +665,7 @@ const UpdateRoadmap = (props) => {
                         label="Unidad  Kg/Lt."
                         placeholder="Ej. lit"
                         name="unit"
-                        value={product.unit}
+                        value={product.unit ? product.unit : ""}
                         onChange={(e) => handleInputProducts(e, i)}
                       />
                     </Col>
@@ -652,7 +675,9 @@ const UpdateRoadmap = (props) => {
                         label="Tipo"
                         placeholder="Ej. Acto Camion"
                         name="type"
-                        value={product.container.type}
+                        value={
+                          product.container.type ? product.container.type : ""
+                        }
                         onChange={(e) =>
                           handleInputProductPath(e, i, "container")
                         }
@@ -664,10 +689,19 @@ const UpdateRoadmap = (props) => {
                         label="Cantidad"
                         placeholder="Ej. 1"
                         name="amount"
-                        value={product.container.amount}
-                        onChange={(e) =>
-                          handleInputProductPath(e, i, "container")
+                        value={
+                          product.container.amount
+                            ? product.container.amount
+                            : ""
                         }
+                        onChange={(e) => {
+                          if (
+                            reg.test(e.target.value) ||
+                            e.target.value === ""
+                          ) {
+                            handleInputProductPath(e, i, "container");
+                          }
+                        }}
                       />
                     </Col>
                     <Col>
@@ -676,7 +710,7 @@ const UpdateRoadmap = (props) => {
                         label="Nombre"
                         placeholder="Ej. Condensado"
                         name="name"
-                        value={product.name}
+                        value={product.name ? product.name : ""}
                         onChange={(e) => handleInputProducts(e, i)}
                       />
                     </Col>
@@ -704,7 +738,7 @@ const UpdateRoadmap = (props) => {
             </Row>
             <hr className="my-4" />
             <h6 className="heading-small text-muted mb-4">
-              Información Itinerario
+              INFORMACIÓN DEL ITINERARIO
             </h6>
             <Row>
               <Col lg="6">
@@ -869,7 +903,7 @@ const UpdateRoadmap = (props) => {
             <Row>
               <Col lg="6">
                 <SelectListGroup
-                  label="Estado de Registro"
+                  label="Estado de Registro *"
                   name="state"
                   onChange={handleInput}
                   options={optionsState}
@@ -885,12 +919,20 @@ const UpdateRoadmap = (props) => {
               </Col>
             </Row>
             <Row>
-              <Col lg="12">
+              <Col lg="6">
                 <InputGroup
                   disabled={true}
                   name="delivered"
                   label="Estado de Entrega"
                   value={roadmap.delivered ? "Entregado" : "Pendiente"}
+                />
+              </Col>
+              <Col lg="6">
+                <InputGroup
+                  disabled={true}
+                  label="Registrado por usuario"
+                  name="date"
+                  value={roadmap.user.username}
                 />
               </Col>
             </Row>

@@ -2,6 +2,7 @@ const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
 const Business = require("../models/Business");
+const User = require("../models/User");
 
 // @desc Get business
 // @route GET /api/business
@@ -14,7 +15,11 @@ exports.getBusiness = asyncHandler(async (req, res, next) => {
 // @route GET /api/business/:id
 // @access Public
 exports.getBusinessById = asyncHandler(async (req, res, next) => {
-  const business = await Business.findById(req.params.id);
+  const business = await Business.findById(req.params.id).populate({
+    path: "user",
+    select: "username",
+    model: User,
+  });
 
   if (!business) {
     return next(
@@ -27,7 +32,7 @@ exports.getBusinessById = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: business
+    data: business,
   });
 });
 
@@ -48,7 +53,7 @@ exports.getManagers = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: business.managers
+    data: business.managers,
   });
 });
 
@@ -56,6 +61,7 @@ exports.getManagers = asyncHandler(async (req, res, next) => {
 // @route POST /api/business
 // @access Public
 exports.createBusiness = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let business = await Business.findOne({ name: req.body.name });
 
   if (business) {
@@ -71,7 +77,7 @@ exports.createBusiness = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: business
+    data: business,
   });
 });
 
@@ -79,6 +85,7 @@ exports.createBusiness = asyncHandler(async (req, res, next) => {
 // @route POST /api/business/:id/managers
 // @access Public
 exports.createManager = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let business = await Business.findById(req.params.id);
 
   if (!business) {
@@ -93,7 +100,7 @@ exports.createManager = asyncHandler(async (req, res, next) => {
   let error;
 
   // Check if same ci with other manager
-  business.managers.map(manager => {
+  business.managers.map((manager) => {
     if (manager.ci === req.body.ci) {
       return (error = true);
     }
@@ -114,7 +121,7 @@ exports.createManager = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: business
+    data: business,
   });
 });
 
@@ -122,6 +129,7 @@ exports.createManager = asyncHandler(async (req, res, next) => {
 // @route PUT /api/business/:id/managers/:managerId
 // @access Public
 exports.updateManager = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let business = await Business.findById(req.params.id);
 
   if (!business) {
@@ -142,7 +150,7 @@ exports.updateManager = asyncHandler(async (req, res, next) => {
   let error;
 
   // Check if same ci with other manager
-  business.managers.map(manager => {
+  business.managers.map((manager) => {
     if (
       manager.ci === req.body.ci &&
       manager._id.toString() !== req.params.managerId
@@ -160,28 +168,28 @@ exports.updateManager = asyncHandler(async (req, res, next) => {
     );
   }
 
-  const managers = business.managers.map(manager => {
+  const managers = business.managers.map((manager) => {
     if (manager._id.toString() === req.params.managerId) {
-     return {
-      _id: manager._id,
-      name: req.body.name,
-      lastname: req.body.lastname,
-      ci: req.body.ci,
-      role: req.body.role,
-      state: req.body.state,
-      createdAt: Date.now()
-     }
+      return {
+        _id: manager._id,
+        name: req.body.name,
+        lastname: req.body.lastname,
+        ci: req.body.ci,
+        role: req.body.role,
+        state: req.body.state,
+        createdAt: Date.now(),
+      };
     }
-    return manager
+    return manager;
   });
-  
+
   business.managers = managers;
 
   await business.save();
 
   res.status(201).json({
     success: true,
-    data: business
+    data: business,
   });
 });
 
@@ -189,6 +197,7 @@ exports.updateManager = asyncHandler(async (req, res, next) => {
 // @route PUT /api/business/:id
 // @access Public
 exports.updateBusiness = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
   let business = await Business.findById(req.params.id);
 
   if (!business) {
@@ -219,11 +228,11 @@ exports.updateBusiness = asyncHandler(async (req, res, next) => {
 
   business = await Business.findByIdAndUpdate(req.params.id, req.body, {
     runValidators: true,
-    new: true
+    new: true,
   });
 
   res.status(201).json({
     success: true,
-    data: business
+    data: business,
   });
 });

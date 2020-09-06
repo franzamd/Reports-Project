@@ -3,7 +3,7 @@ const {
   getVehicles,
   createVehicle,
   getVehicle,
-  updateVehicle
+  updateVehicle,
 } = require("../controllers/vehicles");
 
 const Vehicle = require("../models/Vehicle");
@@ -20,12 +20,15 @@ router.use(authorize("administrador", "usuario"));
 
 router
   .route("/")
-  .get(advancedResults(Vehicle), getVehicles)
+  .get(
+    advancedResults(Vehicle, {
+      path: "user",
+      select: "_id username",
+    }),
+    getVehicles
+  )
   .post(createVehicle);
 
-router
-  .route("/:id")
-  .get(getVehicle)
-  .put(updateVehicle);
+router.route("/:id").get(getVehicle).put(updateVehicle);
 
 module.exports = router;

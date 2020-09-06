@@ -16,7 +16,11 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 // @route GET /api/users/:id
 // @access Public∫
 exports.getUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).populate({
+    path: "user",
+    select: "username",
+    model: User,
+  });
 
   if (!user) {
     return next(
@@ -29,7 +33,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: user
+    data: user,
   });
 });
 
@@ -61,12 +65,12 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     username,
     email,
     password,
-    role
+    role,
   });
 
   res.status(201).json({
     success: true,
-    data: user
+    data: user,
   });
 });
 
@@ -104,12 +108,12 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 
   user = await User.findByIdAndUpdate(req.params.id, req.body, {
     runValidators: true,
-    new: true
+    new: true,
   });
 
   res.status(201).json({
     success: true,
-    data: user
+    data: user,
   });
 });
 
@@ -153,6 +157,6 @@ exports.updateAuthUser = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data: user
+    data: user,
   });
 });

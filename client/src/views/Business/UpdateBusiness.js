@@ -7,7 +7,7 @@ import {
   CardBody,
   Row,
   Button,
-  Form
+  Form,
 } from "reactstrap";
 
 import withParamsState from "../../HOC/withParamsState";
@@ -18,7 +18,7 @@ import DateFieldGroup from "../../components/common/DateFieldGroup";
 
 import BusinessContext from "../../context/business/businessContext";
 
-const UpdateBusiness = props => {
+const UpdateBusiness = (props) => {
   // Business Id
   const { _id } = props.location.state;
 
@@ -28,7 +28,7 @@ const UpdateBusiness = props => {
     loading,
     updateBusiness,
     getBusinessById,
-    resetBusiness
+    resetBusiness,
   } = businessContext;
 
   const [business, setBusiness] = useState({
@@ -38,7 +38,11 @@ const UpdateBusiness = props => {
     phone: "",
     description: "",
     state: "",
-    createdAt: ""
+    createdAt: "",
+    user: {
+      _id: "",
+      username: "",
+    },
   });
 
   useEffect(() => {
@@ -58,28 +62,29 @@ const UpdateBusiness = props => {
         phone: businessContext.businessSelected.data.phone,
         description: businessContext.businessSelected.data.description,
         state: businessContext.businessSelected.data.state,
-        createdAt: businessContext.businessSelected.data.createdAt
+        createdAt: businessContext.businessSelected.data.createdAt,
+        user: businessContext.businessSelected.data.user,
       });
     }
   }, [loading]);
 
   useEffect(() => () => resetBusiness(), []);
 
-  const handleInput = e => {
+  const handleInput = (e) => {
     if (e.target.name === "state") {
       return setBusiness({
         ...business,
-        [e.target.name]: e.target.value === "true" ? true : false
+        [e.target.name]: e.target.value === "true" ? true : false,
       });
     }
 
     setBusiness({
       ...business,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -88,7 +93,7 @@ const UpdateBusiness = props => {
       address: business.address,
       phone: business.phone,
       description: business.description,
-      state: business.state
+      state: business.state,
     };
 
     await updateBusiness(_id, formData, props.history);
@@ -106,7 +111,7 @@ const UpdateBusiness = props => {
   const optionsState = [
     { _id: "1", label: "* Seleccione una opción", value: 0 },
     { _id: "2", label: "Activo", value: true },
-    { _id: "3", label: "Inactivo", value: false }
+    { _id: "3", label: "Inactivo", value: false },
   ];
 
   return (
@@ -127,7 +132,7 @@ const UpdateBusiness = props => {
                   <Button
                     onClick={() =>
                       props.history.push({
-                        pathname: "/admin/business"
+                        pathname: "/admin/business",
                       })
                     }
                     size="sm"
@@ -172,7 +177,7 @@ const UpdateBusiness = props => {
               <Row>
                 <Col lg="6">
                   <SelectListGroup
-                    label="Estado"
+                    label="Estado *"
                     name="state"
                     onChange={handleInput}
                     options={optionsState}
@@ -209,11 +214,21 @@ const UpdateBusiness = props => {
                   />
                 </Col>
               </Row>
+              <Row>
+                <Col lg="12">
+                  <InputGroup
+                    disabled={true}
+                    label="Registrado por usuario"
+                    name="date"
+                    value={business.user.username}
+                  />
+                </Col>
+              </Row>
               <hr className="my-4" />
               <h6 className="heading-small text-muted mb-4">
                 Información Adicional
               </h6>
-              <div className="pl-lg-4">
+              <div className="">
                 <InputGroup
                   label="Descripción"
                   placeholder="Algún comentario ..."

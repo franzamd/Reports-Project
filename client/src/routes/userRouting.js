@@ -10,6 +10,7 @@ import DetailsVehicle from "../views/Vehicles/DetailsVehicle";
 import Business from "../views/Business/Business";
 import CreateBusiness from "../views/Business/CreateBusiness";
 import UpdateBusiness from "../views/Business/UpdateBusiness";
+import DetailsBusiness from "../views/Business/DetailsBusiness";
 import Managers from "../views/Business/Managers/Managers";
 import CreateManager from "../views/Business/Managers/CreateManager";
 import UpdateManager from "../views/Business/Managers/UpdateManager";
@@ -23,121 +24,127 @@ var UserThemeRoutes = [
     path: "/admin/chauffeurs",
     name: "Choferes",
     icon: "mdi mdi-face",
-    component: Chauffeurs
+    component: Chauffeurs,
   },
   {
     path: "/admin/chauffeurs/create",
     name: "Crear Chofer",
     component: CreateChauffeur,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/chauffeurs/update",
     name: "Actualizar Chofer",
     component: UpdateChauffeur,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/chauffeurs/details",
     name: "Detalles Chofer",
     component: DetailsChauffeur,
-    hidden: true
+    hidden: true,
   },
   // Vehicles
   {
     path: "/admin/vehicles",
     name: "Vehiculos",
     icon: "mdi mdi-truck-delivery",
-    component: Vehicles
+    component: Vehicles,
   },
   {
     path: "/admin/vehicles/create",
     name: "Crear Vehiculo",
     component: CreateVehicle,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/vehicles/update",
     name: "Actualizar Vehiculo",
     component: UpdateVehicle,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/vehicles/details",
     name: "Detalles Vehiculo",
     component: DetailsVehicle,
-    hidden: true
+    hidden: true,
   },
   // Business
   {
     path: "/admin/business",
     name: "Empresas",
     component: Business,
-    icon: "mdi mdi-home"
+    icon: "mdi mdi-home",
   },
   {
     path: "/admin/business/create",
     name: "Crear Empresa",
     component: CreateBusiness,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/business/update",
     name: "Actualizar Empresa",
     component: UpdateBusiness,
-    hidden: true
+    hidden: true,
+  },
+  {
+    path: "/admin/business/details",
+    name: "Detalles Empresa",
+    component: DetailsBusiness,
+    hidden: true,
   },
   // Managers
   {
     path: "/admin/business/managers",
     name: "Encargados",
     component: Managers,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/business/managers/create",
     name: "Crear Encargados",
     component: CreateManager,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/business/managers/update",
     name: "Actualizar Encargados",
     component: UpdateManager,
-    hidden: true
+    hidden: true,
   },
   // Roadmap
   {
     path: "/admin/roadmaps",
     name: "Hojas de Rutas",
     icon: "mdi mdi-map",
-    component: Roadmaps
+    component: Roadmaps,
   },
   {
     path: "/admin/roadmaps/create",
     name: "Crear Hoja de Rutas",
     component: CreateRoadmap,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/roadmaps/update",
     name: "Actualizar Hoja de Rutas",
     component: UpdateRoadmap,
-    hidden: true
+    hidden: true,
   },
   {
     path: "/admin/roadmaps/details",
     name: "Detalles Hoja de Ruta",
     component: DetailsRoadmap,
-    hidden: true
+    hidden: true,
   },
   // Redirect
   {
     path: "/admin",
     pathTo: "/admin/chauffeurs",
     name: "Choferes",
-    redirect: true
-  }
+    redirect: true,
+  },
 ];
 
 export default UserThemeRoutes;
