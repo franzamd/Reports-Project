@@ -1,0 +1,114 @@
+import React, { useContext, useState, useEffect } from "react";
+
+import "./styles.css";
+
+// reactstrap components
+import { Button, FormGroup, Col, Form } from "reactstrap";
+
+import AuthContext from "../../context/auth/authContext";
+
+function Login(props) {
+  const authContext = useContext(AuthContext);
+
+  const { error, isAuthenticated, clearErrors, login } = authContext;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push("/");
+
+      clearInputs();
+    }
+  }, [error, isAuthenticated]);
+
+  // Remove functions
+  useEffect(() => () => clearErrors(), []);
+
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  });
+
+  const { email, password } = user;
+
+  const handleInput = e => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+
+    login(user);
+  };
+
+  const clearInputs = () => {
+    setUser({
+      email: "",
+      password: ""
+    });
+  };
+
+  return (
+    <div>
+      <div className="sidenav">
+        <div className="login-main-text">
+          <h2>
+            Aplicación Reportes YPFB
+            <br />
+          </h2>
+          <br />
+          <p>Inicie sesión o regístrese desde aquí para acceder.</p>
+        </div>
+      </div>
+      <div className="main">
+        <Col md={6} sm={12} className="my-2">
+          <div className="login-form">
+            <Form onSubmit={onSubmit}>
+              <FormGroup>
+                <label>Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  className="form-control"
+                  placeholder="Ej. jdoe@gmail.com"
+                  value={email}
+                  onChange={handleInput}
+                />
+              </FormGroup>
+              <FormGroup>
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Password"
+                  value={password}
+                  onChange={handleInput}
+                />
+              </FormGroup>
+              {error && (
+                <div className="text-muted font-italic">
+                  <small className="text-danger">{error}</small>
+                </div>
+              )}
+              <div className="my-4 d-flex justify-content-around">
+                <Button type="submit" color="primary">
+                  Login
+                </Button>
+              </div>
+            </Form>
+            <br></br>
+          </div>
+        </Col>
+      </div>
+    </div>
+  );
+}
+
+export default Login;

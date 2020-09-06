@@ -1,0 +1,45 @@
+// Auth
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+export const USER_LOADED = "USER_LOADED";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const AUTH_ERROR = "AUTH_ERROR";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const LOGOUT = "LOGOUT";
+
+// Users
+export const GET_USERS = "GET_USERS";
+export const GET_USER = "GET_USER";
+export const SET_LOADING_USER = "SET_LOADING_USER";
+export const USER_ERROR = "USER_ERROR";
+export const RESET_USERS = "RESET_USERS";
+
+// Chauffeurs
+export const GET_CHAUFFEURS = "GET_CHAUFFEURS";
+export const GET_CHAUFFEUR = "GET_CHAUFFEUR";
+export const SET_LOADING_CHAUFFEUR = "SET_LOADING_CHAUFFEUR";
+export const CHAUFFEURS_ERROR = "CHAUFFEURS_ERROR";
+export const RESET_CHAUFFEURS = "RESET_CHAUFFEURS";
+
+// Vehicles
+export const GET_VEHICLES = "GET_VEHICLES";
+export const GET_VEHICLE = "GET_VEHICLE";
+export const SET_LOADING_VEHICLE = "SET_LOADING_VEHICLE";
+export const VEHICLE_ERROR = "VEHICLE_ERROR";
+export const RESET_VEHICLES = "RESET_VEHICLES";
+
+// Business
+export const GET_BUSINESS = "GET_BUSINESS";
+export const GET_BUSINESS_ID = "GET_BUSINESS_ID";
+export const SET_LOADING_BUSINESS = "SET_LOADING_BUSINESS";
+export const BUSINESS_ERROR = "BUSINESS_ERROR";
+export const RESET_BUSINESS = "RESET_BUSINESS";
+
+// Roadmaps
+export const GET_ROADMAPS = "GET_ROADMAPS";
+export const GET_ROADMAP = "GET_ROADMAP";
+export const SET_LOADING_TRUE_ROADMAP = "SET_LOADING_TRUE_ROADMAP";
+export const SET_LOADING_FALSE_ROADMAP = "SET_LOADING_FALSE_ROADMAP";
+export const ROADMAP_ERROR = "ROADMAP_ERROR";
+export const RESET_ROADMAPS = "RESET_ROADMAPS";

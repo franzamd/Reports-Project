@@ -1,0 +1,184 @@
+<!--
+Invoice dynamically rendered into html using handlebars and converted into pdf
+using chrome-pdf recipe. The styles are extracted into separate asset for
+better readability and later reuse.
+
+Data to this sample are mocked at the design time and should be filled on the
+incoming API request.
+!-->
+
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <style>
+            {#asset invoice-styles.css @encoding=utf8}
+        </style>
+    </head>
+    <body>
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+					<div class="text-center">
+					  <img src="{#asset ypfb.png @encoding=dataURI}" style="width:100%; width:150px;" />
+					</div>
+				    <h3 class="text-center font-weight-bold mb-2">HOJA DE RUTA</h3>
+					<p class="text-center font-weight-bold mb-1">Nº de tramite: {{tramit}}</p>
+					<p class="text-center  mb-1">Fecha: {{createdAt}}</p>
+					<p class="text-center mb-2">Ciudad: {{city}}</p>
+                    <div class="row pb-2 p-2">
+                        <div class="col-md-6">
+						<h4>Información Empresa</h4>
+                         <p class="mb-2"><strong>Empresa</strong>: {{business.name}}</p>
+                         <p class="mb-2"><strong>Registro:</strong> {{ business.nit}}</p>						 
+                         <p class="mb-2"><strong>Encargado:</strong> {{ manager.name }} {{ manager.lastname }} - {{ manager.role }}</p>						 
+                         <p><strong>C.I.:</strong> {{ manager.ci }}</p>						 
+                        </div>
+
+                        <div class="col-md-6 text-right">
+						 <h4>Información Vehiculo</h4>
+                         <p class="mb-2"><strong>Transporte</strong>: {{ vehicle.transport}}</p>
+                         <p class="mb-2"><strong>Placa</strong>: {{ vehicle.number}}</p>
+                         <p class="mb-2"><strong>Marca</strong>: {{ vehicle.brand}}</p>
+                         <p><strong>Volumen de carga</strong>: {{ vehicle.volume}}</p>
+                        </div>
+                    </div>
+					<hr></hr>
+					<h5 class="text-center">LISTA DE PRODUCTOS</h5>
+                    <div class="table-responsive">
+					<table class="table table-bordered mb-2">
+						<thead>
+							<tr>
+								<th class="text-uppercase small font-weight-bold">Sustancia</th>
+								<th class="text-uppercase small font-weight-bold">T. Primaria</th>
+								<th class="text-uppercase small font-weight-bold">P. Terminado</th>
+								<th class="text-uppercase small font-weight-bold">%</th>
+								<th class="text-uppercase small font-weight-bold">Cantidad</th>
+								<th class="text-uppercase small font-weight-bold">Unidad Kg/Lit</th>
+								<th class="text-uppercase small font-weight-bold">Tipo</th>
+								<th class="text-uppercase small font-weight-bold">Cantidad</th>
+								<th class="text-uppercase small font-weight-bold">Nombre</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each products}}
+								<tr>
+								<td>{{substance}}</td>
+								<td>{{ types.primary}}</td>
+								<td>{{ types.product}}</td>
+								<td>{{ types.percentage}}</td>
+								<td>{{ amount}}</td>
+								<td>{{ unit }}</td>
+								<td>{{ container.type }}</td>
+								<td>{{ container.amount }}</td>
+								<td>{{ name }}</td>
+							</tr>
+							{{/each}}
+						</tbody>
+                      </table>
+               </div>
+        </div>
+    	</div>
+			    <hr></hr>
+						<div class="col">
+						 <h4>Información Conductor</h4>
+						 <div class="row">
+						  	<div class="col d-flex justify-content-center">
+                         	<p class="mb-2"><strong>Nombres</strong>: {{ chauffeur.name}}</p>
+							 </div>
+						 	<div class="col d-flex justify-content-center">
+                             <p class="mb-2"><strong>Apellidos</strong>: {{ chauffeur.lastname}}</p>
+							 </div>
+						 </div>
+						  <div class="row">
+						    <div class="col d-flex justify-content-center">
+                         	<p class="mb-2"><strong>C.I.</strong>: {{ chauffeur.ci}}</p>
+						    </div>
+						     <div class="col d-flex justify-content-center">
+                             <p><strong>Licencia</strong>: {{ chauffeur.license}}</p>
+						    </div>
+						 </div>
+                        </div>
+						<hr></hr>
+						<div class="col mb-3">
+						 <h4>Itinerario Origen</h4>
+						 <div class="row">
+						  	<div class="col col-8 text-left">
+                         	<p class=""><strong>Lugar de despacho (Origen)</strong>: {{ itinerary.origin.address}}</p>
+							 </div>
+						 	<div class="col text-right">
+                             <p class=""><strong>Departamento</strong>: {{ itinerary.origin.departament}}</p>
+							 </div>
+						 </div>
+						  <div class="row">
+						    <div class="col text-left">
+                         	<p class=""><strong>Provincia</strong>: {{ itinerary.origin.province}}</p>
+						    </div>
+						     <div class="col text-right">
+                             <p><strong>Municipio</strong>: {{ itinerary.origin.municipality }}</p>
+						    </div>
+						 </div>
+                        </div>	
+						<div class="col mb-3">
+						 <h4>Itinerario Destino</h4>
+						 <div class="row">
+						  	<div class="col col-8 text-left">
+                         	<p class=""><strong>Lugar de despacho (Destino)</strong>: {{ itinerary.destination.address}}</p>
+							 </div>
+						 	<div class="col text-right">
+                             <p class=""><strong>Departamento</strong>: {{ itinerary.destination.departament}}</p>
+							 </div>
+						 </div>
+						  <div class="row">
+						    <div class="col text-left">
+                         	<p class=""><strong>Provincia</strong>: {{ itinerary.destination.province}}</p>
+						    </div>
+						     <div class="col text-right">
+                             <p><strong>Municipio</strong>: {{ itinerary.destination.municipality }}</p>
+						    </div>
+						 </div>	
+                        </div>	
+						<div class="col">
+							<div class="row">
+								<div class="col col-12">
+									<p class=""><strong>Ruta a seguir </strong>: {{ route }}</p>			
+							</div>
+							<div class="col col-12">
+									<p class=""><strong>Plazo de validez de la Hoja de Ruta</strong>: {{ validity }}</p>			
+							</div>
+							</div>
+								<div class="row">
+									<div class="col text-left">
+									<p class=""><strong>Desde el dia</strong>: {{ begin }}</p>	
+								</div>
+								<div class="col text-right">
+									  <p class="text-right"><strong>Hasta el dia</strong>: {{ finish }}</p>		
+								</div>	
+									<div class="col col-12">
+									  <p class=""><strong>Nº de licencia o Autorización para la compra local</strong>: {{ authorization }}</p>			
+								</div>
+							</div>
+							</div>
+						<hr></hr>
+						<br></br>
+						<br></br>
+						<div class="col mt-5">
+							<div class="row">
+							<div class="col d-flex justify-content-center">
+								<div class="d-flex flex-column">
+								<p class="m-0 p-0">--------------------------------</p>
+								<p class="text-center"><strong>Encargado</strong></p>
+								</div>
+							</div>
+							<div class="col d-flex justify-content-center">
+								<div class="d-flex flex-column">
+								<p class="m-0 p-0">----------------------------------------</p>
+								<p class="text-center"><strong>Jefe Distrital o Regional</strong></p>
+								</div>
+							</div>
+							</div>
+						</div>
+        </div>
+    </div>
+    </body>
+</html>
